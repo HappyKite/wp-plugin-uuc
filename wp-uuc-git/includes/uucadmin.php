@@ -11,12 +11,44 @@ function uuc_options_page() {
 		
 		<form method="post" action="options.php">
 
-			<?php settings_fields('uuc_settings_group'); ?>
+			<?php 
+			//Current version of WP seems to fall over on unticked Checkboxes... This is to tidy it up and stop unwanted 'Notices'
+			//Enable Checkbox Sanitization
+			if ( ! isset( $uuc_options['enable'] ) || $uuc_options['enable'] != '1' )
+			  $uuc_options['enable'] = 0;
+			else
+			  $uuc_options['enable'] = 1;
+
+			//Countdown Checkbox Sanitization
+			if ( ! isset( $uuc_options['cdenable'] ) || $uuc_options['cdenable'] != '1' )
+			  $uuc_options['cdenable'] = 0;
+			else
+			  $uuc_options['cdenable'] = 1;
+
+			//Login Button Sanitization
+			if ( ! isset( $uuc_options['loginbutton'] ) || $uuc_options['loginbutton'] != '1' )
+				$uuc_options['loginbutton'] = 0;
+			else
+				$uuc_options['loginbutton'] = 1;
+
+			settings_fields('uuc_settings_group'); ?>
 
 			<h4 class="uuc-title"><?php _e('Enable', 'uuc_domain'); ?></h4>
 			<p>				
 				<input id="uuc_settings[enable]" name="uuc_settings[enable]" type="checkbox" value="1" <?php checked('1', $uuc_options['enable']); ?>/>
 				<label class="description" for="uuc_settings[enable]"><?php _e('Enable the Under Construction Page','uuc_domain'); ?></label>
+			</p>
+
+			<h4 class="uuc-title"><?php _e('Login Button', 'uuc_domain'); ?></h4>
+			<p>
+				<input id="uuc_settings[loginbutton]" name="uuc_settings[loginbutton]" type="checkbox" value="1" <?php checked('1', $uuc_options['loginbutton']); ?>/>
+				<label class="description" for="uuc_settings[loginbutton]"><?php _e('Do you want a Login Button to appear?', 'uuc_domain'); ?></label>
+			</p>
+			<p>
+				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="upleft" value="upleft"<?php checked( 'upleft' == isset($uuc_options['loginbutton_type']) ); ?> /> Top Left Corner</label><br />
+				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="upright" value="upright"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'upright' == $uuc_options['loginbutton_type'] ); } ?> /> Top Right Corner</label><br />
+				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="downleft" value="downleft"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'downleft' == $uuc_options['loginbutton_type'] ); } ?> /> Bottom Left Corner</label><br />
+				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="downright" value="downright"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'downright' == $uuc_options['loginbutton_type'] ); } ?> /> Bottom Right Corner</label><br />
 			</p>
 
 			<h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?></h4>
@@ -184,4 +216,3 @@ function uuc_register_settings() {
 	register_setting('uuc_settings_group', 'uuc_settings');
 }
 add_action('admin_init', 'uuc_register_settings');
-

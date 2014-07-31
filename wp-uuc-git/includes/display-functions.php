@@ -8,7 +8,27 @@ function uuc_add_content() {
 
 	global $uuc_options;
 
+	//Current version of WP seems to fall over on unticked Checkboxes... This is to tidy it up and stop unwanted 'Notices'
+	//Enable Checkbox Sanitization
+	if ( ! isset( $uuc_options['enable'] ) || $uuc_options['enable'] != '1' )
+	  $uuc_options['enable'] = 0;
+	else
+	  $uuc_options['enable'] = 1;
+
+	//Countdown Checkbox Sanitization
+	if ( ! isset( $uuc_options['cdenable'] ) || $uuc_options['cdenable'] != '1' )
+	  $uuc_options['cdenable'] = 0;
+	else
+	  $uuc_options['cdenable'] = 1;
+
+	//Login Button Sanitization
+	if ( ! isset( $uuc_options['loginbutton'] ) || $uuc_options['loginbutton'] != '1' )
+		$uuc_options['loginbutton'] = 0;
+	else
+		$uuc_options['loginbutton'] = 1;
+
 	?>
+	<!DOCTYPE html>
 	<script language="JavaScript">
 	TargetDate = "<?php echo $uuc_options['cdmonth'], '/', $uuc_options['cdday'], '/', $uuc_options['cdyear']; ?>";
 	CountActive = true;
@@ -18,12 +38,13 @@ function uuc_add_content() {
 	FinishMessage = "It is finally here!";
 	</script>
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 	<?php
 	echo '<script src="' . plugin_dir_url(__FILE__) . 'js/base.js"></script>';
 	echo '<script src="' . plugin_dir_url(__FILE__) . 'js/flipclock.js"></script>';
 	echo '<script src="' . plugin_dir_url(__FILE__) . 'js/dailycounter.js"></script>';
+	echo '<script src="' . plugin_dir_url(__FILE__) . 'js/flipclock.min.js"></script>';
 	echo '<link rel="stylesheet" href="' . plugin_dir_url(__FILE__) . 'css/flipclock.css">';
 	$html = '';
 	?> 
@@ -37,13 +58,14 @@ function uuc_add_content() {
 			var currentDate = new Date();
 			var utccurrentDate = new Date(currentDate.getTime() + currentDate.getTimezoneOffset() * 60000);
 
-			// Set some date in the future. In this case, it's always Jan 1
-			var selecteddate  = new Date('<?php echo $uuc_options['cdyear'], ', ', $uuc_options['cdmonth'], ', ', $uuc_options['cdday']; ?>');
+			// Set some date in the future.
+			var selecteddate  = new Date("<?php echo $uuc_options['cdyear'], '/', $uuc_options['cdmonth'], '/', $uuc_options['cdday']; ?>");
 
 			// Calculate the difference in seconds between the future and current date
 			var diff = selecteddate.getTime() / 1000 - utccurrentDate.getTime() / 1000;
 
 			// Instantiate a coutdown FlipClock
+
 			clock = $('.clock').FlipClock(diff, {
 				clockFace: 'DailyCounter',
 				countdown: true
@@ -51,6 +73,24 @@ function uuc_add_content() {
 		});	
 	</script>	
 	<?php
+
+	if(isset($uuc_options['loginbutton']) && $uuc_options['loginbutton'] == true){
+		?>
+		<form name="loginform" id="menulogin" action="/wp-login.php" method="post">
+		<label>Email Login <input type="text" name="log" value="" size="10" tabindex="1"></label> &nbsp;&nbsp;
+		<label>Password <input type="password" name="pwd" value="" size="10" tabindex="2"></label>
+		<input type="submit" name="wp-submit" value="log in" tabindex="3">
+		<input type="hidden" name="redirect_to" value="/">
+		</form>
+		<?php
+	}
+
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	if (is_plugin_active('user-meta/user-meta.php')) {
+		echo '<p>Yup!</p>';
+	} else {
+		echo '<p>Nope!</p>';
+	}
 
 	if(isset($uuc_options['cdday'])){
 		$entereddate = ($uuc_options['cdyear'] . "-" . $uuc_options['cdmonth'] . "-" . $uuc_options['cdday'] . " " . "00:00:00");
@@ -101,6 +141,8 @@ function uuc_add_content() {
 		if(isset($uuc_options['holding_message'])) {
 			$html .= '<h2>' . $uuc_options['holding_message'] . '</h2>';
 		}
+
+		$htmlpart = '';
 
 		if($uuc_options['cdenable'] == true){
 
