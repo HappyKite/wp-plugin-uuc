@@ -25,42 +25,50 @@ function uuc_options_page() {
 			else
 			  $uuc_options['cdenable'] = 1;
 
-			//Login Button Sanitization
-			if ( ! isset( $uuc_options['loginbutton'] ) || $uuc_options['loginbutton'] != '1' )
-				$uuc_options['loginbutton'] = 0;
-			else
-				$uuc_options['loginbutton'] = 1;
-
 			settings_fields('uuc_settings_group'); ?>
 
 			<h4 class="uuc-title"><?php _e('Enable', 'uuc_domain'); ?></h4>
 			<p>				
-				<input id="uuc_settings[enable]" name="uuc_settings[enable]" type="checkbox" value="1" <?php checked('1', $uuc_options['enable']); ?>/>
+				<input id="uuc_settings[enable]" name="uuc_settings[enable]" type="checkbox" value="1" <?php checked($uuc_options['enable'], '1'); ?>/>
 				<label class="description" for="uuc_settings[enable]"><?php _e('Enable the Under Construction Page','uuc_domain'); ?></label>
 			</p>
-
-			<h4 class="uuc-title"><?php _e('Login Button', 'uuc_domain'); ?></h4>
-			<p>
-				<input id="uuc_settings[loginbutton]" name="uuc_settings[loginbutton]" type="checkbox" value="1" <?php checked('1', $uuc_options['loginbutton']); ?>/>
-				<label class="description" for="uuc_settings[loginbutton]"><?php _e('Do you want a Login Button to appear?', 'uuc_domain'); ?></label>
-			</p>
-			<p>
-				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="upleft" value="upleft"<?php checked( 'upleft' == isset($uuc_options['loginbutton_type']) ); ?> /> Top Left Corner</label><br />
-				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="upright" value="upright"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'upright' == $uuc_options['loginbutton_type'] ); } ?> /> Top Right Corner</label><br />
-				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="downleft" value="downleft"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'downleft' == $uuc_options['loginbutton_type'] ); } ?> /> Bottom Left Corner</label><br />
-				<label><input onclick="checkPage()" type="radio" name="uuc_settings[loginbutton_type]" id="downright" value="downright"<?php if(!isset($uuc_options['loginbutton_type'])){ ?> checked <?php } else { checked( 'downright' == $uuc_options['loginbutton_type'] ); } ?> /> Bottom Right Corner</label><br />
-			</p>
-
+			
 			<h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?></h4>
 			<p>
 				<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> HTML Block</label><br />
 				<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php checked( 'custom' == $uuc_options['holdingpage_type'] ); ?> /> Custom Build</label><br />
 			</p>
 
+			<div id="communicationbg" <?php if ($uuc_options['holdingpage_type'] == "htmlblock"){ ?> style="visibility: hidden; display: none;"<?php }; ?>>
+				<h4 class="uuc-title"><?php _e('Communication', 'uuc_domain'); ?></h4>
+				<p>
+					<input id="uuc_settings[mc_api_key]" name="uuc_settings[mc_api_key]" type="text" value="<?php echo $uuc_options['mc_api_key']; ?>"/>
+					<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label><br />
+					<input id="uuc_settings[mc_list_id]" name="uuc_settings[mc_list_id]" type="text" value="<?php echo $uuc_options['mc_list_id']; ?>"/>
+					<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
+				</p>
+				<p>
+					<input id="uuc_settings[social_media]" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
+					<label class="description" for="uuc_settings[social_media]"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
+					<br />
+					<input id="uuc_settings[twitter]" name="uuc_settings[twitter]" type="text" value="<?php echo $uuc_options['twitter']; ?>"/>
+					<label class="description" for="uuc_settings[twitter]"><?php _e('Twitter Account Name', 'uuc_domain'); ?></label>
+					<br />
+					<input id="uuc_settings[facebook]" name="uuc_settings[facebook]" type="text" value="<?php echo $uuc_options['facebook']; ?>"/>
+					<label class="description" for="uuc_settings[facebook]"><?php _e('Facebook Page', 'uuc_domain'); ?></label>
+					<br />
+					<input id="uuc_settings[pinterest]" name="uuc_settings[pinterest]" type="text" value="<?php echo $uuc_options['pinterest']; ?>"/>
+					<label class="description" for="uuc_settings[pinterest]"><?php _e('Pinterest Link', 'uuc_domain'); ?></label>
+					<br />
+					<input id="uuc_settings[googleplus]" name="uuc_settings[googleplus]" type="text" value="<?php echo $uuc_options['googleplus']; ?>"/>
+					<label class="description" for="uuc_settings[googleplus]"><?php _e('Google Plug URL', 'uuc_domain'); ?></label>
+				</p>
+			</div>
+
 			<div id="htmlblockbg" <?php if ($uuc_options['holdingpage_type'] == "custom"){ ?> style="visibiliy: hidden; display: none;"<?php }; ?>>
 				<h4 class="uuc-title"><?php _e('HTML Block', 'uuc_domain'); ?></h4>
 				<p>
-					<textarea id="uuc_settings[html_block]" name="uuc_settings[html_block]" rows="10" cols="75"><?php echo $uuc_options['html_block'] ?></textarea>
+					<textarea class="theEditor" name="uuc_settings[html_block]" id="uuc_settings[html_block]" rows="10" cols="75"><?php if (isset($uuc_options['html_block'])) echo $uuc_options['html_block']; ?></textarea>
 					<label class="description" for="uuc_settings[html_block]"><?php _e('<br />Enter the HTML - Advised for advanced users only!<br />Will display exactly as entered.', 'uuc_domain'); ?></label>
 				</p>
 			</div>
@@ -80,7 +88,7 @@ function uuc_options_page() {
 
 				<h4 class="uuc-title"><?php _e('Countdown Timer', 'uuc_domain'); ?></h4>
 				<p>
-					<input id="uuc_settings[cdenable]" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked('1', $uuc_options['cdenable']); ?>/>
+					<input id="uuc_settings[cdenable]" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?>/>
 					<label class="description" for="uuc_settings[cdenable]"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
 					<br />
 					<br />
@@ -129,29 +137,14 @@ function uuc_options_page() {
 
 				<div id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
 					<h4 class="uuc-title"><?php _e('Background Choice', 'uuc_domain'); ?></h4>
-					<input type="radio" id="background_choice_one" name="uuc_settings[background_styling]" value="squairylight" <?php checked( 'squairylight' == $uuc_options['background_styling'] ); ?> />  
-					<label for="background_choice_one">Squairy</label> <br />
-					  
-					<input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php checked( 'lightbind' == $uuc_options['background_styling'] ); ?> />  
-					<label for="background_choice_two">Light Binding</label> <br />
-						
-					<input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php checked( 'darkbind' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_three">Dark Binding</label> <br />
-
-					<input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php checked( 'wavegrid' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_four">Wavegrid</label> <br />
-
-					<input type="radio" id="background_choice_five" name="uuc_settings[background_styling]" value="greywashwall" <?php checked( 'greywashwall' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_five">Gray Wash Wall</label> <br />
-
-					<input type="radio" id="background_choice_six" name="uuc_settings[background_styling]" value="flatcardboard" <?php checked( 'flatcardboard' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_six">Cardboard Flat</label> <br />
-
-					<input type="radio" id="background_choice_seven" name="uuc_settings[background_styling]" value="pooltable" <?php checked( 'pooltable' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_seven">Pool Table</label> <br />
-
-					<input type="radio" id="background_choice_eight" name="uuc_settings[background_styling]" value="oldmaths" <?php checked( 'oldmaths' == $uuc_options['background_styling'] ); ?> />
-					<label for="background_choice_eight">Old Mathematics</label> <br />
+					<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /> Squairy</label><br />	
+					<label><input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> /> Light Binding</label><br />
+					<label><input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> /> Dark Binding</label> <br />
+					<label><input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> /> Wavegrid</label> <br />
+					<label><input type="radio" id="background_choice_five" name="uuc_settings[background_styling]" value="greywashwall" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'greywashwall' == $uuc_options['background_styling'] ); } ?> /> Gray Wash Wall</label> <br />
+					<label><input type="radio" id="background_choice_six" name="uuc_settings[background_styling]" value="flatcardboard" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'flatcardboard' == $uuc_options['background_styling'] ); } ?> /> Cardboard Flat</label> <br />
+					<label><input type="radio" id="background_choice_seven" name="uuc_settings[background_styling]" value="pooltable" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'pooltable' == $uuc_options['background_styling'] ); } ?> /> Pool Table</label> <br />
+					<label><input type="radio" id="background_choice_eight" name="uuc_settings[background_styling]" value="oldmaths" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'oldmaths' == $uuc_options['background_styling'] ); } ?> /> Old Mathematics</label> <br />
 				</div>
 			</div>
 
@@ -164,6 +157,8 @@ function uuc_options_page() {
 				if (document.getElementById("custom").checked) {
 					document.getElementById("custombg").style.visibility = "visible";
 					document.getElementById("custombg").style.display = "block";
+					document.getElementById("communicationbg").style.visibility = "visible";
+					document.getElementById("communicationbg").style.display = "block";
 					document.getElementById("htmlblockbg").style.visibility = "hidden";
 					document.getElementById("htmlblockbg").style.display = "none";
 				};
@@ -173,6 +168,8 @@ function uuc_options_page() {
 					document.getElementById("htmlblockbg").style.display = "block";
 					document.getElementById("custombg").style.visibility = "hidden";
 					document.getElementById("custombg").style.display = "none";
+					document.getElementById("communicationbg").style.visibility = "hidden";
+					document.getElementById("communicationbg").style.display = "none";
 				}
 
 			};
@@ -202,7 +199,7 @@ function uuc_options_page() {
 
 function admin_register_head() {
     $siteurl = get_option('siteurl');
-    $url = $siteurl . '/wp-content/plugins/' . basename(dirname(__FILE__)) . 'css/plugin_styles.css';
+    $url = $siteurl . '/wp-content/plugins/ultimate-under-construction/includes/css/plugin_styles.css';
     echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
 }
 add_action('admin_head', 'admin_register_head');

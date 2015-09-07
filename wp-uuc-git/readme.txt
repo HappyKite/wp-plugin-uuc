@@ -1,10 +1,9 @@
 === Ultimate Under Construction ===
-Contributors: Morrowmedia
-Donate link: http://www.morrowmedia.co.uk/plugins.html
+Contributors: HappyKite, Morrowmedia
 Tags: Under construction, holding page, construction, holding, page, private, preview, coming soon
 Requires at least: 3.0.1
-Tested up to: 3.9.0
-Stable tag: 1.3
+Tested up to: 4.2.2
+Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,14 +37,49 @@ This Under Construction plugin allows for many levels of customisation, with mil
 * Updated images
 = 1.3 =
 * Javascript issue that was conflicting with other plugins/themes has been fixed.
+= 1.4 =
+* Fixed FlipClock error on IE and iOS.
+* Tidied up some unwanted warnings with newest version of WordPress.
+= 1.5 =
+* FlipClock no longers resorts to absurd numbers when it goes past the deadline.
+* Fixed errors caused not variables not being set.
+* Removed meta tags/header information when Under Construction page is not active.
+* Preparing for WordPress 4.0
+= 1.6 =
+* Testing up to WordPress 4.1
+* Front end Tidy-up (including Thumbnail)
+* FlipClock no longer sticks to UTC.
+= 1.7 = 
+* Fixed issue with FlipClock.min.js causing FlipClock to not load
+= 1.8 =
+* Altering CSS
+* Fixing JS Colour Picker.
+= 1.9 =
+* Javascript Fix.
+* Adding new Committer.
+* New Images.
 
 == Upgrade Notice ==
-Making sure every feature works in Wordpress 3.9 and tidying up a few images where needed
+Please Upgrade - FlipClock doesn't load reliably on v1.6 - Issue has been fixed on 1.7
 
 == Frequently Asked Questions ==
 
-Q. When you plugin is active it kills my Theme Options page.
-A. This was due to an oversight in the UUC-Script.js file. This has been fixed and updating to the most recent version of my plugin should fix the issue.
+= When the plugin is active it kills my Theme Options page. =
+
+This was due to an oversight in the UUC-Script.js file. This has been fixed and updating to the most recent version of my plugin should fix the issue.
+
+= How do I log in once I have activated the Under Construction page? = 
+
+You will need to navigate directly to the wp-login page. To do this navigate to www.yoursite.com/wp-login.php.
+
+= When I deactivate the plugin it doesn't turn off? =
+
+This will be a caching issue.
+
+= FlipClock doesn't load? =
+
+This has been fixed in v1.7. Please update.
+
 
 
 If you have any other questions please feel free to contact me via www.morrowmedia.co.uk

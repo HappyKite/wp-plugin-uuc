@@ -8,4 +8,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', end
 
 #wpfooter { display:none !important; visibility: hidden !important; }
 
-.uuc-holdingpage h1 { text-align: center; padding-top: 250px; }
+.uuc-holdingpage h1 { text-align: center; }
+
+ul { list-style-type: none; }
+
+.social-media li { display: inline; }
