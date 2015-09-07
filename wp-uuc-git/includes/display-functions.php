@@ -90,11 +90,9 @@ function uuc_add_content() {
 			        {
 			            
 			            $(".message").html("<span style='color:green;'>Adding your email address...</span>");
-			            post_api_key = '<?php echo $uuc_options["mc_api_key"]; ?>';
-			            post_list_id = '<?php echo $uuc_options["mc_list_id"]; ?>';
 			            post_email = $('#email').val();
 			            $.ajax({
-			                data: { "email":post_email, "api_key":post_api_key, "list_id":post_list_id },
+			                data: { "email":post_email, "api_key":'<?php echo $uuc_options["mc_api_key"]; ?>', "list_id":'<?php echo $uuc_options["mc_list_id"]; ?>' },
 			                url: '<?php echo plugins_url(); ?>/ultimate-under-construction/includes/subscribe.php',
 			                type: 'POST',
 			                success: function(msg) {
@@ -106,7 +104,7 @@ function uuc_add_content() {
 			                    }
 			                    else
 			                    {
-			                      $(".message").html('The email address you entered was invalid. Please make sure you enter a valid email address to subscribe.');
+			                      $(".message").html(msg);
 			                    }
 			                }
 			            });
@@ -115,6 +113,42 @@ function uuc_add_content() {
 			        return false;
 			    });
 			});
+
+			$(document).ready(function() {
+			    $('#cm-subscribe').submit(function() {
+			        if (!valid_email_address($("#cm-email").val()))
+			        {
+			            $(".cm-message").html('The email address you entered was invalid. Please make sure you enter a valid email address to subscribe.');
+			        }
+			        else
+			        {
+			            
+			            $(".cm-message").html("<span style='color:green;'>Adding your email address...</span>");
+			            cm_post_email = $('#cm-email').val();
+			            cm_post_name = $('#cm-name').val();
+			            $.ajax({
+			                data: { "cm_email":cm_post_email, "cm_name":cm_post_name, "cm_api_key":'<?php echo $uuc_options["cm_api_key"]; ?>', "cm_list_id":'<?php echo $uuc_options["cm_list_id"]; ?>' },
+			                url: '<?php echo plugins_url(); ?>/ultimate-under-construction/includes/CMSubscribe.php',
+			                type: 'POST',
+			                success: function(msg) {
+			                    if(msg=="Success")
+			                    {
+			                        $("#cm-email").val("");
+			                        $(".cm-message").html('<span style="color:green;">You have successfully subscribed to our mailing list.</span>');
+			                        
+			                    }
+			                    else
+			                    {
+			                      $(".cm-message").html(msg);
+			                    }
+			                }
+			            });
+			        }
+
+			        return false;
+			    });
+			});
+
 			function valid_email_address(email)
 			{
 			    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
@@ -210,6 +244,18 @@ function uuc_add_content() {
 				    
 				$html .= '</form>';
 
+			}
+
+			if(isset($uuc_options['cm_api_key'])) {
+				$html .= '<div class="cm-message"></div>';
+
+				$html .= '<form  role="form" method="post" id="cm-subscribe">';
+				    
+				    $html .= '<input type="email"  id="cm-email" name="cm-email" placeholder="you@yourself.com" value="">';
+				    $html .= '<input type="name" id="cm-name" name="cm-name" placeholder="Your Name" value="" >';
+				    $html .= '<button type="submit">SUBSCRIBE</button>';
+				    
+				$html .= '</form>';
 			}
 
 			// if(isset($_POST['button_pressed']))

@@ -48,6 +48,12 @@ function uuc_options_page() {
 					<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
 				</p>
 				<p>
+					<input id="uuc_settings[cm_api_key]" name="uuc_settings[cm_api_key]" type="text" value="<?php echo $uuc_options['cm_api_key']; ?>"/>
+					<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label><br />
+					<input id="uuc_settings[cm_list_id]" name="uuc_settings[cm_list_id]" type="text" value="<?php echo $uuc_options['cm_list_id']; ?>"/>
+					<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Campaign Monitor List ID', 'uuc_domain'); ?></label>
+				</p>
+				<p>
 					<input id="uuc_settings[social_media]" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
 					<label class="description" for="uuc_settings[social_media]"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
 					<br />
