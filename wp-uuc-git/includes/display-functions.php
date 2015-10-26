@@ -228,6 +228,10 @@ function uuc_add_content() {
 				$html .= $htmlpart;
 			}
 
+			if( $uuc_options['progressbar'] == true ){
+				echo "Insert Code for Progress Bar!";
+			}
+
 			if(isset($uuc_options['mc_api_key'])) {
 				// $html .= '<form action="" method="post">';
 				// 	$html .= '<input type="text" id="customer-email" />';

@@ -13,3 +13,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', end
 ul { list-style-type: none; }
 
 .social-media li { display: inline; }
+
+.no-js h2.nav-tab-wrapper {
+	display:none;
+}
+
+.no-js #sections {
+	border-top:1px solid #ccc;
+	margin-top:22px;
+}
+
+.no-js section {
+	border-top: 1px dashed #aaa;
+	margin-top:22px;
+	padding-top:22px;
+}
+
+.no-js section:first-child {
+	margin:0px;
+	padding:0px;
+	border:0px;
+}

@@ -18,6 +18,7 @@ add_action('init', 'uuc_admin_enqueue_scripts_farb');
 
 function uuc_load_scripts() {
 	wp_enqueue_style('uuc-styles', plugin_dir_url(__FILE__) . 'css/plugin_styles.css');
+
 }
 
 function uuc_admin_enqueue_scripts_cp() {
