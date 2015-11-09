@@ -6,12 +6,12 @@
 global $wp_version;
 
 //All Actions to be added.
-add_action('init', 'uuc_load_scripts');
+add_action('admin_init', 'uuc_load_scripts');
 
 if ( $wp_version >= 3.5 ){
-add_action('init', 'uuc_admin_enqueue_scripts_cp');
+add_action('admin_init', 'uuc_admin_enqueue_scripts_cp');
 } else {
-add_action('init', 'uuc_admin_enqueue_scripts_farb');
+add_action('admin_init', 'uuc_admin_enqueue_scripts_farb');
 }
 
 //All functions mentioned above to be added below here only!
@@ -32,3 +32,10 @@ function uuc_admin_enqueue_scripts_farb() {
     wp_enqueue_script( 'uuc-custom-farb', plugin_dir_url(__FILE__) . '/js/uuc-script-farb.js', array( 'farbtastic', 'jquery' ) );
     wp_enqueue_style( 'farbtastic' );
 }
+
+function wpbootstrap_scripts_with_jquery()
+{
+    wp_enqueue_script( 'custom-script', plugin_dir_url(__FILE__) . '/js/bootstrap.min.js', array( 'jquery' ) );
+}
+
+add_action( 'admin_init', 'wpbootstrap_scripts_with_jquery' );

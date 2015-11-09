@@ -44,29 +44,28 @@ function uuc_options_page() {
 				settings_fields('uuc_settings_group'); ?>
 
 				<section>					
-					<h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?></h4>
+					<h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">(?)</span></h4>
 					<p>
 						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> HTML Block</label><br />
 						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php checked( 'custom' == $uuc_options['holdingpage_type'] ); ?> /> Custom Build</label><br />
 					</p>
 
 					<div id="htmlblockbg" <?php if ($uuc_options['holdingpage_type'] == "custom"){ ?> style="visibiliy: hidden; display: none;"<?php }; ?>>
-						<h4 class="uuc-title"><?php _e('HTML Block', 'uuc_domain'); ?></h4>
 						<p>
+							<h4 class="uuc-title" for="uuc_settings[html_block]"><?php _e('HTML Block', 'uuc_domain'); ?> <span title="Enter the HTML - Advised for advanced users only! - Will display exactly as entered.">(?)</span></h4>
 							<textarea class="theEditor" name="uuc_settings[html_block]" id="uuc_settings[html_block]" rows="10" cols="75"><?php if (isset($uuc_options['html_block'])) echo $uuc_options['html_block']; ?></textarea>
-							<label class="description" for="uuc_settings[html_block]"><?php _e('<br />Enter the HTML - Advised for advanced users only!<br />Will display exactly as entered.', 'uuc_domain'); ?></label>
 						</p>
 					</div>
 
 					<div id="custombg" <?php if ($uuc_options['holdingpage_type'] == "htmlblock"){ ?> style="visibility: hidden; display: none;"<?php }; ?>>
-						<h4 class="uuc-title"><?php _e('Website Title', 'uuc_domain'); ?></h4>
 						<p>
+							<h4 for="uuc_settings[website_name]" class="uuc-title"><?php _e('Page Title', 'uuc_domain'); ?> <span class="tooltip" title="This is the Title for your Under Construction page.">(?)</span></h4>
 							<input id="uuc_settings[website_name]" name="uuc_settings[website_name]" type="text" value="<?php echo $uuc_options['website_name']; ?>"/> 
-							<label class="description" for="uuc_settings[website_name]"><?php _e('Enter the Title of your website', 'uuc_domain'); ?></label>
 						</p>
 
-						<h4 class="uuc-title"><?php _e('Holding Message', 'uuc_domain'); ?></h4>
 						<p>
+							<h4 class="uuc-title" for="uuc_settings_holding_message"><?php _e('Holding Message', 'uuc_domain'); ?> <span class="tooltip" title="This will appear underneath the Page Title on the Under Construction Page.">(?)</span></h4>
+
 							<?php if ( isset($uuc_options['holding_message']) ) { 
 								$wysiwyg_content = $uuc_options['holding_message'];
 							} else {
@@ -77,10 +76,9 @@ function uuc_options_page() {
 							$wysiwyg_args = array( 'textarea_name' => 'uuc_settings[holding_message]');
 							wp_editor( $wysiwyg_content, $wysiwyg_id, $wysiwyg_args );
 							?>
-							<label class="description" for="uuc_settings_holding_message"><?php _e('Enter a message to appear below the Website Title', 'uuc_domain'); ?></label>
 						</p>
 
-						<h4 class="uuc-title"><?php _e('Countdown Timer', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Countdown Timer', 'uuc_domain'); ?> <span class="tooltip" title="Enable the Countdown Timer below to show either a Flipclock or a Text timer counting down to the site launch.">(?)</span></h4>
 						<p>
 							<input onclick="showflipClock()" id="flipclock_check" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?> />
 							<label class="description" for="flipclock_check"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
@@ -105,7 +103,7 @@ function uuc_options_page() {
 							</div>
 						</p>
 
-						<h4 class="uuc-title"><?php _e('Progress Bar', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Progress Bar', 'uuc_domain'); ?> <span class="tooltip" title="Enables a progess bar on the Under Construction Page to show how far through construction the site is.">(?)</span></h4>
 						<p>
 							<input id="uuc_settings[progressbar]" name="uuc_settings[bar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
 							<label class="description" for="uuc_settings[progressbar]"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
@@ -114,7 +112,7 @@ function uuc_options_page() {
 				</section>
 
 				<section style="display:none;">
-						<h4 class="uuc-title"><?php _e('Background Style', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Background Style', 'uuc_domain'); ?> <span class="tooltip" title="You can choose between a solid colour, which will open a colour wheel, or choose from a selection of different backgrounds.">(?)</span></h4>
 						<p>
 							<label><input onclick="checkEm()" type="radio" name="uuc_settings[background_style]" id="solidcolor" value="solidcolor"<?php if(!isset($uuc_options['background_style'])){ ?> checked <?php } else { checked( 'solidcolor' == $uuc_options['background_style'] ); } ?> /> Solid Colour</label><br />
 							<label><input onclick="checkEm()" type="radio" name="uuc_settings[background_style]" id="patterned" value="patterned"<?php checked( 'patterned' == $uuc_options['background_style'] ); ?> /> Patterned Background</label>
@@ -122,7 +120,7 @@ function uuc_options_page() {
 
 						<?php if ( $wp_version >= 3.5 ){ ?>
 						<div id="solidcolorbg" <?php if($uuc_options['background_style'] == "patterned"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
-							<h4 class="uuc-title"><?php _e('Background Colour', 'uuc_domain'); ?></h4>
+							<h4 class="uuc-title"><?php _e('Background Colour', 'uuc_domain'); ?> <span class="tooltip" title="Choose a background colour from the colour wheel below.">(?)</span></h4>
 							<p>
 								<input name="uuc_settings[background_color]" id="background-color" type="text" value="<?php if ( isset( $uuc_options['background_color'] ) ) echo $uuc_options['background_color']; ?>" />
 								<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Background Colour', 'uuc_domain'); ?></label>
@@ -130,7 +128,7 @@ function uuc_options_page() {
 						</div>
 						<?php } else { ?>
 						<div id="solidcolorbg" <?php if($uuc_options['background_style'] == "patterned"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
-							<h4 class="uuc-title"><?php _e('Background Colour', 'uuc_domain'); ?></h4>
+							<h4 class="uuc-title"><?php _e('Background Colour', 'uuc_domain'); ?> <span class="tooltip" title="Select a background colour from the colour wheel below.">(?)</span></h4>
 							<p>
 							<div class="color-picker" style="position: relative;">
 						        <input type="text" name="uuc_settings[background_color]" id="color" value="<?php if ( isset( $uuc_options['background_color'] ) ) echo $uuc_options['background_color']; ?>" />
@@ -141,35 +139,35 @@ function uuc_options_page() {
 						<?php } ?>
 
 						<div id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
-							<h4 class="uuc-title"><?php _e('Background Choice', 'uuc_domain'); ?></h4>
-							<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /> Squairy</label><br />	
-							<label><input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> /> Light Binding</label><br />
-							<label><input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> /> Dark Binding</label> <br />
-							<label><input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> /> Wavegrid</label> <br />
-							<label><input type="radio" id="background_choice_five" name="uuc_settings[background_styling]" value="greywashwall" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'greywashwall' == $uuc_options['background_styling'] ); } ?> /> Gray Wash Wall</label> <br />
-							<label><input type="radio" id="background_choice_six" name="uuc_settings[background_styling]" value="flatcardboard" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'flatcardboard' == $uuc_options['background_styling'] ); } ?> /> Cardboard Flat</label> <br />
-							<label><input type="radio" id="background_choice_seven" name="uuc_settings[background_styling]" value="pooltable" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'pooltable' == $uuc_options['background_styling'] ); } ?> /> Pool Table</label> <br />
-							<label><input type="radio" id="background_choice_eight" name="uuc_settings[background_styling]" value="oldmaths" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'oldmaths' == $uuc_options['background_styling'] ); } ?> /> Old Mathematics</label> <br />
+							<h4 class="uuc-title"><?php _e('Background Choice', 'uuc_domain'); ?> <span class="tooltip" title="Choose your background from the choice below.">(?)</span></h4>
+							<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/squairylight.png'; ?>" /> <span class="tooltip" title="Squairy"> (?)</span></label><br />	
+							<label><input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/lightbind.png'; ?>" /> <span class="tooltip" title="Light Binding"> (?)</span></label><br />
+							<label><input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/darkbind.png'; ?>" /> <span class="tooltip" title="Dark Binding"> (?)</span></label> <br />
+							<label><input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/wavegrid.png'; ?>" /> <span class="tooltip" title="Wavegrid"> (?)</span></label> <br />
+							<label><input type="radio" id="background_choice_five" name="uuc_settings[background_styling]" value="greywashwall" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'greywashwall' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/greywashwall.png'; ?>" /> <span class="tooltip" title="Gray Wash Wall"> (?)</span></label> <br />
+							<label><input type="radio" id="background_choice_six" name="uuc_settings[background_styling]" value="flatcardboard" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'flatcardboard' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/flatcardboard.png'; ?>" /> <span class="tooltip" title="Cardboard Flat"> (?)</span></label> <br />
+							<label><input type="radio" id="background_choice_seven" name="uuc_settings[background_styling]" value="pooltable" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'pooltable' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/pooltable.png'; ?>" /> <span class="tooltip" title="Pool Table"> (?)</span></label> <br />
+							<label><input type="radio" id="background_choice_eight" name="uuc_settings[background_styling]" value="oldmaths" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'oldmaths' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/oldmaths.png'; ?>" /> <span class="tooltip" title="Old Mathematics"> (?)</span></label> <br />
 						</div>
 				</section>
 
 				<section style="display:none;">
 					<div id="communicationbg">
-						<h4 class="uuc-title"><?php _e('Mailchimp Signup', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Mailchimp Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a MailChimp account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">(?)</span></h4>
 						<p>
 							<input id="uuc_settings[mc_api_key]" name="uuc_settings[mc_api_key]" type="text" value="<?php echo $uuc_options['mc_api_key']; ?>"/>
 							<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label><br />
 							<input id="uuc_settings[mc_list_id]" name="uuc_settings[mc_list_id]" type="text" value="<?php echo $uuc_options['mc_list_id']; ?>"/>
 							<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
 						</p>
-						<h4 class="uuc-title"><?php _e('Campaign Monitor Signup', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Campaign Monitor Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a Campaign Monitor account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">(?)</span></h4>
 						<p>
 							<input id="uuc_settings[cm_api_key]" name="uuc_settings[cm_api_key]" type="text" value="<?php echo $uuc_options['cm_api_key']; ?>"/>
 							<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label><br />
 							<input id="uuc_settings[cm_list_id]" name="uuc_settings[cm_list_id]" type="text" value="<?php echo $uuc_options['cm_list_id']; ?>"/>
 							<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Campaign Monitor List ID', 'uuc_domain'); ?></label>
 						</p>
-						<h4 class="uuc-title"><?php _e('Social Media', 'uuc_domain'); ?></h4>
+						<h4 class="uuc-title"><?php _e('Social Media', 'uuc_domain'); ?> <span class="tooltip" title="Only the filled out Social Media boxes below will show the on the Under Construction page.">(?)</span></h4>
 						<p>
 							<input id="uuc_settings[social_media]" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
 							<label class="description" for="uuc_settings[social_media]"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
@@ -262,6 +260,15 @@ function uuc_options_page() {
 				}
 	    		</script>
 
+	    		<script>
+				  jQuery(function() {
+				    jQuery( document ).tooltip();
+				  });
+				</script>
+				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+				<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+				<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 			</form>
 		</div>
 	</div>
@@ -285,3 +292,12 @@ function uuc_register_settings() {
 	register_setting('uuc_settings_group', 'uuc_settings');
 }
 add_action('admin_init', 'uuc_register_settings');
+
+function tip( $message, $title = '', $echo_tip = true ) {
+	$tip = ' <a class="uuc_tolltip" title="' . $title . ' - ' . $message . '"><img src="' . pb_backupbuddy::plugin_url() . '/pluginbuddy/images/pluginbuddy_tip.png" alt="(?)" /></a>';
+	if ( $echo_tip === true ) {
+		echo $tip;
+	} else {
+		return $tip;
+	}
+}

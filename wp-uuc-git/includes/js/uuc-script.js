@@ -41,5 +41,13 @@
         $('section').eq($(this).index()).show();
         return false;
     })
+
+    jQuery('.uuc_tolltip').tooltip({ 
+        track: true, 
+        delay: 0, 
+        showURL: false, 
+        showBody: " - ", 
+        fade: 250 
+    });
     
 })( jQuery );
