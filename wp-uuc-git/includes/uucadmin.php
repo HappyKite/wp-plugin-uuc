@@ -284,7 +284,10 @@ function admin_register_head() {
 add_action('admin_head', 'admin_register_head');
 
 function uuc_add_options_link() {
-	add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
+	//add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
+	$my_admin_page = add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
+
+	add_action('load-'.$my_admin_page, 'my_admin_add_help_tab');
 }
 add_action('admin_menu', 'uuc_add_options_link');
 
@@ -300,4 +303,16 @@ function tip( $message, $title = '', $echo_tip = true ) {
 	} else {
 		return $tip;
 	}
+}
+
+function my_admin_add_help_tab () {
+    $screen = WP_Screen::get($hook);
+
+    $screen->add_help_tab( array(
+        'id'	=> 'uuc_help_tab',
+        'title'	=> __('Under Construction Help'),
+        'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
+    ) );
+
+    $screen->set_help_sidebar('<a href="#">Pro Version?!</a>');
 }
