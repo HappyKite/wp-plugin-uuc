@@ -24,6 +24,9 @@ function uuc_add_content() {
 
 		?>
 		<!DOCTYPE html>
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<script language="JavaScript">
 		TargetDate = "<?php echo $uuc_options['cdmonth'], '/', $uuc_options['cdday'], '/', $uuc_options['cdyear']; ?>";
 		CountActive = true;
@@ -43,9 +46,14 @@ function uuc_add_content() {
 				console.log("incorrect email");
 			}
 		}
-		</script>
 
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		jQuery(function() {
+			jQuery( "#progressbar" ).progressbar({
+		    	value: <?php echo $uuc_options['progresspercent']; ?>
+		    });
+		});
+
+		</script>
 
 		<?php
 		echo '<script src="' . plugin_dir_url(__FILE__) . 'js/base.js"></script>';
@@ -228,9 +236,6 @@ function uuc_add_content() {
 				$html .= $htmlpart;
 			}
 
-			if( $uuc_options['progressbar'] == true ){
-				echo "Insert Code for Progress Bar!";
-			}
 
 			if(isset($uuc_options['mc_api_key'])) {
 				// $html .= '<form action="" method="post">';
@@ -240,6 +245,10 @@ function uuc_add_content() {
 				// $html .= '</form>';
 
 				$html .= '<div class="message"></div>';
+
+				if( $uuc_options['progressbar'] == true ){
+					$html .= "<div id='progressbar'></div>";
+				}
 
 				$html .= '<form  role="form" method="post" id="subscribe">';
 				    

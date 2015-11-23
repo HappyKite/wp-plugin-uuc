@@ -46,8 +46,8 @@ function uuc_options_page() {
 				<section>					
 					<h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">(?)</span></h4>
 					<p>
-						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> HTML Block</label><br />
-						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php checked( 'custom' == $uuc_options['holdingpage_type'] ); ?> /> Custom Build</label><br />
+						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label><br />
+						<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php checked( 'custom' == $uuc_options['holdingpage_type'] ); ?> /> Prebuilt Themes</label><br />
 					</p>
 
 					<div id="htmlblockbg" <?php if ($uuc_options['holdingpage_type'] == "custom"){ ?> style="visibiliy: hidden; display: none;"<?php }; ?>>
@@ -105,8 +105,13 @@ function uuc_options_page() {
 
 						<h4 class="uuc-title"><?php _e('Progress Bar', 'uuc_domain'); ?> <span class="tooltip" title="Enables a progess bar on the Under Construction Page to show how far through construction the site is.">(?)</span></h4>
 						<p>
-							<input id="uuc_settings[progressbar]" name="uuc_settings[bar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
+							<input onclick="showProgressBar()" id="progressbar_check" name="uuc_settings[progressbar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
 							<label class="description" for="uuc_settings[progressbar]"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
+							<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
+								<br />
+								<input id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php echo $uuc_options['progresspercent']; ?>"/>
+								<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percentage toward completion', 'uuc_domain'); ?></label>
+							</div>
 						</p>
 					</div>
 				</section>
@@ -248,6 +253,16 @@ function uuc_options_page() {
 					} else {
 						document.getElementById("flipclock_settings").style.visibility = "hidden";
 						document.getElementById("flipclock_settings").style.display = "none";
+					}
+				}
+
+				function showProgressBar() {
+					if (document.getElementById("progressbar_check").checked) {
+						document.getElementById("progressbar_settings").style.visibility = "visible";
+						document.getElementById("progressbar_settings").style.display = "block";
+					} else {
+						document.getElementById("progressbar_settings").style.visibility = "hidden";
+						document.getElementById("progressbar_settings").style.display = "none";
 					}
 				}
 
