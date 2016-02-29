@@ -57,6 +57,9 @@ function uuc_options_page() {
 				if ( !isset( $uuc_options['background_style'] ) )
 					$uuc_options['background_style'] = 'solidcolor';
 
+				if ( !isset( $uuc_options['user_role_Administrator'] ) )
+					$uuc_options['user_role_Administrator'] = 1;
+
 				settings_fields('uuc_settings_group'); ?>
 				
 				<section>					
@@ -204,7 +207,21 @@ function uuc_options_page() {
 				</section>
 
 				<section style="display:none;">
-					This is where the Advanced Settings will go.
+					<h4 class="uuc-title"><?php _e('User Select', 'uuc_domain'); ?> <span class="tooltip" title="Select which user level you would like to be able to see the site whilst it is under construction.">?</span></h4>
+					<?php
+						global $wp_roles;
+
+						$all_roles = $wp_roles->roles;
+						foreach( $all_roles as $roles ) {
+							$rolename = $roles['name'];
+							$role = 'user_role_' . $rolename;
+							?>
+								<input id="userrole_check_<?php echo $rolename; ?>" name="uuc_settings[<?php echo $role; ?>]" type="checkbox" value="1" <?php checked($uuc_options[ $role ], '1'); ?> />
+								<label class="description" for="userrole_check_<?php echo $rolename; ?>"><?php _e( $rolename ,'uuc_domain'); ?></label>
+								<br />
+							<?php
+						}
+					?>
 				</section>
 
 				<p class="submit">

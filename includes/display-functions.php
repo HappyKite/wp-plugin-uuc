@@ -1,8 +1,18 @@
 <?php
 
 /* display functions for outputting data */
+add_action( 'get_header', 'uuc_user_check', 1 );
+function uuc_user_check(){
+	//Using the new $uuc_options value for user_role_$rolename check the allowed user roles and let them see the site, otherwise load UUC.
+	global $uuc_options, $wp_roles;
 
-add_filter('get_header', 'uuc_add_content');
+	$all_roles = $wp_roles->roles;
+	foreach( $all_roles as $roles) {
+		$rolename = $roles['name'];
+	}
+
+	add_filter('get_header', 'uuc_add_content');
+}
 
 function uuc_add_content() {
 	global $uuc_options;
@@ -236,8 +246,12 @@ function uuc_add_content() {
 				$html .= $htmlpart;
 			}
 
+			if( $uuc_options['progressbar'] == true ){
+				$html .= "<div id='progressbar'></div>";
+			}
 
-			if(isset($uuc_options['mc_api_key'])) {
+
+			if( !empty($uuc_options['mc_api_key']) ) {
 				// $html .= '<form action="" method="post">';
 				// 	$html .= '<input type="text" id="customer-email" />';
 				// 	$html .= '<input type="button" value="Add me to mailing list" />';
@@ -245,10 +259,6 @@ function uuc_add_content() {
 				// $html .= '</form>';
 
 				$html .= '<div class="message"></div>';
-
-				if( $uuc_options['progressbar'] == true ){
-					$html .= "<div id='progressbar'></div>";
-				}
 
 				$html .= '<form  role="form" method="post" id="subscribe">';
 				    
@@ -259,7 +269,7 @@ function uuc_add_content() {
 
 			}
 
-			if(isset($uuc_options['cm_api_key'])) {
+			if( !empty($uuc_options['cm_api_key']) ) {
 				$html .= '<div class="cm-message"></div>';
 
 				$html .= '<form  role="form" method="post" id="cm-subscribe">';
