@@ -18,7 +18,7 @@ function uuc_options_page() {
 			</p>
 		</div>
 	    
-	    <h4 class="uuc-title"><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h4>
+	    <h3><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h4>
 		<p>
 			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label><br />
 			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if( isset($uuc_options['holdingpage_type'])) { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label><br />
@@ -66,67 +66,78 @@ function uuc_options_page() {
 
 					<div id="htmlblockbg" <?php if ($uuc_options['holdingpage_type'] == "custom"){ ?> style="visibiliy: hidden; display: none;"<?php }; ?>>
 						<p>
-							<h4 class="uuc-title" for="uuc_settings[html_block]"><?php _e('HTML Block', 'uuc_domain'); ?> <span title="Enter the HTML - Advised for advanced users only! - Will display exactly as entered.">?</span></h4>
+							<label for="uuc_settings[html_block]"><?php _e('HTML Block', 'uuc_domain'); ?> 
+								<span class="tooltip" title="Enter the HTML - Advised for advanced users only! - Will display exactly as entered.">?</span>
+							</label>
 							<textarea class="theEditor" name="uuc_settings[html_block]" id="uuc_settings[html_block]" rows="10" cols="75"><?php if (isset($uuc_options['html_block'])) echo $uuc_options['html_block']; ?></textarea>
 						</p>
 					</div>
 
 					<div id="custombg" <?php if ($uuc_options['holdingpage_type'] == "htmlblock"){ ?> style="visibility: hidden; display: none;"<?php }; ?>>
-						<p>
-							<h4 for="uuc_settings[website_name]" class="uuc-title"><?php _e('Page Title', 'uuc_domain'); ?> <span class="tooltip" title="This is the Title for your Under Construction page.">?</span></h4>
-							<input id="uuc_settings[website_name]" name="uuc_settings[website_name]" type="text" value="<?php if( isset($uuc_options['website_name']) ) { echo $uuc_options['website_name']; } ?>"/> 
-						</p>
+						<ul>
+							<li>
+								<label for="uuc_settings[website_name]"><?php _e('Page Title', 'uuc_domain'); ?> 
+									<span class="tooltip" title="This is the Title for your Under Construction page.">?</span>
+								</label>
+								<input id="uuc_settings[website_name]" name="uuc_settings[website_name]" type="text" value="<?php if( isset($uuc_options['website_name']) ) { echo $uuc_options['website_name']; } ?>"/> 
+							</li>
 
-						<p>
-							<h4 class="uuc-title" for="uuc_settings_holding_message"><?php _e('Holding Message', 'uuc_domain'); ?> <span class="tooltip" title="This will appear underneath the Page Title on the Under Construction Page.">?</span></h4>
+							<li class="wysiwyg-wrap">
+								<label for="uuc_settings_holding_message"><?php _e('Holding Message', 'uuc_domain'); ?>
+									<span class="tooltip" title="This will appear underneath the Page Title on the Under Construction Page.">?</span>
+								</label>
 
-							<?php if ( isset($uuc_options['holding_message']) ) { 
-								$wysiwyg_content = $uuc_options['holding_message'];
-							} else {
-								$wysiwyg_content = '';
-							} 
+								<?php if ( isset($uuc_options['holding_message']) ) { 
+									$wysiwyg_content = $uuc_options['holding_message'];
+								} else {
+									$wysiwyg_content = '';
+								} 
 
-							$wysiwyg_id = 'uuc_settings_holding_message';
-							$wysiwyg_args = array( 'textarea_name' => 'uuc_settings[holding_message]');
-							wp_editor( $wysiwyg_content, $wysiwyg_id, $wysiwyg_args );
-							?>
-						</p>
+								$wysiwyg_id = 'uuc_settings_holding_message';
+								$wysiwyg_args = array( 'textarea_name' => 'uuc_settings[holding_message]');
+								wp_editor( $wysiwyg_content, $wysiwyg_id, $wysiwyg_args );
+								?>
+							</li>
+							<li>
+								<label><?php _e('Countdown Timer', 'uuc_domain'); ?></label>
 
-						<h4 class="uuc-title"><?php _e('Countdown Timer', 'uuc_domain'); ?> <span class="tooltip" title="Enable the Countdown Timer below to show either a Flipclock or a Text timer counting down to the site launch.">?</span></h4>
-						<p>
-							<input onclick="showflipClock()" id="flipclock_check" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?> />
-							<label class="description" for="flipclock_check"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
-							<br />
-							<br />
-							<div <?php if( $uuc_options['cdenable'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="flipclock_settings">
-								<label><input type="radio" name="uuc_settings[cd_style]" id="flipclock" value="flipclock"<?php if(!isset($uuc_options['cd_style'])){ ?> checked <?php } else { checked( 'flipclock' == $uuc_options['cd_style'] ); } ?> /> Flip Clock / </label> 
-								<label><input type="radio" name="uuc_settings[cd_style]" id="textclock" value="textclock"<?php if(isset($uuc_options['cd_style'])) { checked( 'textclock' == $uuc_options['cd_style'] ); } ?> /> Text only.</label>
+								<input onclick="showflipClock()" id="flipclock_check" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?> />
+								<label class="description" for="flipclock_check"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
 								<br />
 								<br />
-								<input id="uuc_settings[cdday]" name="uuc_settings[cdday]" type="text" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
-								<label class="description" for="uuc_settings[cdday]"><?php _e('Enter the Date - e.g. 14', 'uuc_domain'); ?></label>
-								<br />
-								<input id="uuc_settings[cdmonth]" name="uuc_settings[cdmonth]" type="text" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
-								<label class="description" for="uuc_settings[cdmonth]"><?php _e('Enter the Month - e.g. 2', 'uuc_domain'); ?></label>
-								<br />
-								<input id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
-								<label class="description" for="uuc_settings[cdyear]"><?php _e('Enter the Year -  e.g. 2014', 'uuc_domain'); ?></label>
-								<br />
-								<input id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
-								<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text - e.g. Till the site goes live!', 'uuc_domain'); ?></label>
-							</div>
-						</p>
+								<div <?php if( $uuc_options['cdenable'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="flipclock_settings">
+									<label><input type="radio" name="uuc_settings[cd_style]" id="flipclock" value="flipclock"<?php if(!isset($uuc_options['cd_style'])){ ?> checked <?php } else { checked( 'flipclock' == $uuc_options['cd_style'] ); } ?> /> Flip Clock / </label> 
+									<label><input type="radio" name="uuc_settings[cd_style]" id="textclock" value="textclock"<?php if(isset($uuc_options['cd_style'])) { checked( 'textclock' == $uuc_options['cd_style'] ); } ?> /> Text only.</label>
+									<br />
+									<br />
+									<input id="uuc_settings[cdday]" name="uuc_settings[cdday]" type="text" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
+									<label class="description" for="uuc_settings[cdday]"><?php _e('Enter the Date - e.g. 14', 'uuc_domain'); ?></label>
+									<br />
+									<input id="uuc_settings[cdmonth]" name="uuc_settings[cdmonth]" type="text" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
+									<label class="description" for="uuc_settings[cdmonth]"><?php _e('Enter the Month - e.g. 2', 'uuc_domain'); ?></label>
+									<br />
+									<input id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
+									<label class="description" for="uuc_settings[cdyear]"><?php _e('Enter the Year -  e.g. 2014', 'uuc_domain'); ?></label>
+									<br />
+									<input id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
+									<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text - e.g. Till the site goes live!', 'uuc_domain'); ?></label>
+								</div>
+							</li>
+						</ul>
 
-						<h4 class="uuc-title"><?php _e('Progress Bar', 'uuc_domain'); ?> <span class="tooltip" title="Enables a progess bar on the Under Construction Page to show how far through construction the site is.">?</span></h4>
-						<p>
-							<input onclick="showProgressBar()" id="progressbar_check" name="uuc_settings[progressbar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
-							<label class="description" for="progressbar_check"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
-							<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
-								<br />
-								<input id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
-								<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percentage toward completion', 'uuc_domain'); ?></label>
-							</div>
-						</p>
+						<h3 class="uuc-title"><?php _e('Progress Bar', 'uuc_domain'); ?></h3>
+						<p><?php _e('Enables a progess bar on the Under Construction Page to show how far through construction the site is.', 'uuc_domain'); ?></p>
+						<ul>
+							<li>
+								<input onclick="showProgressBar()" id="progressbar_check" name="uuc_settings[progressbar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
+								<label class="description" for="progressbar_check"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
+								<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
+									<br />
+									<input id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
+									<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percentage toward completion', 'uuc_domain'); ?></label>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</section>
 
