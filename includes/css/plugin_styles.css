@@ -15,6 +15,18 @@
 
 /*** Form field styling ***/
 
+#sections ul { list-style: none; margin: 0; padding: 20px 0; }
+#sections ul li { padding: 0 0 15px; }
+#sections label { vertical-align: top; display: inline-block; padding: 4px 24px 4px 0; min-width: 200px; position: relative; font-weight: bold; font-size: 14px; }
+#sections label span { position: absolute; right: 12px; top: center; }
+#sections .wysiwyg-wrap .wp-editor-tools { display: none; }
+#sections .wysiwyg-wrap .wp-editor-wrap { width: 700px; display: inline-block; }
+#sections .wysiwyg-wrap .wp-editor-wrap #uuc_settings_holding_message_ifr { max-height: 300px; }
+#sections .wysiwyg-wrap .wp-editor-wrap .wp-editor-container { border-color: #ddd; border-radius: 5px; overflow: hidden; }
+#sections .wysiwyg-wrap .wp-editor-wrap div.mce-statusbar { display: none; }
+#sections label.description { font-weight: normal; }
+
+
 .tooltip { border: 2px solid #aaa; color: #aaa; font-weight: bold; text-align: center; line-height: 13px; font-size: 12px; height: 13px; width: 13px; display: inline-block;
 	border-radius: 50%;
 	-moz-border-radius: 50px;
