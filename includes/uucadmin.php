@@ -2,8 +2,7 @@
 
 function uuc_options_page() {
 
-	global $uuc_options;
-	global $wp_version;
+	global $uuc_options, $wp_version, $wp_roles;
 
 	ob_start(); ?>
 	<div class="wrap">
@@ -13,12 +12,12 @@ function uuc_options_page() {
 
 		<div class="enable_check">
 			<p>				
-				<input id="uuc_settings[enable]" name="uuc_settings[enable]" type="checkbox" value="1" <?php checked($uuc_options['enable'], '1'); ?>/>
+				<input class="enable_checkbox" id="uuc_settings[enable]" name="uuc_settings[enable]" type="checkbox" value="1" <?php checked($uuc_options['enable'], '1'); ?>/>
 				<label class="description" for="uuc_settings[enable]"><?php _e('Enable the Under Construction Page','uuc_domain'); ?></label>
 			</p>
 		</div>
 	    
-	    <h3><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h4>
+	    <h3><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h3>
 		<p>
 			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label><br />
 			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if( isset($uuc_options['holdingpage_type'])) { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label><br />
@@ -31,6 +30,49 @@ function uuc_options_page() {
 	      <a class="nav-tab advanced-settings-tab" id="advanced-settings-tab" href="<?php echo admin_url() ?>options-general.php?page=uuc-options-advanced" onclick="changeActive(this)">Misc. Settings</a>
 	    </h2> 
 
+		<script type="text/javascript">
+			jQuery( document).ready( function() {
+				if( !jQuery('.enable_checkbox').is(':checked') ) {
+					jQuery('.enable_check').addClass('deactivated');
+				} else {
+					jQuery('.enable_check').removeClass('deactivated');
+				}
+
+				if (document.getElementById("custom").checked) {
+					document.getElementById("custombg").style.visibility = "visible";
+					document.getElementById("custombg").style.display = "block";
+					document.getElementById("communicationbg").style.visibility = "visible";
+					document.getElementById("communicationbg").style.display = "block";
+					document.getElementById("htmlblockbg").style.visibility = "hidden";
+					document.getElementById("htmlblockbg").style.display = "none";
+					document.getElementById("communication-tab").style.visibility = "visible";
+					document.getElementById("communication-tab").style.display = "inline-block";
+					document.getElementById("design-tab").style.visibility = "visible";
+					document.getElementById("design-tab").style.display = "inline-block";
+				};
+
+				if (document.getElementById("htmlblock").checked) {
+					document.getElementById("htmlblockbg").style.visibility = "visible";
+					document.getElementById("htmlblockbg").style.display = "block";
+					document.getElementById("custombg").style.visibility = "hidden";
+					document.getElementById("custombg").style.display = "none";
+					document.getElementById("communicationbg").style.visibility = "hidden";
+					document.getElementById("communicationbg").style.display = "none";
+					document.getElementById("communication-tab").style.visibility = "hidden";
+					document.getElementById("communication-tab").style.display = "none";
+					document.getElementById("design-tab").style.visibility = "hidden";
+					document.getElementById("design-tab").style.display = "none";
+				}
+			});
+
+			jQuery( '.enable_check').on( "click", function() {
+				if( !jQuery('.enable_checkbox').is(':checked') ) {
+					jQuery('.enable_check').addClass('deactivated');
+				} else {
+					jQuery('.enable_check').removeClass('deactivated');
+				}
+			});
+		</script>
 
 	    <div id='sections'>
 	   		
@@ -57,7 +99,20 @@ function uuc_options_page() {
 				if ( !isset( $uuc_options['background_style'] ) )
 					$uuc_options['background_style'] = 'solidcolor';
 
-				if ( !isset( $uuc_options['user_role_Administrator'] ) )
+				$all_roles = $wp_roles->roles;
+				foreach( $all_roles as $roles) {
+					$rolename = $roles['name'];
+					$settings_role[] = 'user_role_' . $rolename;
+				}
+
+				foreach( $settings_role as $role ) {
+					$allowed_role = $uuc_options[$role];
+					if ( $allowed_role == 1 ){
+						$allowed[] = strtolower( str_replace( 'user_role_', '', $role ) );
+					}
+
+				}
+				if ( !isset( $allowed ) )
 					$uuc_options['user_role_Administrator'] = 1;
 
 				settings_fields('uuc_settings_group'); ?>
@@ -170,7 +225,7 @@ function uuc_options_page() {
 
 						<div id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
 							<h4 class="uuc-title"><?php _e('Background Choice', 'uuc_domain'); ?> <span class="tooltip" title="Choose your background from the choice below.">?</span></h4>
-							<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/squairylight.png'; ?>" /> <span class="tooltip" title="Squairy"> ?</span></label><br />	
+							<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/squairylight.png'; ?>" /> <span class="tooltip" title="Squairy"> ?</span></label><br />
 							<label><input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/lightbind.png'; ?>" /> <span class="tooltip" title="Light Binding"> ?</span></label><br />
 							<label><input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/darkbind.png'; ?>" /> <span class="tooltip" title="Dark Binding"> ?</span></label> <br />
 							<label><input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/wavegrid.png'; ?>" /> <span class="tooltip" title="Wavegrid"> ?</span></label> <br />
@@ -220,8 +275,6 @@ function uuc_options_page() {
 				<section style="display:none;">
 					<h4 class="uuc-title"><?php _e('User Select', 'uuc_domain'); ?> <span class="tooltip" title="Select which user level you would like to be able to see the site whilst it is under construction.">?</span></h4>
 					<?php
-						global $wp_roles;
-
 						$all_roles = $wp_roles->roles;
 						foreach( $all_roles as $roles ) {
 							$rolename = $roles['name'];

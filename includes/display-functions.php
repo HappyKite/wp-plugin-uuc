@@ -4,14 +4,35 @@
 add_action( 'get_header', 'uuc_user_check', 1 );
 function uuc_user_check(){
 	//Using the new $uuc_options value for user_role_$rolename check the allowed user roles and let them see the site, otherwise load UUC.
-	global $uuc_options, $wp_roles;
+	global $uuc_options, $wp_roles, $current_user;
 
 	$all_roles = $wp_roles->roles;
 	foreach( $all_roles as $roles) {
 		$rolename = $roles['name'];
+		$settings_role[] = 'user_role_' . $rolename;
 	}
 
-	add_filter('get_header', 'uuc_add_content');
+	foreach( $settings_role as $role ) {
+		$allowed_role = $uuc_options[$role];
+		if ( $allowed_role == 1 ){
+			$allowed[] = strtolower( str_replace( 'user_role_', '', $role ) );
+		}
+
+	}
+
+	if ( is_user_logged_in() ) {
+		$user_roles = $current_user->roles;
+		$user_role = array_shift($user_roles);
+
+		if ( in_array( $user_role, $allowed ) ) {
+			return;
+		} else {
+			return uuc_add_content();
+		}
+
+	} else {
+		return uuc_add_content();
+	}
 }
 
 function uuc_add_content() {
@@ -180,7 +201,7 @@ function uuc_add_content() {
 			$cddates = strtotime($entereddate);
 		}
 
-		if(!is_admin() && !is_user_logged_in() && $uuc_options['enable'] == true && $uuc_options['holdingpage_type'] == "htmlblock"){
+		if( $uuc_options['enable'] == true && $uuc_options['holdingpage_type'] == "htmlblock" ){
 			
 			$html .= '<div class="uuc-holdingpage">';
 			if(isset($uuc_options['html_block'])) {
@@ -189,7 +210,7 @@ function uuc_add_content() {
 			$html .= '</div>';
 			echo $html; exit;
 		}
-		elseif(!is_admin() && !is_user_logged_in() && $uuc_options['enable'] == true){
+		elseif( $uuc_options['enable'] == true ){
 			
 			if (isset($uuc_options['background_style']) && $uuc_options['background_style'] == "solidcolor") {
 				if (isset($uuc_options['background_color'])) {?>
