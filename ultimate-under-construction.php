@@ -117,3 +117,20 @@ function uuc_action_links( $links ) {
     $links[] = '<a href="http://www.happykite.co.uk/contact-us/" target="_blank">Contact</a>';
     return $links;
 }
+
+/***************************
+ * Wordpress Command Line (WP CLI)
+ ***************************/
+
+//Once Plugins are loaded check for WP CLI
+add_action( 'wp_loaded', 'hpy_uuc_cli_loaded', 20 );
+function hpy_uuc_cli_loaded() {
+	if ( defined( 'WP_CLI' ) && WP_CLI && ! class_exists( 'UUC_Cli' ) ) {
+		require_once dirname( __FILE__ ) . '/classes/class-uuc-cli.php';
+	}
+}
+
+add_action( 'wp_loaded', 'hpy_uuc_load_email_class', 20 );
+function hpy_uuc_load_email_class() {
+	require_once dirname( __FILE__ ) . '/classes/class-uuc-email-support.php';
+}

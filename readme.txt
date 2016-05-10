@@ -25,42 +25,52 @@ This Under Construction plugin allows for many levels of customisation, with mil
 3. Go to Settings -> Ultimate Under Construction to enable and customise your holding page.
 
 == Changelog ==
-= 1.0 =
-* Newly Created plugin
-= 1.1 = 
-* Added in FlipClock countdown choice
-* Added functionality to switch off countdown entirely
-* Fixed the countdown completion text
-* General tidying up of the countdown javascript
-= 1.2 =
-* Plugin tested and working with Wordpress 3.9
-* Updated images
-= 1.3 =
-* Javascript issue that was conflicting with other plugins/themes has been fixed.
-= 1.4 =
-* Fixed FlipClock error on IE and iOS.
-* Tidied up some unwanted warnings with newest version of WordPress.
+= 2.0 =
+* NEW - Added in WP_CLI Support.
+* NEW - Diagnostic system, to allow for better support.
+* NEW - Visual overhaul
+* NEW - Supports Mailchimp
+* NEW - Supports Campaign Manager
+* New - Supports Twitter/Facebook/Pinterest/Google+
+* FIX - Fixed JS bug
+* FIX - Fixed enqueue scripts load placement
+= 1.9 =
+* Javascript Fix.
+* Adding new Committer.
+* New Images.
+= 1.8 =
+* Altering CSS
+* Fixing JS Colour Picker.
+= 1.7 =
+* Fixed issue with FlipClock.min.js causing FlipClock to not load
+= 1.6 =
+* Testing up to WordPress 4.1
+* Front end Tidy-up (including Thumbnail)
+* FlipClock no longer sticks to UTC.
 = 1.5 =
 * FlipClock no longers resorts to absurd numbers when it goes past the deadline.
 * Fixed errors caused not variables not being set.
 * Removed meta tags/header information when Under Construction page is not active.
 * Preparing for WordPress 4.0
-= 1.6 =
-* Testing up to WordPress 4.1
-* Front end Tidy-up (including Thumbnail)
-* FlipClock no longer sticks to UTC.
-= 1.7 = 
-* Fixed issue with FlipClock.min.js causing FlipClock to not load
-= 1.8 =
-* Altering CSS
-* Fixing JS Colour Picker.
-= 1.9 =
-* Javascript Fix.
-* Adding new Committer.
-* New Images.
+= 1.4 =
+* Fixed FlipClock error on IE and iOS.
+* Tidied up some unwanted warnings with newest version of WordPress.
+= 1.3 =
+* Javascript issue that was conflicting with other plugins/themes has been fixed.
+= 1.2 =
+* Plugin tested and working with Wordpress 3.9
+* Updated images
+= 1.1 =
+* Added in FlipClock countdown choice
+* Added functionality to switch off countdown entirely
+* Fixed the countdown completion text
+* General tidying up of the countdown javascript
+= 1.0 =
+* Newly Created plugin
+
 
 == Upgrade Notice ==
-Please Upgrade - FlipClock doesn't load reliably on v1.6 - Issue has been fixed on 1.7
+Big Update - Loads of new features.
 
 == Frequently Asked Questions ==
 
