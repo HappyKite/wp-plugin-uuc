@@ -1,5 +1,5 @@
 === Ultimate Under Construction ===
-Contributors: HappyKite, Morrowmedia
+Contributors: HappyKite, Morrowmedia, philmorrow
 Tags: Under construction, holding page, construction, holding, page, private, preview, coming soon
 Requires at least: 3.0.1
 Tested up to: 4.5

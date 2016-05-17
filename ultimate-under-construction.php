@@ -127,6 +127,7 @@ add_action( 'wp_loaded', 'hpy_uuc_cli_loaded', 20 );
 function hpy_uuc_cli_loaded() {
 	if ( defined( 'WP_CLI' ) && WP_CLI && ! class_exists( 'UUC_Cli' ) ) {
 		require_once dirname( __FILE__ ) . '/classes/class-uuc-cli.php';
+		require_once dirname( __FILE__ ) . '/classes/class-uuc-cli-user.php';
 	}
 }
 

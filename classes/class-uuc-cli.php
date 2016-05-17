@@ -24,7 +24,7 @@ class UUC_Cli extends WP_CLI_Command {
 
 			update_option( 'uuc_settings', $uuc_options );
 
-			WP_CLI::success( 'Under Construction page Activated.' );
+			WP_CLI::success( 'Under Construction page Activated. If you want to see a list of User Roles that can still visit the site then use "wp uuc user display"' );
 		} else {
 			WP_CLI::error( 'Under Construction page is already active. If you want to deactivate then use "wp uuc disable".' );
 		}
@@ -76,14 +76,13 @@ class UUC_Cli extends WP_CLI_Command {
 		$enabled = $uuc_options['enable'];
 
 		if ( $enabled ) {
-			WP_CLI::success( 'Your site is currently Under Construction. Once logged in as the specified roles you will be able to see your website.' );
+			WP_CLI::log( 'Your site is currently Under Construction. Once logged in as the specified roles you will be able to see your website.' );
 		} else if ( !$enabled ) {
-			WP_CLI::success( 'The Under Construction page is currently disabled, and as such is visible to everyone. If you wish to change this run "wp uuc enable"' );
+			WP_CLI::log( 'The Under Construction page is currently disabled, and as such is visible to everyone. If you wish to change this run "wp uuc enable"' );
 		}
 
 		return;
 	}
-
 }
 
 WP_CLI::add_command( 'uuc', 'UUC_Cli' );
