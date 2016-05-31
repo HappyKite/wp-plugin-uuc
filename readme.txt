@@ -2,7 +2,7 @@
 Contributors: HappyKite, Morrowmedia, philmorrow
 Tags: Under construction, holding page, construction, holding, page, private, preview, coming soon
 Requires at least: 3.0.1
-Tested up to: 4.5
+Tested up to: 4.5.2
 Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,13 +27,16 @@ This Under Construction plugin allows for many levels of customisation, with mil
 == Changelog ==
 = 2.0 =
 * NEW - Added in WP_CLI Support.
-* NEW - Diagnostic system, to allow for better support.
-* NEW - Visual overhaul
-* NEW - Supports Mailchimp
-* NEW - Supports Campaign Manager
-* New - Supports Twitter/Facebook/Pinterest/Google+
-* FIX - Fixed JS bug
-* FIX - Fixed enqueue scripts load placement
+* NEW - Added Help tab with information for support.
+* NEW - Visual overhaul.
+* NEW - Supports Mailchimp.
+* NEW - Supports Campaign Manager.
+* NEW - Supports Twitter/Facebook/Pinterest/Google+.
+* NEW - Added User Select to allow for different user roles to see the hidden site.
+* NEW - Added optional Progress Bar.
+* FIX - Fixed JS bug.
+* FIX - Fixed enqueue scripts load placement.
+* CHANGE - Moved the Under Construction menu to Tools.
 = 1.9 =
 * Javascript Fix.
 * Adding new Committer.
@@ -70,7 +73,7 @@ This Under Construction plugin allows for many levels of customisation, with mil
 
 
 == Upgrade Notice ==
-Big Update - Loads of new features.
+Version 2.0 contains a massive visual and functionality overhaul so it is important that you make backups before updating.
 
 == Frequently Asked Questions ==
 

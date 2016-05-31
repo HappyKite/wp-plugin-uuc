@@ -33,6 +33,12 @@ class UUC_Cli extends WP_CLI_Command {
 
 	}
 
+	public function returns() {
+		WP_CLI::log( 'The two messages below are very handy for specific circumstances, however if you just want to return a plain string, then WP_CLI::log is your best bet!' );
+		WP_CLI::success( 'This is a success message! Whatever you are doing, you are doing it well!' );
+		WP_CLI::error( 'This is an error message! Please stop doing that!' );
+	}
+
 	/**
 	 * Disables the Under Construction Page.
 	 *
@@ -76,7 +82,7 @@ class UUC_Cli extends WP_CLI_Command {
 		$enabled = $uuc_options['enable'];
 
 		if ( $enabled ) {
-			WP_CLI::log( 'Your site is currently Under Construction. Once logged in as the specified roles you will be able to see your website.' );
+			WP_CLI::log( 'Your site is currently Under Construction. Once logged in as the specified roles you will be able to see your website. To see a list of specified roles run "wp uuc user display"' );
 		} else if ( !$enabled ) {
 			WP_CLI::log( 'The Under Construction page is currently disabled, and as such is visible to everyone. If you wish to change this run "wp uuc enable"' );
 		}
