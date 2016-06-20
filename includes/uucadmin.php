@@ -481,8 +481,7 @@ function admin_register_head() {
 add_action('admin_head', 'admin_register_head');
 
 function uuc_add_options_link() {
-	//add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
-	$my_admin_page = add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
+	$my_admin_page = add_submenu_page('tools.php', 'Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
 
 	add_action('load-'.$my_admin_page, 'uuc_add_help_tab');
 }
@@ -503,15 +502,33 @@ function tip( $message, $title = '', $echo_tip = true ) {
 }
 
 function uuc_add_help_tab () {
-    $screen = WP_Screen::get(__FILE__);
+    $screen = get_current_screen();
 
     $screen->add_help_tab( array(
-        'id'	=> 'uuc_help_tab',
-        'title'	=> __('Under Construction Help'),
-        'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
+        'id'	    => 'uuc_help_tab',
+        'title'	    => __('Under Construction Help', 'uuc'),
+        'content'   => uuc_get_support(),
     ) );
+	$screen->add_help_tab( array(
+		'id'        => 'uuc_rate_tab',
+		'title'     => __( 'Happy with Ultimate Under Construction?', 'uuc' ),
+		'content'   => '<p>Are you happy with the Under Construction plugin? Please help us out by rating it <a href="https://wordpress.org/support/view/plugin-reviews/ultimate-under-construction?filter=5" target="_blank">here</a>.</p>',
+	) );
 
-    $screen->set_help_sidebar('<a href="#">Pro Version?!</a>');
+    $screen->set_help_sidebar('<p>We have a few other plugins available for free on the <a href="https://profiles.wordpress.org/happykite/#content-plugins" target="_blank">WordPress Repository</a>!</p>');
+}
+
+function uuc_get_support() {
+	$contents = "";
+
+	$contents .= '<p>If you are having any issues with this plugin there are a couple of ways to get help, please see the list below.</p>';
+	$contents .= '<ul>';
+		$contents .= '<li>You can check the list of <a href="https://wordpress.org/plugins/ultimate-under-construction/faq/" target="_blank">FAQs</a></li>';
+		$contents .= '<li>If you want tailored help then please open a ticket on the <a href="https://wordpress.org/support/plugin/ultimate-under-construction" target="_blank">support forum</a>.</li>';
+	$contents .= '</ul>';
+	$contents .= '<p>Please be aware, as this is a free to use plugin, support can take up to 48 hours to respond.</p>';
+
+	return $contents;
 }
 
 function uuc_get_diagnostics() {
