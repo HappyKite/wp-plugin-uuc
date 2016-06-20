@@ -19,8 +19,8 @@ function uuc_options_page() {
 
 	    <h3><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h3>
 		<p>
-			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label><br />
-			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if( isset($uuc_options['holdingpage_type'])) { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label><br />
+			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label>
+			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if( isset($uuc_options['holdingpage_type'])) { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label>
 		</p>
 
 		<h2 class="nav-tab-wrapper">
@@ -135,7 +135,7 @@ function uuc_options_page() {
 								<label for="uuc_settings[website_name]"><?php _e('Page Title', 'uuc_domain'); ?>
 									<span class="tooltip" title="This is the Title for your Under Construction page.">?</span>
 								</label>
-								<input id="uuc_settings[website_name]" name="uuc_settings[website_name]" type="text" value="<?php if( isset($uuc_options['website_name']) ) { echo $uuc_options['website_name']; } ?>"/>
+								<input class="regular-text" id="uuc_settings[website_name]" name="uuc_settings[website_name]" type="text" value="<?php if( isset($uuc_options['website_name']) ) { echo $uuc_options['website_name']; } ?>"/>
 							</li>
 
 							<li class="wysiwyg-wrap">
@@ -154,42 +154,59 @@ function uuc_options_page() {
 								wp_editor( $wysiwyg_content, $wysiwyg_id, $wysiwyg_args );
 								?>
 							</li>
-							<li>
-								<label><?php _e('Countdown Timer', 'uuc_domain'); ?></label>
+							<li class="sub_settings">
+								<div class="option_toggle">
+									<label><?php _e('Countdown Timer', 'uuc_domain'); ?></label>
 
-								<input onclick="showflipClock()" id="flipclock_check" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?> />
-								<label class="description" for="flipclock_check"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
-								<br />
-								<br />
-								<div <?php if( $uuc_options['cdenable'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="flipclock_settings">
-									<label><input type="radio" name="uuc_settings[cd_style]" id="flipclock" value="flipclock"<?php if(!isset($uuc_options['cd_style'])){ ?> checked <?php } else { checked( 'flipclock' == $uuc_options['cd_style'] ); } ?> /> Flip Clock / </label>
-									<label><input type="radio" name="uuc_settings[cd_style]" id="textclock" value="textclock"<?php if(isset($uuc_options['cd_style'])) { checked( 'textclock' == $uuc_options['cd_style'] ); } ?> /> Text only.</label>
-									<br />
-									<br />
-									<input id="uuc_settings[cdday]" name="uuc_settings[cdday]" type="text" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
-									<label class="description" for="uuc_settings[cdday]"><?php _e('Enter the Date - e.g. 14', 'uuc_domain'); ?></label>
-									<br />
-									<input id="uuc_settings[cdmonth]" name="uuc_settings[cdmonth]" type="text" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
-									<label class="description" for="uuc_settings[cdmonth]"><?php _e('Enter the Month - e.g. 2', 'uuc_domain'); ?></label>
-									<br />
-									<input id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
-									<label class="description" for="uuc_settings[cdyear]"><?php _e('Enter the Year -  e.g. 2014', 'uuc_domain'); ?></label>
-									<br />
-									<input id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
-									<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text - e.g. Till the site goes live!', 'uuc_domain'); ?></label>
+									<input onclick="showflipClock()" id="flipclock_check" name="uuc_settings[cdenable]" type="checkbox" value="1" <?php checked($uuc_options['cdenable'], '1'); ?> />
+									<label class="description" for="flipclock_check"><?php _e('Enable the Countdown Timer?','uuc_domain'); ?></label>
+								</div>
+								<div class="sub_setting" <?php if( $uuc_options['cdenable'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="flipclock_settings">
+									<div class="sub_options">
+										<label><input type="radio" name="uuc_settings[cd_style]" id="flipclock" value="flipclock"<?php if(!isset($uuc_options['cd_style'])){ ?> checked <?php } else { checked( 'flipclock' == $uuc_options['cd_style'] ); } ?> /> Flip Clock / </label>
+										<label><input type="radio" name="uuc_settings[cd_style]" id="textclock" value="textclock"<?php if(isset($uuc_options['cd_style'])) { checked( 'textclock' == $uuc_options['cd_style'] ); } ?> /> Text only.</label>
+									</div>
+									<div class="sub_option_settings">
+										<div class="settings_line">
+											<label class="description" for="uuc_settings[cdday]"><?php _e('Enter the Date', 'uuc_domain'); ?></label>
+											<input class="regular-text" id="uuc_settings[cdday]" name="uuc_settings[cdday]" type="text" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
+											<span class="example_text"><?php _e('eg - 12', 'uuc_domain'); ?></span>
+										</div>
+										<div class="settings_line">
+											<label class="description" for="uuc_settings[cdmonth]"><?php _e('Enter the Month', 'uuc_domain'); ?></label>
+											<input class="regular-text" id="uuc_settings[cdmonth]" name="uuc_settings[cdmonth]" type="text" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
+											<span class="example_text"><?php _e('eg - 4', 'uuc_domain'); ?></span>
+										</div>
+										<div class="settings_line">
+											<label class="description" for="uuc_settings[cdyear]"><?php _e('Enter the Year', 'uuc_domain'); ?></label>
+											<input class="regular-text" id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
+											<span class="example_text"><?php _e('eg - 2016', 'uuc_domain'); ?></span>
+										</div>
+										<div class="settings_line">
+											<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text', 'uuc_domain'); ?></label>
+											<input class="regular-text" id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
+											<span class="example_text"><?php _e('eg - Until the site goes live!', 'uuc_domain'); ?></span>
+										</div>									
+									</div>
 								</div>
 							</li>
 
-							<li>
-								<label><?php _e('Progress Bar', 'uuc_domain'); ?>
-									<span class="tooltip" title="Enables a progess bar on the Under Construction Page to show how far through construction the site is.">?</span>
-								</label>
-								<input onclick="showProgressBar()" id="progressbar_check" name="uuc_settings[progressbar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
-								<label class="description" for="progressbar_check"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
-								<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
-									<br />
-									<input id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
-									<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percentage toward completion', 'uuc_domain'); ?></label>
+							<li class="sub_settings">
+								<div class="option_toggle">
+									<label><?php _e('Progress Bar', 'uuc_domain'); ?>
+										<span class="tooltip" title="Enables a progess bar on the Under Construction Page to show how far through construction the site is.">?</span>
+									</label>
+									<input onclick="showProgressBar()" id="progressbar_check" name="uuc_settings[progressbar]" type="checkbox" value="1" <?php checked($uuc_options['progressbar'], '1'); ?> />
+									<label class="description" for="progressbar_check"><?php _e('Enable Progress Bar?','uuc_domain'); ?></label>
+								</div>								
+								
+								<div class="sub_setting" <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
+									<div class="setting_option">
+										<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percent Complete', 'uuc_domain'); ?></label>
+										<div class="after_symbol after_percent">
+											<input class="regular-text" id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
+										</div>
+									</div>
 								</div>
 							</li>
 						</ul>
@@ -198,17 +215,19 @@ function uuc_options_page() {
 
 				<section style="display:none;">
 					<ul>
-						<li>
-							<label><?php _e('Background Style', 'uuc_domain'); ?> <span class="tooltip" title="You can choose between a solid colour, which will open a colour wheel, or choose from a selection of different backgrounds.">?</span></label>
-							<p>
-								<label><input onclick="checkEm()" type="radio" name="uuc_settings[background_style]" id="solidcolor" value="solidcolor"<?php if(!isset($uuc_options['background_style'])){ ?> checked <?php } else { checked( 'solidcolor' == $uuc_options['background_style'] ); } ?> /> Solid Colour</label><br />
+						<li class="sub_settings">
+							<div class="option_toggle">
+								<label><?php _e('Background Style', 'uuc_domain'); ?> <span class="tooltip" title="You can choose between a solid colour, which will open a colour wheel, or choose from a selection of different backgrounds.">?</span></label>
+							</div>
+							<div class="uuc_settings">
+								<label><input onclick="checkEm()" type="radio" name="uuc_settings[background_style]" id="solidcolor" value="solidcolor"<?php if(!isset($uuc_options['background_style'])){ ?> checked <?php } else { checked( 'solidcolor' == $uuc_options['background_style'] ); } ?> /> Solid Colour</label>
 								<label><input onclick="checkEm()" type="radio" name="uuc_settings[background_style]" id="patterned" value="patterned"<?php if(isset($uuc_options['background_style'])) { checked( 'patterned' == $uuc_options['background_style'] ); } ?> /> Patterned Background</label>
-							</p>
+							</div>
 						</li>
 
-						<li>
+						<li class="sub_settings">
 							<?php if ( $wp_version >= 3.5 ){ ?>
-							<div id="solidcolorbg" <?php if($uuc_options['background_style'] == "patterned"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
+							<div class="sub_setting" id="solidcolorbg" <?php if($uuc_options['background_style'] == "patterned"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
 								<label><?php _e('Background Colour', 'uuc_domain'); ?> <span class="tooltip" title="Choose a background colour from the colour wheel below.">?</span></label>
 								<p>
 									<input name="uuc_settings[background_color]" id="background-color" type="text" value="<?php if ( isset( $uuc_options['background_color'] ) ) echo $uuc_options['background_color']; ?>" />
@@ -228,17 +247,59 @@ function uuc_options_page() {
 							<?php } ?>
 						</li>
 
-						<li>
-							<div id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
+						<li class="sub_settings">
+							<div class="sub_setting" id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
 								<label><?php _e('Background Choice', 'uuc_domain'); ?> <span class="tooltip" title="Choose your background from the choice below.">?</span></label>
-								<label><input type="radio" name="uuc_settings[background_styling]" id="background_choice_one" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/squairylight.png'; ?>" /> <span class="tooltip" title="Squairy"> ?</span></label><br />
-								<label><input type="radio" id="background_choice_two" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/lightbind.png'; ?>" /> <span class="tooltip" title="Light Binding"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_three" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/darkbind.png'; ?>" /> <span class="tooltip" title="Dark Binding"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_four" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/wavegrid.png'; ?>" /> <span class="tooltip" title="Wavegrid"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_five" name="uuc_settings[background_styling]" value="greywashwall" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'greywashwall' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/greywashwall.png'; ?>" /> <span class="tooltip" title="Gray Wash Wall"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_six" name="uuc_settings[background_styling]" value="flatcardboard" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'flatcardboard' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/flatcardboard.png'; ?>" /> <span class="tooltip" title="Cardboard Flat"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_seven" name="uuc_settings[background_styling]" value="pooltable" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'pooltable' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/pooltable.png'; ?>" /> <span class="tooltip" title="Pool Table"> ?</span></label> <br />
-								<label><input type="radio" id="background_choice_eight" name="uuc_settings[background_styling]" value="oldmaths" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'oldmaths' == $uuc_options['background_styling'] ); } ?> /><img src="<?php echo plugin_dir_url( __FILE__ ) . 'images/oldmaths.png'; ?>" /> <span class="tooltip" title="Old Mathematics"> ?</span></label> <br />
+								<ul class="uuc_patterns">
+									<li>
+										<input type="radio" name="uuc_settings[background_styling]" id="background_choice_squairylight" value="squairylight"<?php checked( 'squairylight' == isset($uuc_options['background_styling']) ); ?> />
+										<label for="background_choice_squairylight" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/squairylight.png'; ?>)">											
+											<span class="tooltip" title="Squairy"> ?</span>
+										</label>
+									</li>
+									<li>
+										<input type="radio" id="background_choice_lightbind" name="uuc_settings[background_styling]" value="lightbind" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'lightbind' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_lightbind" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/lightbind.png'; ?>)">											
+											<span class="tooltip" title="Light Binding"> ?</span>
+										</label>
+									</li>
+									<li>
+										<input type="radio" id="background_choice_darkbind" name="uuc_settings[background_styling]" value="darkbind"  <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'darkbind' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_darkbind" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/darkbind.png'; ?>)">											
+											<span class="tooltip" title="Dark Binding"> ?</span>
+										</label>
+									</li>
+									<li>
+										<input type="radio" id="background_choice_wavegrid" name="uuc_settings[background_styling]" value="wavegrid" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'wavegrid' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_wavegrid" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/wavegrid.png'; ?>)">											
+											<span class="tooltip" title="Wavegrid"> ?</span>
+										</label> 
+									</li>
+									<li>
+										<input type="radio" id="background_choice_greywashwall" name="uuc_settings[background_styling]" value="greywashwall" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'greywashwall' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_greywashwall" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/greywashwall.png'; ?>)">											
+											<span class="tooltip" title="Gray Wash Wall"> ?</span>
+										</label>
+									</li>
+									<li>
+										<input type="radio" id="background_choice_flatcardboard" name="uuc_settings[background_styling]" value="flatcardboard" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'flatcardboard' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_flatcardboard" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/flatcardboard.png'; ?>)">											
+											<span class="tooltip" title="Cardboard Flat"> ?</span>
+										</label> 
+									</li>
+									<li>
+										<input type="radio" id="background_choice_pooltable" name="uuc_settings[background_styling]" value="pooltable" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'pooltable' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_pooltable" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/pooltable.png'; ?>)">											
+											<span class="tooltip" title="Pool Table"> ?</span>
+										</label>
+									</li>
+									<li>
+										<input type="radio" id="background_choice_oldmaths" name="uuc_settings[background_styling]" value="oldmaths" <?php if(!isset($uuc_options['background_styling'])){ ?> checked <?php } else { checked( 'oldmaths' == $uuc_options['background_styling'] ); } ?> />
+										<label for="background_choice_oldmaths" style="background-image: url(<?php echo plugin_dir_url( __FILE__ ) . 'images/oldmaths.png'; ?>)">											
+											<span class="tooltip" title="Old Mathematics"> ?</span>
+										</label>
+									</li>
+								</ul>
 							</div>
 						</li>
 					<ul>
@@ -250,7 +311,7 @@ function uuc_options_page() {
 						<label><?php _e('Mailchimp Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a MailChimp account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span></label>
 							<p>
 								<input id="uuc_settings[mc_api_key]" name="uuc_settings[mc_api_key]" type="text" value="<?php echo $uuc_options['mc_api_key']; ?>"/>
-								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label><br />
+								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label>
 								<input id="uuc_settings[mc_list_id]" name="uuc_settings[mc_list_id]" type="text" value="<?php echo $uuc_options['mc_list_id']; ?>"/>
 								<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
 							</p>
@@ -259,7 +320,7 @@ function uuc_options_page() {
 						<label><?php _e('Campaign Monitor Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a Campaign Monitor account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span></label>
 							<p>
 								<input id="uuc_settings[cm_api_key]" name="uuc_settings[cm_api_key]" type="text" value="<?php echo $uuc_options['cm_api_key']; ?>"/>
-								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label><br />
+								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label>
 								<input id="uuc_settings[cm_list_id]" name="uuc_settings[cm_list_id]" type="text" value="<?php echo $uuc_options['cm_list_id']; ?>"/>
 								<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Campaign Monitor List ID', 'uuc_domain'); ?></label>
 							</p>
@@ -269,16 +330,16 @@ function uuc_options_page() {
 							<p>
 								<input id="uuc_settings[social_media]" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
 								<label class="description" for="uuc_settings[social_media]"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
-								<br />
+								
 								<input id="uuc_settings[twitter]" name="uuc_settings[twitter]" type="text" value="<?php echo $uuc_options['twitter']; ?>"/>
 								<label class="description" for="uuc_settings[twitter]"><?php _e('Twitter Account Name', 'uuc_domain'); ?></label>
-								<br />
+								
 								<input id="uuc_settings[facebook]" name="uuc_settings[facebook]" type="text" value="<?php echo $uuc_options['facebook']; ?>"/>
 								<label class="description" for="uuc_settings[facebook]"><?php _e('Facebook Page', 'uuc_domain'); ?></label>
-								<br />
+								
 								<input id="uuc_settings[pinterest]" name="uuc_settings[pinterest]" type="text" value="<?php echo $uuc_options['pinterest']; ?>"/>
 								<label class="description" for="uuc_settings[pinterest]"><?php _e('Pinterest Link', 'uuc_domain'); ?></label>
-								<br />
+								
 								<input id="uuc_settings[googleplus]" name="uuc_settings[googleplus]" type="text" value="<?php echo $uuc_options['googleplus']; ?>"/>
 								<label class="description" for="uuc_settings[googleplus]"><?php _e('Google Plus URL', 'uuc_domain'); ?></label>
 							</p>
@@ -299,7 +360,7 @@ function uuc_options_page() {
 									?>
 										<input id="userrole_check_<?php echo $rolename; ?>" name="uuc_settings[<?php echo $role; ?>]" type="checkbox" value="1" <?php checked($uuc_options[ $role ], '1'); ?> />
 										<label class="description" for="userrole_check_<?php echo $rolename; ?>"><?php _e( $rolename ,'uuc_domain'); ?></label>
-										<br />
+										
 									<?php
 								}
 							?>
