@@ -192,6 +192,27 @@ function uuc_options_page() {
 									<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percentage toward completion', 'uuc_domain'); ?></label>
 								</div>
 							</li>
+							<li  <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour">
+								<?php if ( $wp_version >= 3.5 ){ ?>
+									<div id="progressbarcolor">
+										<label><?php _e('Progress Bar Colour', 'uuc_domain'); ?> <span class="tooltip" title="Select a colour for the Progress Bar from the colour wheel below.">?</span></label>
+										<p>
+											<input name="uuc_settings[progressbar_color]" id="progressbar-colour" type="text" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+											<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
+										</p>
+									</div>
+								<?php } else { ?>
+									<div id="progressbarcolor">
+										<label><?php _e('Progress Bar Colour', 'uuc_domain'); ?> <span class="tooltip" title="Select a colour for the Progress Bar from the colour wheel below.">?</span></label>
+										<p>
+										<div class="color-picker" style="position: relative;">
+											<input type="text" name="uuc_settings[progressbar_color]" id="color" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+											<div style="position: absolute;" id="colorpicker"></div>
+										</div>
+										</p>
+									</div>
+								<?php } ?>
+							</li>
 						</ul>
 					</div>
 				</section>
@@ -380,9 +401,13 @@ function uuc_options_page() {
 					if (document.getElementById("progressbar_check").checked) {
 						document.getElementById("progressbar_settings").style.visibility = "visible";
 						document.getElementById("progressbar_settings").style.display = "block";
+						document.getElementById("progress_bar-colour").style.visibility = "visible";
+						document.getElementById("progress_bar-colour").style.display = "block";
 					} else {
 						document.getElementById("progressbar_settings").style.visibility = "hidden";
 						document.getElementById("progressbar_settings").style.display = "none";
+						document.getElementById("progress_bar-colour").style.visibility = "hidden";
+						document.getElementById("progress_bar-colour").style.display = "none";
 					}
 				}
 
@@ -398,7 +423,9 @@ function uuc_options_page() {
 
 	    		<script>
 				  jQuery(function() {
-				    jQuery( document ).tooltip();
+				    jQuery( document ).tooltip({
+					    items: ":not(.wp-color-result)"
+				    });
 				  });
 				</script>
 				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

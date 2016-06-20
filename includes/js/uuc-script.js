@@ -34,6 +34,42 @@
 
 }(jQuery));
 
+(function ($) {
+    "use strict";
+
+    var pb_default_color = 'C0C0C0';
+
+    function pickColor(color) {
+        $('#progressbar-color').val(color);
+    }
+    function toggle_text() {
+        var progressbar_color = $('#progressbar-color');
+        if(progressbar_color.val() == undefined || '' === progressbar_color.val().replace('#', '')) {
+            progressbar_color.val(pb_default_color);
+            pickColor(pb_default_color);
+        } else {
+            pickColor(progressbar_color.val());
+        }
+    }
+
+    $(document).ready(function () {
+        var progressbar_color = $('#progressbar-colour');
+        progressbar_color.wpColorPicker({
+            change: function () {
+                pickColor(progressbar_color.wpColorPicker('color'));
+            },
+            clear: function () {
+                pickColor('');
+            }
+        });
+        $('#progressbar-color').click(toggle_text);
+
+        toggle_text();
+
+    });
+
+}(jQuery));
+
 (function($) {
     
     $(document).on( 'click', '.nav-tab-wrapper a', function() {
@@ -42,12 +78,5 @@
         return false;
     })
 
-    jQuery('.uuc_tolltip').tooltip({ 
-        track: true, 
-        delay: 0, 
-        showURL: false, 
-        showBody: " - ", 
-        fade: 250 
-    });
     
 })( jQuery );

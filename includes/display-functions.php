@@ -68,22 +68,22 @@ function uuc_add_content() {
 		</script>
 
 		<script>
-		function sendEmailAddress() {
-			var customerEmail = document.getElementById('customer-email').value;
-			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-			if (re.test(customerEmail)) {
-				console.log("correct email");
-			} else {
-				console.log("incorrect email");
-			}
-		}
-
 		jQuery(function() {
-			jQuery( "#progressbar" ).progressbar({
+			var progressbar = jQuery( "#progressbar" );
+
+			progressbar.progressbar({
 		    	value: <?php echo $uuc_options['progresspercent']; ?>
 		    });
 		});
 
+		jQuery( function() {
+			var progressbar = jQuery( "#progressbar" );
+			var progressbarValue = progressbar.find( ".ui-progressbar-value" );
+
+			progressbarValue.css({
+				"background": "<?php echo $uuc_options['progressbar_color']; ?>"
+			})
+		});
 		</script>
 
 		<?php
