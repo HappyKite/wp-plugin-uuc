@@ -207,28 +207,27 @@ function uuc_options_page() {
 											<input class="regular-text" id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
 										</div>
 									</div>
+
+									<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour" class="setting_option">
+										<?php if ( $wp_version >= 3.5 ){ ?>
+											<div id="progressbarcolor">
+												<p>
+													<input name="uuc_settings[progressbar_color]" id="progressbar-colour" type="text" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+													<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
+												</p>
+											</div>
+										<?php } else { ?>
+											<div id="progressbarcolor">
+												<p>
+												<div class="color-picker" style="position: relative;">
+													<input type="text" name="uuc_settings[progressbar_color]" id="color" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+													<div style="position: absolute;" id="colorpicker"></div>
+												</div>
+												</p>
+											</div>
+										<?php } ?>
+									</div>
 								</div>
-							</li>
-							<li  <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour">
-								<?php if ( $wp_version >= 3.5 ){ ?>
-									<div id="progressbarcolor">
-										<label><?php _e('Progress Bar Colour', 'uuc_domain'); ?> <span class="tooltip" title="Select a colour for the Progress Bar from the colour wheel below.">?</span></label>
-										<p>
-											<input name="uuc_settings[progressbar_color]" id="progressbar-colour" type="text" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
-											<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
-										</p>
-									</div>
-								<?php } else { ?>
-									<div id="progressbarcolor">
-										<label><?php _e('Progress Bar Colour', 'uuc_domain'); ?> <span class="tooltip" title="Select a colour for the Progress Bar from the colour wheel below.">?</span></label>
-										<p>
-										<div class="color-picker" style="position: relative;">
-											<input type="text" name="uuc_settings[progressbar_color]" id="color" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
-											<div style="position: absolute;" id="colorpicker"></div>
-										</div>
-										</p>
-									</div>
-								<?php } ?>
 							</li>
 						</ul>
 					</div>
