@@ -114,7 +114,7 @@ function uuc_action_plugin( $actions, $plugin_file ){
 
 add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'uuc_action_links' );
 function uuc_action_links( $links ) {
-    $links[] = '<a href="http://www.happykite.co.uk/contact-us/" target="_blank">Contact</a>';
+    $links[] = '<a href="https://wordpress.org/support/plugin/ultimate-under-construction" target="_blank">Support</a>';
     return $links;
 }
 
@@ -126,7 +126,9 @@ function uuc_action_links( $links ) {
 add_action( 'wp_loaded', 'hpy_uuc_cli_loaded', 20 );
 function hpy_uuc_cli_loaded() {
 	if ( defined( 'WP_CLI' ) && WP_CLI && ! class_exists( 'UUC_Cli' ) ) {
+        //Load the wp-cli uuc classes
 		require_once dirname( __FILE__ ) . '/classes/class-uuc-cli.php';
+		require_once dirname( __FILE__ ) . '/classes/class-uuc-cli-user.php';
 	}
 }
 

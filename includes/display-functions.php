@@ -260,7 +260,7 @@ function uuc_add_content() {
 			if( $uuc_options['progressbar'] == true ){
 				$html .= '<div id="hpy_progressbar">';
 
-				$html .= '<div class="hpy_progress_inner" style=" width:' . $uuc_options['progresspercent'] . '%"></div>';
+				$html .= '<div class="hpy_progress_inner" style=" width:' . $uuc_options['progresspercent'] . '%; background: '. $uuc_options['progressbar_color'] . '"></div>';
 				
 				$html .= '</div>';
 			}

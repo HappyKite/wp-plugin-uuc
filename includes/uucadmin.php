@@ -208,6 +208,26 @@ function uuc_options_page() {
 											<input class="regular-text" id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
 										</div>
 									</div>
+
+									<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour" class="setting_option">
+										<?php if ( $wp_version >= 3.5 ){ ?>
+											<div id="progressbarcolor">
+												<p>
+													<input name="uuc_settings[progressbar_color]" id="progressbar-colour" type="text" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+													<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
+												</p>
+											</div>
+										<?php } else { ?>
+											<div id="progressbarcolor">
+												<p>
+												<div class="color-picker" style="position: relative;">
+													<input type="text" name="uuc_settings[progressbar_color]" id="color" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
+													<div style="position: absolute;" id="colorpicker"></div>
+												</div>
+												</p>
+											</div>
+										<?php } ?>
+									</div>
 								</div>
 							</li>
 						</ul>
@@ -477,9 +497,13 @@ function uuc_options_page() {
 					if (document.getElementById("progressbar_check").checked) {
 						document.getElementById("progressbar_settings").style.visibility = "visible";
 						document.getElementById("progressbar_settings").style.display = "block";
+						document.getElementById("progress_bar-colour").style.visibility = "visible";
+						document.getElementById("progress_bar-colour").style.display = "block";
 					} else {
 						document.getElementById("progressbar_settings").style.visibility = "hidden";
 						document.getElementById("progressbar_settings").style.display = "none";
+						document.getElementById("progress_bar-colour").style.visibility = "hidden";
+						document.getElementById("progress_bar-colour").style.display = "none";
 					}
 				}
 
@@ -495,7 +519,9 @@ function uuc_options_page() {
 
 	    		<script>
 				  jQuery(function() {
-				    jQuery( document ).tooltip();
+				    jQuery( document ).tooltip({
+					    items: ":not(.wp-color-result)"
+				    });
 				  });
 				</script>
 				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -517,8 +543,7 @@ function admin_register_head() {
 add_action('admin_head', 'admin_register_head');
 
 function uuc_add_options_link() {
-	//add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
-	$my_admin_page = add_submenu_page('tools.php', 'Ultimate Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
+	$my_admin_page = add_submenu_page('tools.php', 'Under Construction Plugin Options', 'Under Construction', 'manage_options', 'uuc-options', 'uuc_options_page');
 
 	add_action('load-'.$my_admin_page, 'uuc_add_help_tab');
 }
@@ -539,15 +564,33 @@ function tip( $message, $title = '', $echo_tip = true ) {
 }
 
 function uuc_add_help_tab () {
-    $screen = WP_Screen::get(__FILE__);
+    $screen = get_current_screen();
 
     $screen->add_help_tab( array(
-        'id'	=> 'uuc_help_tab',
-        'title'	=> __('Under Construction Help'),
-        'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
+        'id'	    => 'uuc_help_tab',
+        'title'	    => __('Under Construction Help', 'uuc'),
+        'content'   => uuc_get_support(),
     ) );
+	$screen->add_help_tab( array(
+		'id'        => 'uuc_rate_tab',
+		'title'     => __( 'Happy with Ultimate Under Construction?', 'uuc' ),
+		'content'   => '<p>Are you happy with the Under Construction plugin? Please help us out by rating it <a href="https://wordpress.org/support/view/plugin-reviews/ultimate-under-construction?filter=5" target="_blank">here</a>.</p>',
+	) );
 
-    $screen->set_help_sidebar('<a href="#">Pro Version?!</a>');
+    $screen->set_help_sidebar('<p>We have a few other plugins available for free on the <a href="https://profiles.wordpress.org/happykite/#content-plugins" target="_blank">WordPress Repository</a>!</p>');
+}
+
+function uuc_get_support() {
+	$contents = "";
+
+	$contents .= '<p>If you are having any issues with this plugin there are a couple of ways to get help, please see the list below.</p>';
+	$contents .= '<ul>';
+		$contents .= '<li>You can check the list of <a href="https://wordpress.org/plugins/ultimate-under-construction/faq/" target="_blank">FAQs</a></li>';
+		$contents .= '<li>If you want tailored help then please open a ticket on the <a href="https://wordpress.org/support/plugin/ultimate-under-construction" target="_blank">support forum</a>.</li>';
+	$contents .= '</ul>';
+	$contents .= '<p>Please be aware, as this is a free to use plugin, support can take up to 48 hours to respond.</p>';
+
+	return $contents;
 }
 
 function uuc_get_diagnostics() {
