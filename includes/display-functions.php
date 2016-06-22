@@ -78,12 +78,6 @@ function uuc_add_content() {
 			}
 		}
 
-		jQuery(function() {
-			jQuery( "#progressbar" ).progressbar({
-		    	value: <?php echo $uuc_options['progresspercent']; ?>
-		    });
-		});
-
 		</script>
 
 		<?php
@@ -216,25 +210,21 @@ function uuc_add_content() {
 				if (isset($uuc_options['background_color'])) {?>
 					<style type="text/css">
 						body { background-color: <?php echo $uuc_options['background_color']; ?> }
-						.uuc-holdingpage { text-align: center; padding-top: 250px; }
 					</style>
 				<?php }
 			} else if (isset($uuc_options['background_style']) && $uuc_options['background_style'] == "patterned") {
 				if (!isset($uuc_options['background_styling'])) {?>
 					<style type="text/css">
 						body { background: url(<?php echo plugin_dir_url(__FILE__) . '/images/oldmaths.png' ?>); }
-						.uuc-holdingpage { text-align: center; padding-top: 250px; }
 					</style>
 				<?php } elseif (isset($uuc_options['background_styling'])) {
 					if ($uuc_options['background_styling'] == "darkbind") {?>	
 					<style type="text/css">
 						body { background: url(<?php echo plugin_dir_url(__FILE__) . 'images/' . $uuc_options['background_styling'].'.png' ?>); }
-						.uuc-holdingpage { text-align: center; color: #909090; padding-top: 250px; }
 					</style>
 					<?php } else { ?>			
 					<style type="text/css">
 						body { background: url(<?php echo plugin_dir_url(__FILE__) . 'images/' . $uuc_options['background_styling'].'.png' ?>); }
-						.uuc-holdingpage { text-align: center; padding-top: 250px; }
 					</style>
 					<?php }
 				}
@@ -268,7 +258,11 @@ function uuc_add_content() {
 			}
 
 			if( $uuc_options['progressbar'] == true ){
-				$html .= "<div id='progressbar'></div>";
+				$html .= '<div id="hpy_progressbar">';
+
+				$html .= '<div class="hpy_progress_inner" style=" width:' . $uuc_options['progresspercent'] . '%"></div>';
+				
+				$html .= '</div>';
 			}
 
 
@@ -318,9 +312,9 @@ function uuc_add_content() {
 			if($uuc_options['social_media'] == true ) {
 				$html .= '<div class="social-media">';
 				$html .= '<ul>';
-					$html .= '<li class="twitter"><a href="http://www.twitter.com/' . $uuc_options['twitter'] . '">Twitter</a> | </li>';
-					$html .= '<li class="facebook"><a href="http://www.facebook.com/' . $uuc_options['facebook'] . '">Facebook</a> | </li>';
-					$html .= '<li class="pinterest"><a href="http://www.pinterest.com/' . $uuc_options['pinterest'] . '">Pinterest</a> | </li>';
+					$html .= '<li class="twitter"><a href="http://www.twitter.com/' . $uuc_options['twitter'] . '">Twitter</a></li>';
+					$html .= '<li class="facebook"><a href="http://www.facebook.com/' . $uuc_options['facebook'] . '">Facebook</a></li>';
+					$html .= '<li class="pinterest"><a href="http://www.pinterest.com/' . $uuc_options['pinterest'] . '">Pinterest</a></li>';
 					$html .= '<li class="googleplus"><a href="http://plus.google.com/' . $uuc_options['googleplus'] . '">Google Plus</a></li>';
 				$html .= '</ul>';
 				$html .= '</div>';

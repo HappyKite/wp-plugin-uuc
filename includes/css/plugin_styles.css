@@ -33,19 +33,29 @@
 .sub_settings .sub_option_settings label, .sub_settings .setting_option label{ width:160px; text-align:right; padding-right:15px; }
 .sub_settings .example_text{ font-style:italic; color:#999; padding-left:15px; }
 
+#htmlblockbg{ padding: 20px 0; }
+#htmlblockbg textarea{ width:100%; }
+
 #patternedbg{ margin-left:-15px; margin-right:-15px; }
 #patternedbg:after{ visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
-#patternedbg .uuc_patterns li{ width:25%; padding:0 15px; margin-bottom:15px; float:left; position: relative; }
+#patternedbg .uuc_patterns:after{ visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+#patternedbg .uuc_patterns li{ width:25%; padding:0 15px; margin-bottom:30px; float:left; position: relative; box-sizing: border-box; }
 #patternedbg .uuc_patterns img{ max-width:100%; }
 #patternedbg .uuc_patterns input[type="radio"]{ visibility: hidden; position: absolute; top: 1px; left: 1px; }
 #patternedbg .uuc_patterns input[type="radio"]:checked ~ label{ box-shadow: 0px 0px 10px rgba( 75,188,37,1 ); border:1px solid rgba( 75,188,37,0.6 ); }
-#patternedbg .uuc_patterns label{ border:1px solid transparent; padding:0; width:200px; height:200px; border-radius:1px; background-position: center; background-repeat:repeat; overflow:hidden; transition: 0.3s; box-shadow: 0px 0px 5px rgba( 100,100,100, 0.3 ); }
+#patternedbg .uuc_patterns label{ width:100%; border:1px solid transparent; padding:0; height:200px; border-radius:1px; background-position: center; background-repeat:repeat; overflow:hidden; transition: 0.3s; box-shadow: 0px 0px 5px rgba( 100,100,100, 0.3 ); }
 #patternedbg .uuc_patterns .tooltip{ position: absolute; top: 5px; right: 10px; }
-#patternedbg .uuc_patterns .img_container img{  }
+
+#communicationbg .hpy_form_row, #hpy_misc_settings .hpy_form_row{ padding-left:15px; margin-bottom: 10px }
+#communicationbg .hpy_top_row, #hpy_misc_settings .hpy_top_row, #htmlblockbg .hpy_top_row{ margin-bottom:15px; }
+#communicationbg .hpy_form_row label{ text-align: right; }
+#communicationbg .hpy_social_icons{ display:none; padding: 30px 55px; margin: 0 -25px 0 -25px; box-shadow: inset 0px 4px 8px -2px rgba(100,100,100,0.1); background: #e5e5e5; }
 
 .after_symbol{ position:relative; display:inline-block; }
 .after_symbol input{ padding-right:30px; }
-.after_symbol:after{ content: "%"; position:absolute; top:2px; right:2px; bottom:2px; width:30px; background:#ddd; border-left:1px solid #ccc; line-height:25px; font-weight:bold; text-align: center; }
+.after_symbol:after{ content: "%"; position:absolute; top:1px; right:1px; bottom:1px; width:30px; background:#e2e2e2; border:1px solid #ddd; line-height:25px; font-weight:bold; text-align: center; box-shadow: inset 0 -10px 15px -10px rgba(0,0,0,0.1); }
+
+p.submit{ margin-top:0; padding-top:0; }
 
 .tooltip { border: 2px solid #aaa; color: #aaa; font-weight: bold; text-align: center; line-height: 13px; font-size: 12px; height: 13px; width: 13px; display: inline-block;
 	border-radius: 50%;
@@ -88,4 +98,31 @@ ul { list-style-type: none; }
 	margin:0px;
 	padding:0px;
 	border:0px;
+}
+
+/* frontend */
+
+
+.uuc-holdingpage{ max-width:1200px; left:0; right:0; margin:0 auto; padding: 0 15px; position: absolute; top:50%; transform: translateY( -50% ); text-align: center; }
+.uuc-holdingpage h1, .uuc-holdingpage h2, .uuc-holdingpage h3{ margin-top:0; margin-bottom:30px; }
+.uuc-holdingpage h1{ font-size:2.5em; font-weight:bold; }
+.uuc-holdingpage h2{ font-size:1.75em; font-weight:400; }
+.uuc-holdingpage h3{ font-size:1.3em; font-weight:400; }
+.uuc-holdingpage .social-media ul{ list-style: none; padding:0; margin: 0 0 30px 0; }
+.uuc-holdingpage .social-media ul li{ display:inline-block; margin-right:10px; position: relative;  width:50px; height:50px; overflow: hidden; }
+.uuc-holdingpage .social-media ul li a { position:absolute; top:0; left:0; right:0; bottom:0; display:block;text-indent:-99999px; background-size: cover; transform: rotate( 0deg ) scale( 1,1 ); z-index:1; transition:0.3s; }
+.uuc-holdingpage .social-media ul li a:hover{ transform: rotate( 10deg ) scale( 1.3,1.3 ); z-index:2; }
+.uuc-holdingpage .social-media ul li:nth-child(even) a:hover{ transform: rotate( -10deg ) scale( 1.3,1.3 ); z-index:2; }
+.uuc-holdingpage .twitter a { background: url(../images/twitter.jpg) no-repeat center; } 
+.uuc-holdingpage .googleplus a { background: url(../images/googleplus.jpg) no-repeat center; } 
+.uuc-holdingpage .facebook a { background: url(../images/facebook.jpg) no-repeat center; } 
+.uuc-holdingpage .pinterest a { background: url(../images/pinterest.jpg) no-repeat center; } 
+
+.uuc-holdingpage #hpy_progressbar{ width:100%; position: relative; height:50px; border-radius: 25px; overflow: hidden; border:1px solid #ccc; background:#eee; margin-bottom:45px; box-shadow: 2px 2px 3px rgba(0,0,0,0.2); }
+.uuc-holdingpage #hpy_progressbar .hpy_progress_inner{ position: absolute; left:0; top:0; bottom:0; box-shadow: inset 0 -40px 50px -40px rgba(0,0,0,0.4); background: #FFF; }
+
+.uuc-holdingpage .flip-clock-wrapper{ margin-bottom: 45px !important; }
+
+@media screen and (max-width: 768px){
+	.uuc-holdingpage{ position: relative; top: auto; left:auto; right:auto; transform:none; }
 }

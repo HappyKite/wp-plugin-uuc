@@ -19,7 +19,7 @@ function uuc_options_page() {
 
 	    <h3><?php _e('Holding Page Type', 'uuc_domain'); ?> <span class="tooltip" title="The Custom Build allows you to build an Under Construction Page using a variety of choices, recommended for usual users. For more experienced users the HTML Block will allow you to create a bespoke Under Construction Page.">?</span></h3>
 		<p>
-			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label>
+			<label style="margin-right:15px;"><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="custom" value="custom"<?php if(!isset($uuc_options['holdingpage_type'])){ ?> checked <?php } else { checked( 'custom' == $uuc_options['holdingpage_type'] ); } ?> /> Prebuilt Themes</label>
 			<label><input onclick="checkPage()" type="radio" name="uuc_settings[holdingpage_type]" id="htmlblock" value="htmlblock"<?php if( isset($uuc_options['holdingpage_type'])) { checked( 'htmlblock' == $uuc_options['holdingpage_type'] ); } ?> /> Custom HTML build</label>
 		</p>
 
@@ -121,11 +121,12 @@ function uuc_options_page() {
 				<section>
 
 					<div id="htmlblockbg" <?php if ($uuc_options['holdingpage_type'] == "custom"){ ?> style="visibiliy: hidden; display: none;"<?php }; ?>>
-						<p>
+						<div class="hpy_top_row">
 							<label for="uuc_settings[html_block]"><?php _e('HTML Block', 'uuc_domain'); ?>
 								<span class="tooltip" title="Enter the HTML - Advised for advanced users only! - Will display exactly as entered.">?</span>
 							</label>
-							<textarea class="theEditor" name="uuc_settings[html_block]" id="uuc_settings[html_block]" rows="10" cols="75"><?php if (isset($uuc_options['html_block'])) echo $uuc_options['html_block']; ?></textarea>
+						</div>
+						<textarea class="theEditor" name="uuc_settings[html_block]" id="uuc_settings[html_block]" rows="20"><?php if (isset($uuc_options['html_block'])) echo $uuc_options['html_block']; ?></textarea>
 						</p>
 					</div>
 
@@ -304,53 +305,76 @@ function uuc_options_page() {
 						</li>
 					<ul>
 				</section>
-
 				<section style="display:none;">
 					<ul id="communicationbg">
 						<li>
-						<label><?php _e('Mailchimp Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a MailChimp account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span></label>
-							<p>
-								<input id="uuc_settings[mc_api_key]" name="uuc_settings[mc_api_key]" type="text" value="<?php echo $uuc_options['mc_api_key']; ?>"/>
-								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label>
-								<input id="uuc_settings[mc_list_id]" name="uuc_settings[mc_list_id]" type="text" value="<?php echo $uuc_options['mc_list_id']; ?>"/>
-								<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
-							</p>
+							<div class="hpy_top_row">
+								<label><?php _e('Mailchimp Signup', 'uuc_domain'); ?>
+									<span class="tooltip" title="If you have a MailChimp account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span>
+								</label>
+							</div>
+							<div class="hpy_form_row">
+								<label class="description" for="uuc_settingsms_mc_api"><?php _e('Mailchimp API Key', 'uuc_domain'); ?></label>
+								<input class="regular-text" id="uuc_settings_mc_api" name="uuc_settings[mc_api_key]" type="text" value="<?php echo $uuc_options['mc_api_key']; ?>"/>
+							</div>
+							<div class="hpy_form_row">
+								<label class="description" for="uuc_settings_mc_list"><?php _e('Mailchimp List ID', 'uuc_domain'); ?></label>
+								<input class="regular-text" id="uuc_settings_mc_list" name="uuc_settings[mc_list_id]" type="text" value="<?php echo $uuc_options['mc_list_id']; ?>"/>								
+							</div>
 						</li>
 						<li>
-						<label><?php _e('Campaign Monitor Signup', 'uuc_domain'); ?> <span class="tooltip" title="If you have a Campaign Monitor account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span></label>
-							<p>
-								<input id="uuc_settings[cm_api_key]" name="uuc_settings[cm_api_key]" type="text" value="<?php echo $uuc_options['cm_api_key']; ?>"/>
-								<label class="description" for="uuc_settings[mc_api_key]"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label>
-								<input id="uuc_settings[cm_list_id]" name="uuc_settings[cm_list_id]" type="text" value="<?php echo $uuc_options['cm_list_id']; ?>"/>
-								<label class="description" for="uuc_settings[mc_list_id]"><?php _e('Campaign Monitor List ID', 'uuc_domain'); ?></label>
-							</p>
+							<div class="hpy_top_row">
+								<label><?php _e('Campaign Monitor Signup', 'uuc_domain'); ?>
+									<span class="tooltip" title="If you have a Campaign Monitor account, fill in the API KEY and the List ID below, this will enable an email sign up box on the Under Construction Page.">?</span>
+								</label>
+							</div>
+							<div class="hpy_form_row">
+								<label class="description" for="uuc_settings_cm_api"><?php _e('Campaign Monitor API Key', 'uuc_domain'); ?></label>
+								<input class="regular-text" id="uuc_settings_cm_api" name="uuc_settings[cm_api_key]" type="text" value="<?php echo $uuc_options['cm_api_key']; ?>"/>								
+							</div>
+							<div class="hpy_form_row">
+								<label class="description" for="uuc_settings_cm_list"><?php _e('Campaign Monitor List ID', 'uuc_domain'); ?></label>
+								<input class="regular-text" id="uuc_settings_cm_list" name="uuc_settings[cm_list_id]" type="text" value="<?php echo $uuc_options['cm_list_id']; ?>"/>								
+							</div>
 						</li>
 						<li>
-						<label><?php _e('Social Media', 'uuc_domain'); ?> <span class="tooltip" title="Only the filled out Social Media boxes below will show the on the Under Construction page.">?</span></label>
-							<p>
-								<input id="uuc_settings[social_media]" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
-								<label class="description" for="uuc_settings[social_media]"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
-								
-								<input id="uuc_settings[twitter]" name="uuc_settings[twitter]" type="text" value="<?php echo $uuc_options['twitter']; ?>"/>
-								<label class="description" for="uuc_settings[twitter]"><?php _e('Twitter Account Name', 'uuc_domain'); ?></label>
-								
-								<input id="uuc_settings[facebook]" name="uuc_settings[facebook]" type="text" value="<?php echo $uuc_options['facebook']; ?>"/>
-								<label class="description" for="uuc_settings[facebook]"><?php _e('Facebook Page', 'uuc_domain'); ?></label>
-								
-								<input id="uuc_settings[pinterest]" name="uuc_settings[pinterest]" type="text" value="<?php echo $uuc_options['pinterest']; ?>"/>
-								<label class="description" for="uuc_settings[pinterest]"><?php _e('Pinterest Link', 'uuc_domain'); ?></label>
-								
-								<input id="uuc_settings[googleplus]" name="uuc_settings[googleplus]" type="text" value="<?php echo $uuc_options['googleplus']; ?>"/>
-								<label class="description" for="uuc_settings[googleplus]"><?php _e('Google Plus URL', 'uuc_domain'); ?></label>
-							</p>
+							<div class="hpy_top_row">
+								<label><?php _e('Social Media', 'uuc_domain'); ?>
+									<span class="tooltip" title="Only the filled out Social Media boxes below will show the on the Under Construction page.">?</span>
+								</label>
+								<input id="uuc_settings_sm_icons" onclick="showSocial()" name="uuc_settings[social_media]" type="checkbox" value="1" <?php checked($uuc_options['social_media'], '1'); ?>/>
+								<label class="description regular-text" for="uuc_settings_sm_icons"><?php _e('Enable Social Media Icons?','uuc_domain'); ?></label>
+							</div>
+							<div id="hpy_social_icons" class="hpy_social_icons" <?php if( isset($uuc_options['social_media']) ) echo 'style="display:block;"';?>>
+								<div class="hpy_form_row">
+									<label class="description regular-text" for="uuc_settings_twitter"><?php _e('Twitter Account Name', 'uuc_domain'); ?></label>
+									<input id="uuc_settings_twitter" name="uuc_settings[twitter]" type="text" value="<?php echo $uuc_options['twitter']; ?>"/>									
+									</div>
+								<div class="hpy_form_row">
+									<label class="description regular-text" for="uuc_settings_facebook"><?php _e('Facebook Page', 'uuc_domain'); ?></label>
+									<input id="uuc_settings_facebook" name="uuc_settings[facebook]" type="text" value="<?php echo $uuc_options['facebook']; ?>"/>									
+								</div>
+								<div class="hpy_form_row">
+									<label class="description regular-text" for="uuc_settings_pinterest"><?php _e('Pinterest Link', 'uuc_domain'); ?></label>
+									<input id="uuc_settings_pinterest" name="uuc_settings[pinterest]" type="text" value="<?php echo $uuc_options['pinterest']; ?>"/>									
+								</div>
+								<div class="hpy_form_row">
+									<label class="description regular-text" for="uuc_settings_google_plus"><?php _e('Google Plus URL', 'uuc_domain'); ?></label>
+									<input id="uuc_settings_google_plus" name="uuc_settings[googleplus]" type="text" value="<?php echo $uuc_options['googleplus']; ?>"/>									
+								</div>
+							</div>
 						</li>
 					</ul>
 				</section>
 
-				<section style="display:none;">
+				<section id="hpy_misc_settings" style="display:none;">
 					<ul>
 						<li>
-							<label><?php _e('User Select', 'uuc_domain'); ?> <span class="tooltip" title="Select which user level you would like to be able to see the site whilst it is under construction.">?</span></label>
+							<div class="hpy_top_row">
+								<label><?php _e('User Select', 'uuc_domain'); ?>
+									<span class="tooltip" title="Select which user level you would like to be able to see the site whilst it is under construction.">?</span>
+								</label>
+							</div>
 							<div class="role-options">
 							<?php
 								$all_roles = $wp_roles->roles;
@@ -358,8 +382,10 @@ function uuc_options_page() {
 									$rolename = $roles['name'];
 									$role = 'user_role_' . $rolename;
 									?>
-										<input id="userrole_check_<?php echo $rolename; ?>" name="uuc_settings[<?php echo $role; ?>]" type="checkbox" value="1" <?php checked($uuc_options[ $role ], '1'); ?> />
-										<label class="description" for="userrole_check_<?php echo $rolename; ?>"><?php _e( $rolename ,'uuc_domain'); ?></label>
+										<div class="hpy_form_row">
+											<input id="userrole_check_<?php echo $rolename; ?>" name="uuc_settings[<?php echo $role; ?>]" type="checkbox" value="1" <?php checked($uuc_options[ $role ], '1'); ?> />
+											<label class="description" for="userrole_check_<?php echo $rolename; ?>"><?php _e( $rolename ,'uuc_domain'); ?></label>
+										</div>
 										
 									<?php
 								}
@@ -434,6 +460,16 @@ function uuc_options_page() {
 					} else {
 						document.getElementById("flipclock_settings").style.visibility = "hidden";
 						document.getElementById("flipclock_settings").style.display = "none";
+					}
+				}
+
+				function showSocial(){
+					if (document.getElementById("uuc_settings_sm_icons").checked) {
+						document.getElementById("hpy_social_icons").style.visibility = "visible";
+						document.getElementById("hpy_social_icons").style.display = "block";
+					} else {
+						document.getElementById("hpy_social_icons").style.visibility = "hidden";
+						document.getElementById("hpy_social_icons").style.display = "none";
 					}
 				}
 
