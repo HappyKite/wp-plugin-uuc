@@ -104,7 +104,7 @@ ul { list-style-type: none; }
 
 
 .uuc-holdingpage{ max-width:1200px; left:0; right:0; margin:0 auto; padding: 0 15px; position: absolute; top:50%; transform: translateY( -50% ); text-align: center; }
-.uuc-holdingpage h1, .uuc-holdingpage h2, .uuc-holdingpage h3{ margin-top:0; margin-bottom:30px; }
+.uuc-holdingpage h1, .uuc-holdingpage h2, .uuc-holdingpage h3{ margin-top:0; margin-bottom:30px; font-family: Verdana, sans-serif }
 .uuc-holdingpage h1{ font-size:2.5em; font-weight:bold; }
 .uuc-holdingpage h2{ font-size:1.75em; font-weight:400; }
 .uuc-holdingpage h3{ font-size:1.3em; font-weight:400; }
