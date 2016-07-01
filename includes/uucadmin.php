@@ -211,11 +211,9 @@ function uuc_options_page() {
 
 									<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour" class="setting_option">
 										<?php if ( $wp_version >= 3.5 ){ ?>
-											<div id="progressbarcolor">
-												<p>
+											<label class="description" for="uuc_settings[progressbar_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
+											<div id="progressbarcolor" style="display: inline-block;">
 													<input name="uuc_settings[progressbar_color]" id="progressbar-colour" type="text" value="<?php if ( isset( $uuc_options['progressbar_color'] ) ) echo $uuc_options['progressbar_color']; ?>" />
-													<label class="description" for="uuc_settings[background_color]"><?php _e('Select the Progress Bar Colour', 'uuc_domain'); ?></label>
-												</p>
 											</div>
 										<?php } else { ?>
 											<div id="progressbarcolor">
@@ -321,6 +319,48 @@ function uuc_options_page() {
 										</label>
 									</li>
 								</ul>
+							</div>
+						</li>
+
+						<li class="sub_settings" id="gf-api">
+							<div class="option_toggle">
+								<label><?php _e('Google Fonts', 'uuc_domain'); ?> <span class="tooltip" title="You can change the font used on the Under Construction Page.">?</span></label>
+							</div>
+							<div class="sub_setting">
+								<p>You can choose from over 800 Google Fonts <a target="_blank" href="https://fonts.google.com/">here</a>. Once you have chosen the font you like then add the name of the font below.</p>
+								<label class="description" for="uuc_settings[gf_name]"><?php _e('Google Font Name', 'uuc_domain'); ?></label>
+								<div id="font_name" style="display: inline-block;">
+									<input name="uuc_settings[gf_name]" id="uuc_settings[gf_name]" type="text" value="<?php if ( isset( $uuc_options['gf_name'] ) ) echo $uuc_options['gf_name']; ?>" />
+								</div>
+							</div>
+						</li>
+
+						<li class="sub_settings">
+
+							<div class="option_toggle">
+								<label><?php _e('Change Font Colour', 'uuc_domain'); ?>
+									<span class="tooltip" title="Use the colour picker below to choose a font colour.">?</span>
+								</label>
+							</div>
+
+							<div class="sub_setting">
+								<div>
+									<?php if ( $wp_version >= 3.5 ){ ?>
+										<label class="description" for="uuc_settings[font_color]"><?php _e('Select the Font Colour', 'uuc_domain'); ?></label>
+										<div id="fontcolor" style="display: inline-block;">
+											<input name="uuc_settings[font_color]" id="font-color" type="text" value="<?php if ( isset( $uuc_options['font_color'] ) ) { echo $uuc_options['font_color']; } else { echo '#000'; } ?>" />
+										</div>
+									<?php } else { ?>
+										<div id="fontcolor">
+											<p>
+											<div class="color-picker" style="position: relative;">
+												<input type="text" name="uuc_settings[font_color]" id="color" value="<?php if ( isset( $uuc_options['font_color'] ) ) echo $uuc_options['font_color']; ?>" />
+												<div style="position: absolute;" id="colorpicker"></div>
+											</div>
+											</p>
+										</div>
+									<?php } ?>
+								</div>
 							</div>
 						</li>
 					<ul>
@@ -564,6 +604,7 @@ function tip( $message, $title = '', $echo_tip = true ) {
 }
 
 function uuc_add_help_tab () {
+	global $uuc_options;
     $screen = get_current_screen();
 
     $screen->add_help_tab( array(

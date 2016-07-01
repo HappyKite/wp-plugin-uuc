@@ -80,6 +80,34 @@ function uuc_add_content() {
 
 		</script>
 
+		<?php if ( isset( $uuc_options['gf_name'] ) ) {
+			$font = ucwords( $uuc_options['gf_name'] );
+			$font_css = str_replace( '+', ' ', $font );
+			$font = str_replace( ' ', '+', $font );
+			?>
+			<link href="https://fonts.googleapis.com/css?family=<?php echo $font; ?>" rel="stylesheet">
+			<style>
+				body .uuc-holdingpage {
+					font-family: '<?php echo $font_css; ?>' !important;
+				}
+			</style>
+		<?php } else { ?>
+			<link href="https://fonts.googleapis.com/css?family=Verdana" rel="stylesheet">
+			<style>
+				body {
+					font-family: Verdana, sans-serif;
+				}
+			</style>
+		<?php } ?>
+
+		<?php if ( isset( $uuc_options['font_color'] ) ) { ?>
+			<style>
+				body .uuc-holdingpage {
+					color: <?php echo $uuc_options['font_color']; ?> !important;
+				}
+			</style>
+		<?php } ?>
+
 		<?php
 		echo '<script src="' . plugin_dir_url(__FILE__) . 'js/base.js"></script>';
 		echo '<script src="' . plugin_dir_url(__FILE__) . 'js/flipclock.js"></script>';

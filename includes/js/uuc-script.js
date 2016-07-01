@@ -70,6 +70,42 @@
 
 }(jQuery));
 
+(function ($) {
+    "use strict";
+
+    var font_default_color = '000000';
+
+    function pickColor(color) {
+        $('#font-color').val(color);
+    }
+    function toggle_text() {
+        var font_color = $('#font-color');
+        if(font_color.val() == undefined || '' === font_color.val().replace('#', '')) {
+            font_color.val(font_default_color);
+            pickColor(font_default_color);
+        } else {
+            pickColor(font_color.val());
+        }
+    }
+
+    $(document).ready(function () {
+        var font_color = $('#font-color');
+        font_color.wpColorPicker({
+            change: function () {
+                pickColor(font_color.wpColorPicker('color'));
+            },
+            clear: function () {
+                pickColor('');
+            }
+        });
+        $('#font-color').click(toggle_text);
+
+        toggle_text();
+
+    });
+
+}(jQuery));
+
 (function($) {
     
     $(document).on( 'click', '.nav-tab-wrapper a', function() {
