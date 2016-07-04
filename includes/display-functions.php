@@ -87,9 +87,10 @@ function uuc_add_content() {
 			?>
 			<link href="https://fonts.googleapis.com/css?family=<?php echo $font; ?>" rel="stylesheet">
 			<style>
-				body .uuc-holdingpage {
-					font-family: '<?php echo $font_css; ?>' !important;
+				html, * {
+					font-family: '<?php echo $font_css; ?>', sans-serif !important;
 				}
+				.flip-clock-wrapper{ font: normal 11px '<?php echo $font_css; ?>', sans-serif !important; }
 			</style>
 		<?php } else { ?>
 			<link href="https://fonts.googleapis.com/css?family=Verdana" rel="stylesheet">

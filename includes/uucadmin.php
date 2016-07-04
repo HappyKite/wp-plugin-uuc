@@ -183,7 +183,7 @@ function uuc_options_page() {
 											<input class="regular-text" id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
 											<span class="example_text"><?php _e('eg - 2016', 'uuc_domain'); ?></span>
 										</div>
-										<div class="settings_line">
+										<div class="settings_line showhide">
 											<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text', 'uuc_domain'); ?></label>
 											<input class="regular-text" id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
 											<span class="example_text"><?php _e('eg - Until the site goes live!', 'uuc_domain'); ?></span>
@@ -555,6 +555,21 @@ function uuc_options_page() {
 					//document.getElementById("support-tab").className = "nav-tab support-tab";
 					document.getElementById(id.id).className += " nav-tab-active";
 				}
+
+				function checkFlipClock( $this ){
+					var p = $this.parents('.sub_options').siblings('.sub_option_settings').find('.showhide');
+					if( $this.val() == 'flipclock' ) p.hide(); 
+					else p.show();
+				}
+
+				jQuery('[name="uuc_settings[cd_style]"]:checked').each(function(){
+					checkFlipClock( jQuery(this) );
+				});
+
+				jQuery('[name="uuc_settings[cd_style]"]').on('change', function(){
+					checkFlipClock( jQuery(this) );
+				});
+					
 	    		</script>
 
 	    		<script>

@@ -18,7 +18,7 @@
 
 #sections ul { list-style: none; margin: 0; padding: 20px 0; }
 #sections ul li { padding: 0 0 15px; }
-#sections label { vertical-align: top; display: inline-block; padding: 4px 24px 4px 0; min-width: 200px; position: relative; font-weight: bold; font-size: 14px; }
+#sections label { vertical-align: top; display: inline-block; padding: 4px 24px 4px 0; max-width: 200px; min-width:150px; position: relative; font-weight: bold; font-size: 14px; }
 #sections label span { position: absolute; right: 12px; top: center; }
 #sections .wysiwyg-wrap .wp-editor-tools { display: none; }
 #sections .wysiwyg-wrap .wp-editor-wrap { width: 700px; display: inline-block; }
@@ -103,7 +103,7 @@ ul { list-style-type: none; }
 /* frontend */
 
 
-.uuc-holdingpage{ max-width:1200px; left:0; right:0; margin:0 auto; padding: 0 15px; position: absolute; top:50%; transform: translateY( -50% ); text-align: center; }
+.uuc-holdingpage{ max-width:1200px; left:0; right:0; margin:0 auto; padding: 0 15px; position: absolute; top:50%; transform: translateY( -50% ) translateZ( 0 ); text-align: center; -webkit-filter: blur(0.000001px); -webkit-font-smoothing: antialiased; }
 .uuc-holdingpage h1, .uuc-holdingpage h2, .uuc-holdingpage h3{ margin-top:0; margin-bottom:30px; }
 .uuc-holdingpage h1{ font-size:2.5em; font-weight:bold; }
 .uuc-holdingpage h2{ font-size:1.75em; font-weight:400; }
@@ -116,9 +116,15 @@ ul { list-style-type: none; }
 .uuc-holdingpage .twitter a { background: url(../images/twitter.jpg) no-repeat center; } 
 .uuc-holdingpage .googleplus a { background: url(../images/googleplus.jpg) no-repeat center; } 
 .uuc-holdingpage .facebook a { background: url(../images/facebook.jpg) no-repeat center; } 
-.uuc-holdingpage .pinterest a { background: url(../images/pinterest.jpg) no-repeat center; } 
+.uuc-holdingpage .pinterest a { background: url(../images/pinterest.jpg) no-repeat center; }
+.uuc-holdingpage #subscribe, .uuc-holdingpage #cm-subscribe{ margin-bottom: 30px; }
+.uuc-holdingpage #subscribe input, .uuc-holdingpage #cm-subscribe input{
+	padding:8px 12px; font-size:16px; border: 1px solid #ddd; border-radius: 3px 0 0 3px;
+}
+.uuc-holdingpage #cm-subscribe input:first-child{ border-radius: 3px; }
+.uuc-holdingpage #subscribe button, .uuc-holdingpage #cm-subscribe button{ border-radius: 0 3px 3px 0; border:1px solid #000; background:#000; color:#FFF; text-transform:uppercase; padding:8px 12px; font-size:16px; }
 
-.uuc-holdingpage #hpy_progressbar{ width:100%; position: relative; height:50px; border-radius: 25px; overflow: hidden; border:1px solid #ccc; background:#eee; margin-bottom:45px; box-shadow: 2px 2px 3px rgba(0,0,0,0.2); }
+.uuc-holdingpage #hpy_progressbar{ width:100%; position: relative; height:50px; border-radius: 25px; overflow: hidden; background:#eee; margin-bottom:45px; box-shadow: 2px 2px 3px rgba(0,0,0,0.2); }
 .uuc-holdingpage #hpy_progressbar .hpy_progress_inner{ position: absolute; left:0; top:0; bottom:0; box-shadow: inset 0 -40px 50px -40px rgba(0,0,0,0.4); background: #FFF; }
 
 .uuc-holdingpage .flip-clock-wrapper{ margin-bottom: 45px !important; }
