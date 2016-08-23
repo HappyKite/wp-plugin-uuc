@@ -34,6 +34,9 @@ This Under Construction plugin allows for many levels of customisation, with mil
 * NEW - Supports Twitter/Facebook/Pinterest/Google+.
 * NEW - Added User Select to allow for different user roles to see the hidden site.
 * NEW - Added optional Progress Bar.
+* NEW - Added Date picker.
+* NEW - Addes percent slider
+* NEW - Added google fonts selector
 * FIX - Fixed JS bug.
 * FIX - Fixed enqueue scripts load placement.
 * CHANGE - Moved the Under Construction menu to Tools.

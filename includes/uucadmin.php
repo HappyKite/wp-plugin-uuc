@@ -169,20 +169,32 @@ function uuc_options_page() {
 									</div>
 									<div class="sub_option_settings">
 										<div class="settings_line">
-											<label class="description" for="uuc_settings[cdday]"><?php _e('Enter the Date', 'uuc_domain'); ?></label>
-											<input class="regular-text" id="uuc_settings[cdday]" name="uuc_settings[cdday]" type="text" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
-											<span class="example_text"><?php _e('eg - 12', 'uuc_domain'); ?></span>
-										</div>
-										<div class="settings_line">
-											<label class="description" for="uuc_settings[cdmonth]"><?php _e('Enter the Month', 'uuc_domain'); ?></label>
-											<input class="regular-text" id="uuc_settings[cdmonth]" name="uuc_settings[cdmonth]" type="text" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
-											<span class="example_text"><?php _e('eg - 4', 'uuc_domain'); ?></span>
-										</div>
-										<div class="settings_line">
-											<label class="description" for="uuc_settings[cdyear]"><?php _e('Enter the Year', 'uuc_domain'); ?></label>
-											<input class="regular-text" id="uuc_settings[cdyear]" name="uuc_settings[cdyear]" type="text" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
-											<span class="example_text"><?php _e('eg - 2016', 'uuc_domain'); ?></span>
-										</div>
+											<label class="description" for="uuc_date"><?php _e('Enter the Date', 'uuc_domain'); ?></label>
+											<input class="regular-text" type="text" id="uuc_date" name="uuc_settings[date]" value="<?php 
+												if( isset($uuc_options['cdday'] ) && isset($uuc_options['cdday']) && isset($uuc_options['cdday'] ) ){
+														echo $uuc_options['cdday'] . '-' . $uuc_options['cdmonth'] . '-' . $uuc_options['cdyear']; 
+												} 
+											?>">
+											<input class="regular-text" id="uuc_day" name="uuc_settings[cdday]" type="hidden" value="<?php if(isset($uuc_options['cdday'])) { echo $uuc_options['cdday']; } ?>"/>
+											<input class="regular-text" id="uuc_month" name="uuc_settings[cdmonth]" type="hidden" value="<?php if(isset($uuc_options['cdmonth'])) { echo $uuc_options['cdmonth']; } ?>"/>
+											<input class="regular-text" id="uuc_year" name="uuc_settings[cdyear]" type="hidden" value="<?php if(isset($uuc_options['cdyear'])) { echo $uuc_options['cdyear']; } ?>"/>
+
+											<script type="text/javascript">
+												jQuery(document).ready(function() {
+												    jQuery('#uuc_date').datepicker({
+												        dateFormat : 'dd-mm-yy',
+												        onSelect : function(dateText, inst){
+												        	var date = dateText.split('-');
+												        	$('input#uuc_day').val(date[0]);
+												        	$('input#uuc_month').val(date[1]);
+												        	$('input#uuc_year').val(date[2]);
+												        }
+												    });
+												});
+											</script>
+
+										</div>	
+										
 										<div class="settings_line showhide">
 											<label class="description" for="uuc_settings[cdtext]"><?php _e('Enter the Countdown text', 'uuc_domain'); ?></label>
 											<input class="regular-text" id="uuc_settings[cdtext]" name="uuc_settings[cdtext]" type="text" value="<?php if(isset($uuc_options['cdtext'])) { echo $uuc_options['cdtext']; } ?>"/>
@@ -203,10 +215,28 @@ function uuc_options_page() {
 								
 								<div class="sub_setting" <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progressbar_settings">
 									<div class="setting_option">
-										<label class="description" for="uuc_settings[progresspercent]"><?php _e('Percent Complete', 'uuc_domain'); ?></label>
-										<div class="after_symbol after_percent">
-											<input class="regular-text" id="uuc_settings[progresspercent]" name="uuc_settings[progresspercent]" type="text" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
-										</div>
+
+										<label class="description" for="percent_slider"><?php _e('Percent Complete', 'uuc_domain'); ?></label>
+										<div id="percent_slider" style="display:inline-block; max-width:400px; width:100%;"></div><span id="percent_slider_output"><?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?></span>
+										<script type="text/javascript">
+											jQuery(document).ready(function() {
+											    jQuery('#percent_slider').slider({
+											    	animate:true,
+											    	max:100,
+											    	min:0,
+											    	<?php if(isset($uuc_options['progresspercent'])) { echo 'value: ' . $uuc_options['progresspercent'] .','; }  ?>
+											    	change: function( event, ui ){
+											    		$('#percent_slider_output').text(ui.value);
+											    		$('#uuc_progresspercent').val(ui.value);
+											    	}
+											   	});
+											});
+										</script>
+										<input id="uuc_progresspercent" name="uuc_settings[progresspercent]" type="hidden" value="<?php if(isset($uuc_options['progresspercent'])) { echo $uuc_options['progresspercent']; } ?>"/>
+
+
+
+
 									</div>
 
 									<div <?php if( $uuc_options['progressbar'] == false ) { ?> style="visibility: hidden; display: none;" <?php } ?> id="progress_bar-colour" class="setting_option">
@@ -327,11 +357,32 @@ function uuc_options_page() {
 								<label><?php _e('Google Fonts', 'uuc_domain'); ?> <span class="tooltip" title="You can change the font used on the Under Construction Page.">?</span></label>
 							</div>
 							<div class="sub_setting">
-								<p>You can choose from over 800 Google Fonts <a target="_blank" href="https://fonts.google.com/">here</a>. Once you have chosen the font you like then add the name of the font below.</p>
-								<label class="description" for="uuc_settings[gf_name]"><?php _e('Google Font Name', 'uuc_domain'); ?></label>
+								<p>You can choose from over 800 Google Fonts <a target="_blank" href="https://fonts.google.com/">here</a>. Once you have chosen the font you like select it from the list below.</p>
+								<label class="description" for="uuc_google_font"><?php _e('Google Font Name', 'uuc_domain'); ?></label>
 								<div id="font_name" style="display: inline-block;">
-									<input name="uuc_settings[gf_name]" id="uuc_settings[gf_name]" type="text" value="<?php if ( isset( $uuc_options['gf_name'] ) ) echo $uuc_options['gf_name']; ?>" />
+									<select id="uuc_google_font" name="uuc_settings[gf_name]">
+										<option value="">Choose a font</option>
+									</select>
 								</div>
+
+								<script>
+									function onFontsLoad(fonts){
+											var selected = "<?php echo ( isset( $uuc_options['gf_name'] ) && !empty( $uuc_options['gf_name'] ) && $uuc_options['gf_name'] != ''  ) ? $uuc_options['gf_name'] : ''; ?>";
+											for (var i = 0; i < fonts.items.length; i++) {
+											var family = fonts.items[i].family;  
+										     	jQuery('#uuc_google_font')
+											         .append(jQuery("<option></option>")
+											         .attr("value", family)
+											         .attr('data-family', family)
+											         .text(family));
+
+										      if( selected === family ){
+										      	jQuery('#uuc_google_font option[data-family="'+family+'"').attr('selected', 'selected');
+										      }
+									    } 
+									}
+								</script>
+								<script src="https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAc2BbG1P949I0tZg40Ry6HgE6qlgvoarE&callback=onFontsLoad"></script>
 							</div>
 						</li>
 

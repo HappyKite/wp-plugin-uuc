@@ -82,6 +82,7 @@ ul { list-style-type: none; }
 .no-js h2.nav-tab-wrapper {
 	display:none;
 }
+#percent_slider_output{ display: inline-block; margin-left: 10px; font-weight: bold; font-size: 16px; padding-left: 10px; border-left: 1px solid #ccc; }
 
 .no-js #sections {
 	border-top:1px solid #ccc;

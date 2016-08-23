@@ -18,6 +18,8 @@ add_action('admin_init', 'uuc_admin_enqueue_scripts_farb');
 
 function uuc_load_scripts() {
 	wp_enqueue_style('uuc-styles', plugin_dir_url(__FILE__) . 'css/plugin_styles.css');
+	wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_script('jquery-ui-slider');
 
 }
 
