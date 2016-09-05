@@ -136,3 +136,8 @@ add_action( 'wp_loaded', 'hpy_uuc_load_email_class', 20 );
 function hpy_uuc_load_email_class() {
 	require_once dirname( __FILE__ ) . '/classes/class-uuc-email-support.php';
 }
+
+function load_wp_media_files() {
+    wp_enqueue_media();
+}
+add_action( 'admin_enqueue_scripts', 'load_wp_media_files' );

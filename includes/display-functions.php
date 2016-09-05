@@ -71,6 +71,8 @@ function uuc_add_content() {
 		FinishMessage = "It is finally here!";
 		</script>
 
+		<title><?php echo get_bloginfo(); ?></title>
+
 		<script>
 		function sendEmailAddress() {
 			var customerEmail = document.getElementById('customer-email').value;

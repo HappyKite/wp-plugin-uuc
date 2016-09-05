@@ -4,6 +4,10 @@ function uuc_options_page() {
 
 	global $uuc_options, $wp_version, $wp_roles;
 
+	wp_enqueue_script('jquery');
+	// This will enqueue the Media Uploader script
+	wp_enqueue_media();
+
 	ob_start(); ?>
 	<div class="wrap">
 		<div id="icon-tools" class="icon32"></div><h2>Under Construction Plugin Options</h2>
@@ -265,8 +269,32 @@ function uuc_options_page() {
 				<section style="display:none;">
 					<ul>
 						<li class="sub_settings">
-							<label for="uuc_site_logo"><?php _e('Logo', 'uuc_domain') ?></label>
-							<input type="text" name="uuc_settings[site_logo]" value="<?php if ( isset( $uuc_options['site_logo'] ) ) echo $uuc_options['site_logo']; ?>" />
+							<label for="image_url">Logo</label>
+							<input type="text" name="uuc_settings[site_logo]" id="image_url" class="regular-text" value="<?php if ( isset( $uuc_options['site_logo'] ) ) echo $uuc_options['site_logo']; ?>" >
+							<input type="button" name="upload-btn" id="upload-btn" class="button-secondary" value="Upload Image">
+
+							<script type="text/javascript">
+								jQuery(document).ready(function($){
+									$('#upload-btn').click(function(e) {
+										e.preventDefault();
+										var image = wp.media({
+											title: 'Upload Image',
+											// mutiple: true if you want to upload multiple files at once
+											multiple: false
+										}).open()
+											.on('select', function(e){
+												// This will return the selected image from the Media Uploader, the result is an object
+												var uploaded_image = image.state().get('selection').first();
+												// We convert uploaded_image to a JSON object to make accessing it easier
+												// Output to the console uploaded_image
+												console.log(uploaded_image);
+												var image_url = uploaded_image.toJSON().url;
+												// Let's assign the url value to the input field
+												$('#image_url').val(image_url);
+											});
+									});
+								});
+							</script>
 						</li>
 						
 						<li class="sub_settings">
