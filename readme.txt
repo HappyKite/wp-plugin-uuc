@@ -37,6 +37,7 @@ This Under Construction plugin allows for many levels of customisation, with mil
 * NEW - Added Date picker.
 * NEW - Addes percent slider
 * NEW - Added google fonts selector
+* NEW - Can now add logo
 * FIX - Fixed JS bug.
 * FIX - Fixed enqueue scripts load placement.
 * CHANGE - Moved the Under Construction menu to Tools.

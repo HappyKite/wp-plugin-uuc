@@ -11,11 +11,11 @@ $subscriber = $MailChimp->call( 'lists/subscribe', array(
 ));
 
 if ( ! empty( $subscriber['leid'] ) ) {
-   echo "success";
+   echo "Success";
 }
 else
 {
-    echo "fail";
+    echo "Failure";
 }
 
 ?>

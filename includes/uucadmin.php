@@ -265,6 +265,11 @@ function uuc_options_page() {
 				<section style="display:none;">
 					<ul>
 						<li class="sub_settings">
+							<label for="uuc_site_logo"><?php _e('Logo', 'uuc_domain') ?></label>
+							<input type="text" name="uuc_settings[site_logo]" value="<?php if ( isset( $uuc_options['site_logo'] ) ) echo $uuc_options['site_logo']; ?>" />
+						</li>
+						
+						<li class="sub_settings">
 							<div class="option_toggle">
 								<label><?php _e('Background Style', 'uuc_domain'); ?> <span class="tooltip" title="You can choose between a solid colour, which will open a colour wheel, or choose from a selection of different backgrounds.">?</span></label>
 							</div>
@@ -294,8 +299,8 @@ function uuc_options_page() {
 								</p>
 							</div>
 							<?php } ?>
-						</li>
-
+						</li>						
+						
 						<li class="sub_settings">
 							<div class="sub_setting" id="patternedbg" <?php if($uuc_options['background_style'] == "solidcolor"){ ?>style="visibility: hidden; display: none;"<?php }; ?>>
 								<label><?php _e('Background Choice', 'uuc_domain'); ?> <span class="tooltip" title="Choose your background from the choice below.">?</span></label>
@@ -350,7 +355,7 @@ function uuc_options_page() {
 									</li>
 								</ul>
 							</div>
-						</li>
+						</li>						
 
 						<li class="sub_settings" id="gf-api">
 							<div class="option_toggle">

@@ -24,6 +24,10 @@ function uuc_user_check(){
 		$user_roles = $current_user->roles;
 		$user_role = array_shift($user_roles);
 
+		if ( is_null($allowed) ){
+				return uuc_add_content();
+		}
+
 		if ( in_array( $user_role, $allowed ) ) {
 			return;
 		} else {
@@ -259,7 +263,8 @@ function uuc_add_content() {
 				}
 			}
 
-			$html .= '<div class="uuc-holdingpage">';
+			$html .= '<div class="uuc-holdingpage"><div class="uuc-inner">';
+			$html .= '<img class="uuc-site-logo" src="' . $uuc_options['site_logo'] . '" alt="Logo">';
 			$html .= '<h1>' . $uuc_options['website_name'] . '</h1>';
 			if(isset($uuc_options['holding_message'])) {
 				$html .= '<h2>' . $uuc_options['holding_message'] . '</h2>';
@@ -294,6 +299,11 @@ function uuc_add_content() {
 				$html .= '</div>';
 			}
 
+			if( !empty($uuc_options['mc_api_key']) && !empty($uuc_options['cm_api_key']) ){
+				$mail_headings = true;
+			}else{
+				$mail_headings = false;
+			}
 
 			if( !empty($uuc_options['mc_api_key']) ) {
 				// $html .= '<form action="" method="post">';
@@ -304,8 +314,8 @@ function uuc_add_content() {
 
 				$html .= '<div class="message"></div>';
 
-				$html .= '<form  role="form" method="post" id="subscribe">';
-				    
+				$html .= '<form role="form" method="post" id="subscribe" class="uuc_email_form">';
+				    if( $mail_headings ) $html .= '<img src="' . plugin_dir_url(__FILE__) . 'images/mailchimp.png" alt="Campaign Monitor Logo" />';
 				    $html .= '<input type="email"  id="email" name="email" placeholder="you@yourself.com" value="">';
 				    $html .= '<button type="submit">SUBSCRIBE</button>';
 				    
@@ -316,8 +326,8 @@ function uuc_add_content() {
 			if( !empty($uuc_options['cm_api_key']) ) {
 				$html .= '<div class="cm-message"></div>';
 
-				$html .= '<form  role="form" method="post" id="cm-subscribe">';
-				    
+				$html .= '<form role="form" method="post" id="cm-subscribe" class="uuc_email_form">';
+				   if( $mail_headings ) $html .= '<img src="' . plugin_dir_url(__FILE__) . 'images/campaign.png" alt="Campaign Monitor Logo" />';
 				    $html .= '<input type="email"  id="cm-email" name="cm-email" placeholder="you@yourself.com" value="">';
 				    $html .= '<input type="name" id="cm-name" name="cm-name" placeholder="Your Name" value="" >';
 				    $html .= '<button type="submit">SUBSCRIBE</button>';
@@ -341,15 +351,28 @@ function uuc_add_content() {
 			if($uuc_options['social_media'] == true ) {
 				$html .= '<div class="social-media">';
 				$html .= '<ul>';
-					$html .= '<li class="twitter"><a href="http://www.twitter.com/' . $uuc_options['twitter'] . '">Twitter</a></li>';
-					$html .= '<li class="facebook"><a href="http://www.facebook.com/' . $uuc_options['facebook'] . '">Facebook</a></li>';
-					$html .= '<li class="pinterest"><a href="http://www.pinterest.com/' . $uuc_options['pinterest'] . '">Pinterest</a></li>';
-					$html .= '<li class="googleplus"><a href="http://plus.google.com/' . $uuc_options['googleplus'] . '">Google Plus</a></li>';
+
+					if( !empty( $uuc_options['twitter'] ) && '' !== $uuc_options['twitter'] ){
+						$html .= '<li class="twitter"><a href="http://www.twitter.com/' . $uuc_options['twitter'] . '">Twitter</a></li>';
+					}
+					
+					if( !empty( $uuc_options['facebook'] ) && '' !== $uuc_options['twitter'] ){
+						$html .= '<li class="facebook"><a href="http://www.facebook.com/' . $uuc_options['facebook'] . '">Facebook</a></li>';
+					}
+
+					if( !empty( $uuc_options['pinterest'] ) && '' !== $uuc_options['twitter'] ){
+						$html .= '<li class="pinterest"><a href="http://www.pinterest.com/' . $uuc_options['pinterest'] . '">Pinterest</a></li>';
+					}
+
+					if( !empty( $uuc_options['googleplus'] ) && '' !== $uuc_options['twitter'] ){
+						$html .= '<li class="googleplus"><a href="http://plus.google.com/' . $uuc_options['googleplus'] . '">Google Plus</a></li>';
+					}
+					
 				$html .= '</ul>';
 				$html .= '</div>';
 			}
 
-			$html .= '</div>';
+			$html .= '</div></div>';
 			echo $html; 
 			?>
 			<?php exit;
