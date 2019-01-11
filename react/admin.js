@@ -8,5 +8,6 @@ import ReactDOM from 'react-dom';
 import Admin from './containers/Admin.jsx';
 
 document.addEventListener('DOMContentLoaded', function() {
-  ReactDOM.render(<Admin wpObject={window.wpr_object} />, document.getElementById('wp-reactivate-admin'));
+  console.log( window.uuc_object );
+  ReactDOM.render(<Admin wpObject={window.uuc_object} />, document.getElementById('uuc-admin')); 
 });
