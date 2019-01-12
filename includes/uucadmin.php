@@ -11,8 +11,8 @@ class UUC_Admin{
 
 	public function enqueue_scripts( $hook ){
 		if( 'tools_page_uuc-options' === $hook ){
-			wp_enqueue_style( UCC_PREFIX . 'admin_css', UUC_PATH . 'includes/css/plugin_styles.css', array() );
-			wp_enqueue_script( UCC_PREFIX . 'admin_js', UUC_ASSETS . 'js/admin.js', array(), filemtime( UUC_PATH . 'assets/js/admin.js' ), true );
+			wp_enqueue_style( UCC_PREFIX . 'admin_css', UUC_ASSETS . 'css/main.css', array(), filemtime( UUC_PATH . 'assets/css/main.css' ) );
+			wp_enqueue_script( UCC_PREFIX . 'admin_js', UUC_ASSETS . 'js/main.js', array(), filemtime( UUC_PATH . 'assets/js/main.js' ), true );
 			wp_localize_script( UCC_PREFIX . 'admin_js', 'uuc_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 				'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),

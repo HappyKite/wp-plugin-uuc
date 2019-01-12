@@ -1,13 +1,15 @@
 /* global window, document */
 if (! window._babelPolyfill) {
-  require('@babel/polyfill');
+    require('@babel/polyfill');
 }
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Admin from './containers/Admin.jsx';
+import Admin from './containers/Admin.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log( window.uuc_object );
-  ReactDOM.render(<Admin wpObject={window.uuc_object} />, document.getElementById('uuc-admin')); 
+    ReactDOM.render(
+        <Admin wpObject={window.uuc_object} />, 
+        document.getElementById('uuc-admin')
+    ); 
 });
