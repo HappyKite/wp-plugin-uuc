@@ -1,4 +1,52 @@
-.uuc_menu{
-    background:green;
+#uucMain{
+    background: #fbfbfb;
+    border: 2px solid #e4e4e4;
+    border-radius: 5px;
+    display: flex;
+}
+
+#uucMain--title{
+    margin-bottom:2em;
+}
+
+.uucMenu{
+    flex: 0 0 250px;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #ececec;
+}
+
+.uucMenu--item{
+    align-items: center;
+    display: flex;
+    padding:1em 1.3em;
+    box-sizing: border-box;
+    border-bottom: 2px solid #ececec;
+    &:last-child{
+        border-bottom:0;
+    }
+    .uuc--icon{
+        height:2.2em;
+        width:2.2em;
+    }
+}
+.uucMenu--itemTitle{
+    padding:0.3em 0.6em;
+    font-size: 20px;
+    font-weight: 600;
     
+    span{
+        display:block;
+    }
+}
+
+.uucMenu--subtitle{
+    font-size: 12px;
+    font-style: italic;
+    font-weight:400;
+}
+
+.uuc--icon{
+    height:1.1em;
+    width:1.1em;
 }

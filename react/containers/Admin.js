@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetchWP from '../utils/fetchWP';
 import Menu from '../components/Menu';
+import Settings from '../components/Settings';
 
 export default class Admin extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            exampleSetting: '',
+            textInput: '',
             savedExampleSetting: ''
         };
 
@@ -17,7 +18,7 @@ export default class Admin extends Component {
             restNonce: this.props.wpObject.api_nonce,
         });
 
-        this.getSetting();
+        // this.getSetting();
     }
 
     getSetting = () => {
@@ -59,8 +60,13 @@ export default class Admin extends Component {
     }
 
     updateInput = (event) => {
+ 
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
         this.setState({
-            exampleSetting: event.target.value,
+            [name]: value,
         });
     }
 
@@ -82,31 +88,13 @@ export default class Admin extends Component {
         return (
             <div className="wrap">
                 <form>
-                    <div id="uuc-main">
+                    <h1 id="uucMain--title">Under Construction Plugin Options</h1>
+                    <div id="uucMain">
                         <Menu />
-                    </div>
-                    <h1>Under Construction Plugin Options</h1>
-                    
-                    {/* <label>
-                    Example Setting:
-                        <input
-                        type="text"
-                        value={this.state.exampleSetting}
-                        onChange={this.updateInput}
+                        <Settings 
+                            onUpdate={ this.updateInput }
                         />
-                    </label>
-
-                    <button
-                        id="save"
-                        className="button button-primary"
-                        onClick={this.handleSave}
-                    >Save</button>
-
-                    <button
-                        id="delete"
-                        className="button button-primary"
-                        onClick={this.handleDelete}
-                    >Delete</button> */}
+                    </div>
                 </form>
             </div>
         );

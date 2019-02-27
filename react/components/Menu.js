@@ -5,8 +5,10 @@ import MenuItem from './MenuItem.js';
 export default class Menu extends Component {
     render(){
         return(
-            <div className="uuc_menu">
-                <MenuItem title="Main" iconId="cog" />
+            <div className="uucMenu">
+                <MenuItem title="Main" iconId="cog" subtitle="where the settings are" />
+                <MenuItem title="Styling" iconId="cog" subtitle="Make it pop yo!" />
+                <MenuItem title="Other" iconId="cog" subtitle="bits and bobs" />
             </div>
         );
     }
