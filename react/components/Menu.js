@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import MenuItem from './MenuItem.js';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default class Menu extends Component {
+
+
+    
     render(){
         return(
             <div className="uucMenu">
-                <MenuItem title="Main" iconId="cog" subtitle="where the settings are" />
-                <MenuItem title="Styling" iconId="cog" subtitle="Make it pop yo!" />
-                <MenuItem title="Other" iconId="cog" subtitle="bits and bobs" />
+                <MenuItem title="Main" data-section="main" iconId="cog" subtitle="where the settings are" updateSection={ ( e ) => this.props.updateSection( 'main' ) } />
+                <MenuItem title="Styling" data-section="styling" iconId="cog" subtitle="Make it pop yo!" updateSection={ ( e ) => this.props.updateSection( 'styling' ) }  />
+                <MenuItem title="Other" data-section="other" iconId="cog" subtitle="bits and bobs" updateSection={ ( e ) => this.props.updateSection( 'other' ) }  />
             </div>
         );
     }
 }
 
-// when passing props down declare propTypes eg. { name: propTypes.string }
+Menu.propTypes = {
+    updateSection: PropTypes.func,
+};

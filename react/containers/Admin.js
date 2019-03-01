@@ -9,8 +9,8 @@ export default class Admin extends Component {
         super(props);
 
         this.state = {
-            textInput: '',
-            savedExampleSetting: ''
+            'section' : 'main',
+            'setting_main-text': '',
         };
 
         this.fetchWP = new fetchWP({
@@ -63,10 +63,16 @@ export default class Admin extends Component {
  
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        const name = 'setting_' + target.name.match(/\[(.*?)\]/)[1];
 
         this.setState({
-            [name]: value,
+            [ name ]: value,
+        });
+    }
+
+    updateSection = ( section ) => {
+        this.setState({
+            section: section,
         });
     }
 
@@ -87,13 +93,11 @@ export default class Admin extends Component {
     render() {
         return (
             <div className="wrap">
+                <h1 id="uucMain--title">Under Construction Plugin Options</h1>
                 <form>
-                    <h1 id="uucMain--title">Under Construction Plugin Options</h1>
                     <div id="uucMain">
-                        <Menu />
-                        <Settings 
-                            onUpdate={ this.updateInput }
-                        />
+                        <Menu active={ this.state.section } updateSection={ this.updateSection } />
+                        <Settings section={ this.state.section } onUpdate={ this.updateInput } state={ this.state } />
                     </div>
                 </form>
             </div>
