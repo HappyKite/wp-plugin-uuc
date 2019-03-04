@@ -12,6 +12,7 @@ class UUC_Admin{
 	public function enqueue_scripts( $hook ){
 		if( 'tools_page_uuc-options' === $hook ){
 			wp_enqueue_style( UCC_PREFIX . 'admin_css', UUC_ASSETS . 'css/main.css', array(), filemtime( UUC_PATH . 'assets/css/main.css' ) );
+			wp_enqueue_style( UCC_PREFIX . 'wysiwyg-styles', UUC_ASSETS . 'css/react-draft-wysiwyg.css', array(), filemtime( UUC_PATH . 'assets/css/react-draft-wysiwyg.css' ) );
 			wp_enqueue_script( UCC_PREFIX . 'admin_js', UUC_ASSETS . 'js/main.js', array(), filemtime( UUC_PATH . 'assets/js/main.js' ), true );
 			wp_localize_script( UCC_PREFIX . 'admin_js', 'uuc_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),

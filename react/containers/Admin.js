@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import fetchWP from '../utils/fetchWP';
 import Menu from '../components/Menu';
 import Settings from '../components/Settings';
+import Activate from '../components/Activate';
 
 export default class Admin extends Component {
     constructor(props) {
@@ -10,7 +11,17 @@ export default class Admin extends Component {
 
         this.state = {
             'section' : 'main',
-            'setting_main-text': '',
+            // main
+            'setting_page_title': '',
+            'setting_holding_message': '',
+            'setting_countdown': '',
+            'setting_progress': '',
+            //styling
+            'setting_logo': '',
+
+
+
+            'active' : true,
         };
 
         this.fetchWP = new fetchWP({
@@ -90,11 +101,16 @@ export default class Admin extends Component {
         this.deleteSetting();
     }
 
+    activate = ( event ) => {
+        console.log('activate');
+    }
+
     render() {
         return (
             <div className="wrap">
                 <h1 id="uucMain--title">Under Construction Plugin Options</h1>
                 <form>
+                    <Activate active={ this.state.active } activate={ this.activate }/>
                     <div id="uucMain">
                         <Menu active={ this.state.section } updateSection={ this.updateSection } />
                         <Settings section={ this.state.section } onUpdate={ this.updateInput } state={ this.state } />

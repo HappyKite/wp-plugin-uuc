@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class SettingText extends Component {
+export default class SettingNumber extends Component {
 
     render(){
         return(
@@ -11,7 +11,7 @@ export default class SettingText extends Component {
                     name={ "uuc-setting[" + this.props.name + "]" }
                     id={ this.props.name }
                     value={ this.props.value || '' }
-                    type="text"
+                    type="number"
                     onChange={ this.props.onUpdate }
                 />
             </p>
@@ -19,7 +19,7 @@ export default class SettingText extends Component {
     }
 }
 
-SettingText.propTypes = {
+SettingNumber.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     name: PropTypes.string,
