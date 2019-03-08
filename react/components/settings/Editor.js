@@ -6,15 +6,13 @@ export default class SettingEditor extends Component {
 
     render(){
         return(
-            <p>
-                <Editor
-                    // editorState={editorState}
-                    toolbarClassName="toolbarClassName"
-                    wrapperClassName="wrapperClassName"
-                    editorClassName="editorClassName"
-                    onEditorStateChange={this.onEditorStateChange}
-                />
-            </p>
+            <Editor
+                // editorState={editorState}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                onEditorStateChange={this.onEditorStateChange}
+            />
         );
     }
 }

@@ -16,7 +16,7 @@ class UUC_Admin{
 			wp_enqueue_script( UCC_PREFIX . 'admin_js', UUC_ASSETS . 'js/main.js', array(), filemtime( UUC_PATH . 'assets/js/main.js' ), true );
 			wp_localize_script( UCC_PREFIX . 'admin_js', 'uuc_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
-				'api_url'	  => rest_url( $this->plugin_slug . '/v1/' ),
+				'api_url'	  => rest_url( $this->plugin_slug . '/uuc/v1/' ),
 				)
 			);
 		}

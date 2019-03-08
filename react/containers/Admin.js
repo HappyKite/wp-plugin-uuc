@@ -14,7 +14,6 @@ export default class Admin extends Component {
             // main
             'setting_page_title': '',
             'setting_holding_message': '',
-            'setting_countdown': '',
             'setting_progress': '',
             //styling
             'setting_logo': '',
@@ -29,41 +28,34 @@ export default class Admin extends Component {
             restNonce: this.props.wpObject.api_nonce,
         });
 
-        // this.getSetting();
+        this.getSettings();
     }
 
-    getSetting = () => {
-        this.fetchWP.get( 'example' )
+    getSettings = () => {
+        this.fetchWP.get( 'get_settings' )
             .then(
-                (json) => this.setState({
-                    exampleSetting: json.value,
-                    savedExampleSetting: json.value
-                }),
+                (json) => this.processOkResponse( json, 'saved' ),
                 (err) => console.log( 'error', err )
             );
     };
 
-    updateSetting = () => {
-        this.fetchWP.post( 'example', { exampleSetting: this.state.exampleSetting } )
+    updateSettings = () => {
+        console.log('update')
+        this.fetchWP.post( 'update_settings', { settings: this.state } )
             .then(
                 (json) => this.processOkResponse( json, 'saved' ),
                 (err) => console.log('error', err )
             );
     }
 
-    deleteSetting = () => {
-        this.fetchWP.delete( 'example' )
-            .then(
-                (json) => this.processOkResponse( json, 'deleted' ),
-                (err) => console.log('error', err )
-            );
-    }
-
     processOkResponse = (json, action) => {
+        console.log( json );
         if (json.success) {
             this.setState({
-                exampleSetting: json.value,
-                savedExampleSetting: json.value,
+                setting_page_title: json.setting.page_title,
+                setting_holding_message: json.setting.holding_message,
+                setting_countdown: json.setting.countdown,
+                setting_progress: json.setting.progress,
             });
         } else {
             console.log(`Setting was not ${action}.`, json);
@@ -87,21 +79,7 @@ export default class Admin extends Component {
         });
     }
 
-    handleSave = (event) => {
-        event.preventDefault();
-        if ( this.state.exampleSetting === this.state.savedExampleSetting ) {
-            console.log('Setting unchanged');
-        } else {
-            this.updateSetting();
-        }
-    }
-
-    handleDelete = (event) => {
-        event.preventDefault();
-        this.deleteSetting();
-    }
-
-    activate = ( event ) => {
+    activate = () => {
         console.log('activate');
     }
 
@@ -109,13 +87,11 @@ export default class Admin extends Component {
         return (
             <div className="wrap">
                 <h1 id="uucMain--title">Under Construction Plugin Options</h1>
-                <form>
-                    <Activate active={ this.state.active } activate={ this.activate }/>
-                    <div id="uucMain">
-                        <Menu active={ this.state.section } updateSection={ this.updateSection } />
-                        <Settings section={ this.state.section } onUpdate={ this.updateInput } state={ this.state } />
-                    </div>
-                </form>
+                <Activate active={ this.state.active } activate={ this.activate }/>
+                <div id="uucMain">
+                    <Menu active={ this.state.section } updateSection={ this.updateSection } />
+                    <Settings section={ this.state.section } onUpdate={ this.updateInput } state={ this.state } onSave={ this.updateSettings } />
+                </div>
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class SettingText extends Component {
+export default class Text extends Component {
 
     render(){
         return(
@@ -19,7 +19,7 @@ export default class SettingText extends Component {
     }
 }
 
-SettingText.propTypes = {
+Text.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     name: PropTypes.string,

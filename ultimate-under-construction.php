@@ -145,3 +145,37 @@ function load_wp_media_files() {
     wp_enqueue_media();
 }
 add_action( 'admin_enqueue_scripts', 'load_wp_media_files' );
+
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'uuc/v1', '/get_settings/', array(
+        'methods' => 'GET',
+        'callback' => 'get_uuc_settings_object',
+    ) );
+
+    register_rest_route( 'uuc/v1', '/update_settings/', array(
+        'methods' => 'POST',
+        'callback' => 'get_uuc_settings_object',
+    ) );
+} );
+
+function get_uuc_settings_object(){
+    $settings = array();
+    $settings['page_title'] = false !== get_option('uuc_page_title') ? get_option('uuc_page_title') : '' ;
+    $settings['holding_message'] = false !== get_option('uuc_holding_message') ? get_option('uuc_holding_message') : '' ;
+    $settings['editor'] = false !== get_option('uuc_editor') ? get_option('uuc_editor') : '' ;
+    $settings['progress'] = false !== get_option('uuc_progress') ? get_option('uuc_progress') : '' ;
+
+    return new WP_REST_Response( array('success' => true, 'setting' => $settings ) );
+}
+
+function update_uuc_settings( $request ){
+    $params = $request->get_params();
+
+    foreach( $params as $param => $value ){
+        if( 0 === strpos( 'setting_', $value ) ){
+            update_option( str_replace( 'setting_', '', $param ), $value );
+        }
+    }
+
+    return new WP_REST_Response( array('success' => true, 'setting' => $params ) );
+}
