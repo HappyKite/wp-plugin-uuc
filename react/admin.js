@@ -10,6 +10,6 @@ import Admin from './containers/Admin.js';
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
         <Admin wpObject={window.uuc_object} />, 
-        document.getElementById('uuc-admin')
+		document.getElementById('uuc-admin')
     ); 
 });

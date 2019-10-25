@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Ultimate Under Construction page
+Plugin Name: Ultimate Under Construction page - react
 Plugin URI: http://www.happykite.co.uk
 Description: Once Active this will replace your Wordpress site with a customizable Under Construction holding page. Admins will still be able to log in and see the original site.
 Author: HappyKite
@@ -161,9 +161,10 @@ add_action( 'rest_api_init', function () {
 function get_uuc_settings_object(){
     $settings = array();
     $settings['page_title'] = false !== get_option('uuc_page_title') ? get_option('uuc_page_title') : '' ;
-    $settings['holding_message'] = false !== get_option('uuc_holding_message') ? get_option('uuc_holding_message') : '' ;
+    $settings['holding_message'] = false !== get_option('uuc_holding_message') ? get_option('uuc_holding_message') : '';
     $settings['editor'] = false !== get_option('uuc_editor') ? get_option('uuc_editor') : '' ;
-    $settings['progress'] = false !== get_option('uuc_progress') ? get_option('uuc_progress') : '' ;
+	$settings['progress'] = false !== get_option('uuc_progress') ? get_option('uuc_progress') : false ;
+	$settings['countdown'] = false !== get_option('uuc_countdown') ? get_option('uuc_countdown') : false ;
 
     return new WP_REST_Response( array('success' => true, 'setting' => $settings ) );
 }

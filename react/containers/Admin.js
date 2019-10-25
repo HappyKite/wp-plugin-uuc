@@ -10,16 +10,14 @@ export default class Admin extends Component {
         super(props);
 
         this.state = {
-            'section' : 'main',
-            // main
-            'setting_page_title': '',
-            'setting_holding_message': '',
-            'setting_progress': '',
-            //styling
-            'setting_logo': '',
-
-
-
+            'section' : 'main',			
+			'settings': {
+				'page_title' : '',
+				'holding_message': '',
+				'countdown': false,
+				'progress': false,
+				'logo': '',
+			},
             'active' : true,
         };
 
@@ -40,7 +38,6 @@ export default class Admin extends Component {
     };
 
     updateSettings = () => {
-        console.log('update')
         this.fetchWP.post( 'update_settings', { settings: this.state } )
             .then(
                 (json) => this.processOkResponse( json, 'saved' ),
@@ -49,29 +46,41 @@ export default class Admin extends Component {
     }
 
     processOkResponse = (json, action) => {
-        console.log( json );
         if (json.success) {
             this.setState({
-                setting_page_title: json.setting.page_title,
-                setting_holding_message: json.setting.holding_message,
-                setting_countdown: json.setting.countdown,
-                setting_progress: json.setting.progress,
+				settings: {
+					page_title: json.setting.page_title,
+					holding_message: json.setting.holding_message,
+					countdown: json.setting.countdown,
+					progress: json.setting.progress,
+				}
             });
         } else {
             console.log(`Setting was not ${action}.`, json);
         }
     }
 
-    updateInput = (event) => {
- 
+    updateInput = event => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = 'setting_' + target.name.match(/\[(.*?)\]/)[1];
+		const name = target.id;
 
         this.setState({
-            [ name ]: value,
+			settings: {
+				...this.state.settings,
+				[ name ]: value
+			}
         });
-    }
+	}
+	
+	updateEditor = ( contentState, name ) => {
+		this.setState({
+			settings: {
+				...this.state.settings,
+				[name]: contentState
+			}
+        });
+	}
 
     updateSection = ( section ) => {
         this.setState({
@@ -79,19 +88,35 @@ export default class Admin extends Component {
         });
     }
 
-    activate = () => {
-        console.log('activate');
+    activate = (event) => {
+		this.setState({
+            active: event.target.checked,
+        });
     }
 
     render() {
         return (
             <div className="wrap">
+			<form id="uuc--settings">
                 <h1 id="uucMain--title">Under Construction Plugin Options</h1>
-                <Activate active={ this.state.active } activate={ this.activate }/>
+                <Activate 
+					active={ this.state.active } 
+					activate={ this.activate }
+				/>
                 <div id="uucMain">
-                    <Menu active={ this.state.section } updateSection={ this.updateSection } />
-                    <Settings section={ this.state.section } onUpdate={ this.updateInput } state={ this.state } onSave={ this.updateSettings } />
+                    <Menu
+						active={ this.state.section }
+						updateSection={ this.updateSection }
+					/>
+                    <Settings 
+						section={ this.state.section } 
+						onUpdate={ this.updateInput } 
+						updateEditor={ this.updateEditor }
+						settings={ this.state.settings } 
+						onSave={ this.updateSettings }
+					/>
                 </div>
+				</form>
             </div>
         );
     }

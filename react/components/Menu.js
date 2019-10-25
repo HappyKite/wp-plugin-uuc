@@ -6,9 +6,10 @@ export default class Menu extends Component {
     render(){
         return(
             <div className="uucMenu">
-                <MenuItem title="Main" data-section="main" iconId="cog" subtitle="where the settings are" updateSection={ () => this.props.updateSection( 'main' ) } />
-                <MenuItem title="Styling" data-section="styling" iconId="cog" subtitle="Make it pop yo!" updateSection={ () => this.props.updateSection( 'styling' ) }  />
-                <MenuItem title="Other" data-section="other" iconId="cog" subtitle="bits and bobs" updateSection={ () => this.props.updateSection( 'other' ) }  />
+                <MenuItem title="Main" data-section="main" iconId="cog" subtitle="Main settings" updateSection={ () => this.props.updateSection( 'main' ) } />
+                <MenuItem title="Design" data-section="design" iconId="cog" subtitle="Design and layout" updateSection={ () => this.props.updateSection( 'design' ) }  />
+                <MenuItem title="Integrations" data-section="integrations" iconId="cog" subtitle="External plugin setup" updateSection={ () => this.props.updateSection( 'integrations' ) }  />
+				<MenuItem title="Misc" data-section="misc" iconId="cog" subtitle="" updateSection={ () => this.props.updateSection( 'misc' ) }  />
             </div>
         );
     }
