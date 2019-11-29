@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetchWP from '../utils/fetchWP';
-import Menu from '../components/Menu';
-import Settings from '../components/Settings';
+import Menu from '../components/menu/Menu';
+import Settings from './Settings';
 import Activate from '../components/Activate';
+import Save from '../components/settings/Save';
 
 export default class Admin extends Component {
     constructor(props) {
@@ -16,9 +17,14 @@ export default class Admin extends Component {
 				'holding_message': '',
 				'countdown': false,
 				'progress': false,
-				'logo': '',
+				'logo': {},
 			},
-            'active' : true,
+			'active' : true,
+			'google': {
+				fetching: false,
+				data: false,
+				'apiKey': 'AIzaSyAc2BbG1P949I0tZg40Ry6HgE6qlgvoarE',
+			}
         };
 
         this.fetchWP = new fetchWP({
@@ -27,7 +33,31 @@ export default class Admin extends Component {
         });
 
         this.getSettings();
-    }
+	}
+	
+	
+
+	componentDidMount(){
+		this.setState({
+			goggle: {
+				...this.state.google,
+				fetching: true
+			}
+		});
+
+		fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${ this.state.google.apiKey }`)
+			.then( response => response.json() )
+			.then( json => {
+				this.setState({
+					google: {
+						...this.state.google,
+						data: json.items || [],
+						fetching: false
+					}
+				});
+			});
+		
+	}
 
     getSettings = () => {
         this.fetchWP.get( 'get_settings' )
@@ -63,7 +93,7 @@ export default class Admin extends Component {
     updateInput = event => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-		const name = target.id;
+		const name = target.name;
 
         this.setState({
 			settings: {
@@ -72,8 +102,8 @@ export default class Admin extends Component {
 			}
         });
 	}
-	
-	updateEditor = ( contentState, name ) => {
+
+	updateSetting = ( contentState, name ) => {
 		this.setState({
 			settings: {
 				...this.state.settings,
@@ -97,25 +127,28 @@ export default class Admin extends Component {
     render() {
         return (
             <div className="wrap">
-			<form id="uuc--settings">
-                <h1 id="uucMain--title">Under Construction Plugin Options</h1>
-                <Activate 
-					active={ this.state.active } 
-					activate={ this.activate }
-				/>
-                <div id="uucMain">
-                    <Menu
-						active={ this.state.section }
-						updateSection={ this.updateSection }
+				<form id="uuc--settings">
+					<h1 id="uucMain--title">Under Construction Plugin Options</h1>
+					<Activate 
+						active={ this.state.active } 
+						activate={ this.activate }
 					/>
-                    <Settings 
-						section={ this.state.section } 
-						onUpdate={ this.updateInput } 
-						updateEditor={ this.updateEditor }
-						settings={ this.state.settings } 
-						onSave={ this.updateSettings }
-					/>
-                </div>
+					<div id="uucMain">
+						<Menu
+							active={ this.state.section }
+							updateSection={ this.updateSection }
+						/>
+						<Settings 
+							section={ this.state.section } 
+							onUpdate={ this.updateInput } 
+							updateSetting={ this.updateSetting }
+							settings={ this.state.settings } 
+							onSave={ this.updateSettings }
+							path={ this.props.wpObject.image_path }
+							googleFonts={ this.state.google.data }
+						/>
+					</div>
+					<Save onSave={ this.onSave } />
 				</form>
             </div>
         );
@@ -123,5 +156,5 @@ export default class Admin extends Component {
 }
 
 Admin.propTypes = {
-  wpObject: PropTypes.object
+	wpObject: PropTypes.object
 };

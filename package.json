@@ -26,6 +26,7 @@
   "homepage": "https://github.com/gopangolin/wp-reactivate#readme",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@simonwep/pickr": "^1.4.7",
     "draft-js": "^0.10.5",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.6.2",

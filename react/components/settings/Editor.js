@@ -34,6 +34,7 @@ export default class SettingEditor extends Component {
             <Editor
 				editorState={ editorState }
 				name={ this.props.name }
+				id={ this.props.id }
                 toolbarClassName="toolbarClassName"
                 wrapperClassName="wrapperClassName"
                 editorClassName="editorClassName"
@@ -45,7 +46,8 @@ export default class SettingEditor extends Component {
 
 SettingEditor.propTypes = {
     label: PropTypes.string,
-    editor: PropTypes.string,
+	editor: PropTypes.string,
+	id: PropTypes.string,
     name: PropTypes.string,
 	onUpdate: PropTypes.func
 };

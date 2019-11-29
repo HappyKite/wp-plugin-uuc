@@ -34,6 +34,7 @@ define( 'UUC_URI', plugin_dir_url( __FILE__ ) );
 define( 'UUC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'UUC_ASSETS', UUC_URI . 'assets/' );
 define( 'UUC_OPTIONS', get_option('uuc_settings') );
+define( 'UUC_IMAGES', UUC_URI . 'includes/images/' );
 
 //Retrieve settings from Admin Options table
 $uuc_options = get_option('uuc_settings');

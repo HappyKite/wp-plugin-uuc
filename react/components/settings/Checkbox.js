@@ -8,11 +8,12 @@ export default class Checkbox extends Component {
             <p className="uuc--setting_row uuc--checkbox">
                 <label htmlFor={ this.props.name }>
 					<input
-						name={ "uuc-setting[" + this.props.name + "]" }
-						id={ this.props.name }
+						name={ this.props.name }
+						id={ this.props.id }
 						type="checkbox"
-						checked={ this.props.checked }
+						checked={ this.props.checked === true }
 						onChange={ this.props.onUpdate }
+						value={ this.props.value }
 					/>
 					{ this.props.label }
 				</label>
@@ -24,6 +25,8 @@ export default class Checkbox extends Component {
 Checkbox.propTypes = {
     label: PropTypes.string,
     checked: PropTypes.bool,
-    name: PropTypes.string,
-    onUpdate: PropTypes.func
+	name: PropTypes.string,
+	id: PropTypes.string,
+	onUpdate: PropTypes.func,
+	value: PropTypes.string
 };

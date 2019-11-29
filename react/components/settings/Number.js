@@ -9,7 +9,7 @@ export default class SettingNumber extends Component {
                 <label htmlFor={ this.props.name }>{ this.props.label }</label>
                 <input
                     name={ "uuc-setting[" + this.props.name + "]" }
-                    id={ this.props.name }
+                    id={ this.props.id }
                     value={ this.props.value || '' }
                     type="number"
                     onChange={ this.props.onUpdate }
@@ -22,6 +22,7 @@ export default class SettingNumber extends Component {
 SettingNumber.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
-    name: PropTypes.string,
+	name: PropTypes.string,
+	id: PropTypes.string,
     onUpdate: PropTypes.func
 };

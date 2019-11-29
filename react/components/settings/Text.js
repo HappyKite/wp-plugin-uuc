@@ -8,8 +8,8 @@ export default class Text extends Component {
             <p className="uuc--setting_row uuc--textbox">
                 <label htmlFor={ this.props.name }>{ this.props.label }</label>
                 <input
-                    name={ "uuc-setting[" + this.props.name + "]" }
-                    id={ this.props.name }
+                    name={ this.props.name }
+                    id={ this.props.id }
                     value={ this.props.value || '' }
                     type="text"
                     onChange={ this.props.onUpdate }
@@ -22,6 +22,7 @@ export default class Text extends Component {
 Text.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
-    name: PropTypes.string,
+	name: PropTypes.string,
+	id: PropTypes.string,
     onUpdate: PropTypes.func
 };

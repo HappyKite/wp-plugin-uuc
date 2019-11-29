@@ -17,8 +17,8 @@ class UUC_Admin{
 			wp_localize_script( UCC_PREFIX . 'admin_js', 'uuc_object', array(
 				'api_nonce'   => wp_create_nonce( 'wp_rest' ),
 				'api_url'	  => rest_url( $this->plugin_slug . '/uuc/v1/' ),
-				)
-			);
+				'image_path' => UUC_IMAGES
+			));
 		}
 	}
 
