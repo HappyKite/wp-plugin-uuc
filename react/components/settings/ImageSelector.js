@@ -14,7 +14,7 @@ export default class ImageSelector extends Component {
 							name={ this.props.name }
 							value={ value.value }
 							onChange={ this.props.onUpdate }
-							checked={ this.props.selected === value.value }
+							checked={ ! this.props.selected && index === 0 ? true : this.props.selected === value.value }
 						/>
 						<label htmlFor={ `${ this.props.name }_${value.id}` }>
 							<img

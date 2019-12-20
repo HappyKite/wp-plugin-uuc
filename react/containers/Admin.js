@@ -1,50 +1,47 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { array } from 'prop-types';
 import fetchWP from '../utils/fetchWP';
 import Menu from '../components/menu/Menu';
 import Settings from './Settings';
 import Activate from '../components/Activate';
 import Save from '../components/settings/Save';
+import { parseISO } from 'date-fns';
 
 export default class Admin extends Component {
+
+	state = {
+		'section' : 'main',			
+		'settings': {},
+		'active' : true,
+		'google': {
+			fetching: false,
+			data: [],
+			'apiKey': 'AIzaSyAc2BbG1P949I0tZg40Ry6HgE6qlgvoarE',
+		},
+		loaded: false
+	}
+
     constructor(props) {
         super(props);
-
-        this.state = {
-            'section' : 'main',			
-			'settings': {
-				'page_title' : '',
-				'holding_message': '',
-				'countdown': false,
-				'progress': false,
-				'logo': {},
-			},
-			'active' : true,
-			'google': {
-				fetching: false,
-				data: false,
-				'apiKey': 'AIzaSyAc2BbG1P949I0tZg40Ry6HgE6qlgvoarE',
-			}
-        };
 
         this.fetchWP = new fetchWP({
             restURL: this.props.wpObject.api_url,
             restNonce: this.props.wpObject.api_nonce,
-        });
-
-        this.getSettings();
+        });        
 	}
-	
-	
 
 	componentDidMount(){
-		this.setState({
-			goggle: {
-				...this.state.google,
-				fetching: true
-			}
-		});
+		this.loadSettings();
+		this.getGoogleFonts();
+	}
 
+	componentWillUnmount() {
+		if (this._asyncRequest) {
+		  this._asyncRequest.cancel();
+		}
+	  }
+
+	getGoogleFonts(){
 		fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${ this.state.google.apiKey }`)
 			.then( response => response.json() )
 			.then( json => {
@@ -56,38 +53,41 @@ export default class Admin extends Component {
 					}
 				});
 			});
-		
 	}
 
-    getSettings = () => {
-        this.fetchWP.get( 'get_settings' )
+    loadSettings = () => {
+        this._asyncRequest = this.fetchWP.get( 'get_settings' )
             .then(
-                (json) => this.processOkResponse( json, 'saved' ),
-                (err) => console.log( 'error', err )
+                (json) => {
+					if ( json.success ){
+
+						// format date as it's read in
+						if( json.settings.date ){
+							json.settings.date = parseISO( json.settings.date );
+						}
+
+						this.setState({
+							settings: json.settings,
+							loaded: true
+						});
+					} else{
+						console.warn(`Settings was not loaded.`, json)
+					}
+				},
+                (err) => console.error( 'error', err )
             );
     };
 
-    updateSettings = () => {
+    updateSettings = e => {
+		e.preventDefault();
         this.fetchWP.post( 'update_settings', { settings: this.state } )
             .then(
-                (json) => this.processOkResponse( json, 'saved' ),
-                (err) => console.log('error', err )
+                (json) => {
+					console.log( json );
+					! json.success ? console.warn(`Settings was not save.`, json) : ''
+				},
+                (err) => console.error('error', err )
             );
-    }
-
-    processOkResponse = (json, action) => {
-        if (json.success) {
-            this.setState({
-				settings: {
-					page_title: json.setting.page_title,
-					holding_message: json.setting.holding_message,
-					countdown: json.setting.countdown,
-					progress: json.setting.progress,
-				}
-            });
-        } else {
-            console.log(`Setting was not ${action}.`, json);
-        }
     }
 
     updateInput = event => {
@@ -116,42 +116,54 @@ export default class Admin extends Component {
         this.setState({
             section: section,
         });
-    }
+	}
+	
+	handleDateChange = ( dateObject, name ) => {
+		if( ! name || ! dateObject ){
+			return;
+		}
 
-    activate = (event) => {
 		this.setState({
-            active: event.target.checked,
+			settings: {
+				...this.state.settings,
+				[name]: dateObject
+			}
         });
-    }
+	}
 
     render() {
-        return (
-            <div className="wrap">
-				<form id="uuc--settings">
-					<h1 id="uucMain--title">Under Construction Plugin Options</h1>
-					<Activate 
-						active={ this.state.active } 
-						activate={ this.activate }
-					/>
-					<div id="uucMain">
-						<Menu
-							active={ this.state.section }
-							updateSection={ this.updateSection }
+		if( this.state.loaded ){
+			return (
+				<div className="wrap">
+					<form id="uuc--settings">
+						<h1 id="uucMain--title">Under Construction Plugin Options</h1>
+						<Activate 
+							active={ this.state.settings['enable'] } 
+							activate={ this.updateInput }
 						/>
-						<Settings 
-							section={ this.state.section } 
-							onUpdate={ this.updateInput } 
-							updateSetting={ this.updateSetting }
-							settings={ this.state.settings } 
-							onSave={ this.updateSettings }
-							path={ this.props.wpObject.image_path }
-							googleFonts={ this.state.google.data }
-						/>
-					</div>
-					<Save onSave={ this.onSave } />
-				</form>
-            </div>
-        );
+						<div id="uucMain">
+							<Menu
+								active={ this.state.section }
+								updateSection={ this.updateSection }
+							/>
+							<Settings 
+								section={ this.state.section } 
+								onUpdate={ this.updateInput } 
+								updateSetting={ this.updateSetting }
+								settings={ this.state.settings } 
+								path={ this.props.wpObject.image_path }
+								googleFonts={ this.state.google.data }
+								handleDateChange={ this.handleDateChange }
+							/>
+						</div>
+						<Save onSave={ this.updateSettings } />
+					</form>
+				</div>
+			);
+		} else{
+			return ( 'loading' );
+		}
+        
     }
 }
 

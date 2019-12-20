@@ -10,9 +10,9 @@ export default class RadioGroup extends Component {
 					return <label key={ index }>
 						<input type="radio" 
 							name={ this.props.name }
-							id={ this.props.id }
+							id={ `${ this.props.id }_${ value.name }` }
 							value={ value.name }
-							checked={ this.props.selected === value.name }
+							checked={ ! this.props.selected && index === 0 ? true : this.props.selected === value.name }
 							onChange={ this.props.onUpdate }
 						/>
 						{ value.label }

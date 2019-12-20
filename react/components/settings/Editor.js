@@ -7,7 +7,8 @@ export default class SettingEditor extends Component {
 	constructor(props) {
 		super(props);
 		let editorState;
-		if( this.props.editor !== '' ){
+		
+		if( this.props.editor && this.props.editor !== '' ){
 			const contentState = convertFromRaw( JSON.parse( this.props.editor ) );
             editorState = EditorState.createWithContent(contentState);
             editorState = EditorState.moveFocusToEnd(editorState);

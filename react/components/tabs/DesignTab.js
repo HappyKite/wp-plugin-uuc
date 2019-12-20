@@ -24,6 +24,11 @@ export default class DesignTab extends Component {
 					{ src: `${ this.props.path }squairylight.png`, alt:'Squairy', title: 'Squairy', id: 'squairylight', value: 'squairylight' },
 					{ src: `${ this.props.path }lightbind.png`, alt:'Light Binding', title: 'Light Binding', id: 'lightbind', value: 'lightbind' },
 					{ src: `${ this.props.path }darkbind.png`, alt:'Dark Binding', title: 'Dark Binding', id: 'darkbind', value: 'darkbind' },
+					{ src: `${ this.props.path }wavegrid.png`, alt:'Wave Grid', title: 'Wave Grid', id: 'wavegrid', value: 'wavegrid' },
+					{ src: `${ this.props.path }greywashwall.png`, alt:'Grey Wash Wall', title: 'Grey Wash Wall', id: 'greywashwall', value: 'greywashwall' },
+					{ src: `${ this.props.path }flatcardboard.png`, alt:'Flat Cardboard', title: 'Flat Cardboard', id: 'flatcardboard', value: 'flatcardboard' },
+					{ src: `${ this.props.path }pooltable.png`, alt:'Pool Table', title: 'Pool Table', id: 'pooltable', value: 'pooltable' },
+					{ src: `${ this.props.path }oldmaths.png`, alt:'Old Maths', title: 'Old Maths', id: 'oldmaths', value: 'oldmaths' },
 				] }
 				name="background_pattern"
 				selected={ this.props.settings['background_pattern'] }

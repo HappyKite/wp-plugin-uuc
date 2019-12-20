@@ -49,6 +49,40 @@ export default class IntegrationsTab extends Component {
 					checked={ this.props.settings['social_media'] === true }
 					onUpdate={ this.props.onUpdate }
 				/>
+				{
+					this.props.settings['social_media'] === true ?
+						<React.Fragment>
+							<Text 
+								name="social_media_twitter"
+								id="social_media_twitter"
+								label="Twitter Account Name"
+								value={ this.props.settings['social_media_twitter'] }
+								onUpdate={ this.props.onUpdate }
+							/>
+							<Text 
+								name="social_media_facebook"
+								id="social_media_facebook"
+								label="Facebook Page"
+								value={ this.props.settings['social_media_facebook'] }
+								onUpdate={ this.props.onUpdate }
+							/>
+							<Text 
+								name="social_media_pinterest"
+								id="social_media_pinterest"
+								label="Pinterest Link"
+								value={ this.props.settings['social_media_pinterest'] }
+								onUpdate={ this.props.onUpdate }
+							/>
+							<Text 
+								name="social_media_google_plus"
+								id="social_media_google_plus"
+								label="Google Plus URL"
+								value={ this.props.settings['social_media_google_plus'] }
+								onUpdate={ this.props.onUpdate }
+							/>
+						</React.Fragment>
+					: ''
+				}
 			</div>
 		)
 	}

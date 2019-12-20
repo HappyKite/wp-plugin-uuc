@@ -11,7 +11,7 @@ export default class Activate extends Component {
             <div className={ classes.join(' ') }>
                 <p>
                     <input 
-						className="enable_checkbox" 
+						className="enable_checkbox"
 						id="enable" 
 						name="enable"
 						type="checkbox"

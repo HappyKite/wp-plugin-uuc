@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import Text from '../settings/Text';
 import Checkbox from '../settings/Checkbox';
 import Editor from '../settings/Editor';
+import Range from '../settings/Range';
+import ColorPicker from '../settings/ColorPicker';
+import RadioGroup from '../settings/RadioGroup';
+import DatePicker from "react-datepicker";
 
 export default class GeneralTab extends Component {
 
 	render(){
+
 		return (
 			<div className="uuc--settings">
 				<Text 
@@ -31,6 +36,39 @@ export default class GeneralTab extends Component {
 					checked={ this.props.settings['countdown'] === true }
 					onUpdate={ this.props.onUpdate }
 				/> 
+				{	
+					
+					this.props.settings['countdown'] === true ?
+						<React.Fragment>
+							<RadioGroup 
+								options={ [
+									{ name: 'flipclock', label: 'Flip Clock' },
+									{ name: 'textclock', label: 'Text Only' }
+								] }
+								name="countdown_style"
+								id="countdown_style"
+								selected={ this.props.settings['countdown_style'] }
+								onUpdate={ this.props.onUpdate }
+							/>
+							<DatePicker
+								selected={ this.props.settings['date'] || '' }
+								onChange={ date => this.props.handleDateChange( date, 'date' ) }
+							/>
+							{
+								this.props.settings['countdown_style'] === 'textclock' ?
+									<Text
+										name="countdown_text"
+										id="countdown_text"
+										label="Enter the Countdown Text"
+										value={ this.props.settings['countdown_text'] }
+										onUpdate={ this.props.onUpdate }
+									/>
+								: ''
+							}
+							
+						</React.Fragment>
+					: ''
+				}
 				<Checkbox
 					name="progress"
 					id="progress"
@@ -39,6 +77,29 @@ export default class GeneralTab extends Component {
 					checked={ this.props.settings['progress'] === true }
 					onUpdate={ this.props.onUpdate }
 				/>
+				{
+					this.props.settings['progress'] === true ?
+						<React.Fragment>
+							<Range
+								name="percent_slider"
+								id="percent_slider"
+								label="Percent Complete"
+								value={ this.props.settings['percent_slider'] }
+								onUpdate={ this.props.onUpdate }
+								min={ 0 }
+								max={ 100 }
+								step={ 5 }
+								preview={ true }
+							/>
+							<ColorPicker
+								color={ this.props.settings['progressbar_color'] }
+								name="progressbar_color"
+								className="progressbar_color-picker"
+								onUpdate={ this.props.updateSetting }
+							/>
+						</React.Fragment>
+					: ''
+				}
 			</div>
 		)
 	}
@@ -47,5 +108,6 @@ export default class GeneralTab extends Component {
 GeneralTab.propTypes = {
     settings: PropTypes.object,
 	onUpdate: PropTypes.func,
-	updateSetting: PropTypes.func
+	updateSetting: PropTypes.func,
+	handleDateChange: PropTypes.func
 };

@@ -27,6 +27,7 @@ export default class WpImageUpload extends Component {
 
     render(){
 		let image;
+		console.log(  this.props );
 		if( this.props.value && this.props.value.thumbnail && this.props.value.thumbnail.url ){
 			image = <Image src={ this.props.value.thumbnail.url } alt={ 'Logo Image' } ></Image>
 		}

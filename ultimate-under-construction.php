@@ -155,19 +155,77 @@ add_action( 'rest_api_init', function () {
 
     register_rest_route( 'uuc/v1', '/update_settings/', array(
         'methods' => 'POST',
-        'callback' => 'get_uuc_settings_object',
+        'callback' => 'save_uuc_settings_object',
     ) );
 } );
 
 function get_uuc_settings_object(){
-    $settings = array();
-    $settings['page_title'] = false !== get_option('uuc_page_title') ? get_option('uuc_page_title') : '' ;
-    $settings['holding_message'] = false !== get_option('uuc_holding_message') ? get_option('uuc_holding_message') : '';
-    $settings['editor'] = false !== get_option('uuc_editor') ? get_option('uuc_editor') : '' ;
-	$settings['progress'] = false !== get_option('uuc_progress') ? get_option('uuc_progress') : false ;
-	$settings['countdown'] = false !== get_option('uuc_countdown') ? get_option('uuc_countdown') : false ;
+	$saved_before = get_option( 'uuc-new-settings', false );
+	$settings = array();
 
-    return new WP_REST_Response( array('success' => true, 'setting' => $settings ) );
+	if( $saved_before === false ){
+		$old_settings = get_option( 'uuc_settings', false );
+		if( $old_settings !== false ){		
+			$settings = convert_old_settings( $old_settings );
+		}
+	}else{
+		$settings = $saved_before;
+	}
+
+    return new WP_REST_Response( array('success' => true, 'settings' => $settings ) );
+}
+
+function convert_old_settings( $old_settings ){
+	return array(
+		// "holdingpage_type" => "custom",
+		// "html_block" => "",
+		"enable" => (bool) $old_settings['enable'],
+		"page_title" => $old_settings['website_name'],
+		"holding_message" => '{"blocks":[{"key":"57c8t","text":"' . $old_settings['holding_message'] . '","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
+		"countdown" => (bool) $old_settings['cdenable'],
+		'countdown_style' => $old_settings['cd_style'],
+		"date" => date( 'Y-m-d', strtotime( $old_settings['date'] ) ),
+		"countdown_text" => $old_settings['cdtext'],
+		"progress" => (bool) $old_settings['progressbar'],
+		"percent_slider" => (int) $old_settings['progresspercent'],
+		"progressbar_color" => $old_settings['progressbar_color'],
+		"logo" => array(
+			"id" => null, 
+			"thumbnail" => array(
+				"url" => $old_settings['site_logo']
+			)
+		),
+		"background-color" => $old_settings['background_color'],
+		"background_style" => $old_settings['background_style'],
+		"background_pattern" => $old_settings['background_styling'],
+		"google_fonts" => $old_settings['gf_name'],
+		"font_color" => $old_settings['font_color'],
+		"mc_api_key" => $old_settings['mc_api_key'],
+		"mc_list_id" => $old_settings['mc_list_id'],
+		"cm_list_id" => $old_settings['cm_api_key'],
+		"cm_api_key" => $old_settings['cm_list_id'],
+		"social_media" => (bool) $old_settings['social_media'],
+		"social_media_twitter" => $old_settings['twitter'],
+		"social_media_facebook" => $old_settings['facebook'],
+		"social_media_pinterest" => $old_settings['pinterest'],
+		"social_media_google_plus" => $old_settings['googleplus'],
+		"user_role_Administrator" => (bool) $old_settings['user_role_Administrator'],
+		"user_role_Editor" => (bool) $old_settings['user_role_Editor'],
+		"user_role_Author" => (bool) $old_settings['user_role_Author'],
+		"user_role_Contributor" => (bool) $old_settings['user_role_Contributor'],
+		"user_role_Subscriber" => (bool) $old_settings['user_role_Subscriber'],
+	);
+}
+
+function save_uuc_settings_object( WP_REST_Request $request  ){
+	$data = $request->get_params();
+	$settings = $data['settings']['settings'];
+	try {
+		update_option( 'uuc-new-settings', $settings );
+		return new WP_REST_Response( array('success' => true, 'settings' => $settings ) );
+	} catch ( Exception $e ){
+		return new WP_REST_Response( array('success' => false, 'message' => 'it no work' ) );
+	}
 }
 
 function update_uuc_settings( $request ){

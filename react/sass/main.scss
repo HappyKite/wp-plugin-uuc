@@ -28,8 +28,13 @@
     .uuc--icon{
         height:2.2em;
         width:2.2em;
-    }
+	}
 }
+
+.uucMenu--item_active{
+	background: #ececec;
+}
+
 .uucMenu--itemTitle{
     padding:0.3em 0.6em;
     font-size: 20px;
@@ -52,7 +57,9 @@
 }
 
 .uuc--settings{
-    padding:0.3em 1em;
+	padding:0.3em 1em;
+	background: #ececec;
+    flex: 1 1 auto;
 }
 
 .rdw-editor-main{
@@ -63,3 +70,4 @@
 }
 
 @import "pickr.min";
+@import "date-picker";

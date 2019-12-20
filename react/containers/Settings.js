@@ -15,6 +15,7 @@ export default class Settings extends Component {
 					settings={ this.props.settings }
 					onUpdate={ this.props.onUpdate }
 					updateSetting={ this.props.updateSetting }
+					handleDateChange={ this.props.handleDateChange }
 				/>
             );
         } else if ( this.props.section === 'design' ) {
@@ -51,5 +52,6 @@ Settings.propTypes = {
 	onUpdate: PropTypes.func,
 	updateSetting: PropTypes.func,
 	path: PropTypes.string,
-	googleFonts: PropTypes.array
+	googleFonts: PropTypes.array,
+	handleDateChange: PropTypes.func
 };
