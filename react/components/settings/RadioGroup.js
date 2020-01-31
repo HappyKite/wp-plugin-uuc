@@ -5,8 +5,9 @@ export default class RadioGroup extends Component {
 
     render(){
         return(
-            <p className="uuc--setting_row uuc--radio_group">
-                { this.props.options.map(( value, index ) => {
+			<fieldset className="uuc--setting_row uuc--radio_group">
+				<legend className="uuc--label">{ this.props.title }</legend>
+				{ this.props.options.map(( value, index ) => {
 					return <label key={ index }>
 						<input type="radio" 
 							name={ this.props.name }
@@ -18,8 +19,8 @@ export default class RadioGroup extends Component {
 						{ value.label }
 					</label>
 				}) }
-            </p>
-        );
+			</fieldset>
+	);
     }
 }
 
@@ -28,5 +29,6 @@ RadioGroup.propTypes = {
 	options: PropTypes.array,
 	name: PropTypes.string,
 	selected: PropTypes.string,
-	id: PropTypes.string
+	id: PropTypes.string,
+	title: PropTypes.string
 };

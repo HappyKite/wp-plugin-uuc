@@ -6,7 +6,7 @@ export default class Range extends Component {
     render(){
         return(
             <p className="uuc--setting_row uuc--range">
-                <label htmlFor={ this.props.name }>{ this.props.label }</label>
+                <label className="uuc--label" htmlFor={ this.props.name }>{ this.props.label }</label>
 				<input 
 					type="range"
 					id={ this.props.id }
@@ -19,7 +19,7 @@ export default class Range extends Component {
 				/>
 				{
 					this.props.preview ?
-						<span className="uuc--range_preview">{ this.props.value || 0 }</span>
+						<span className="uuc--range_preview">{ this.props.value || 0 }%</span>
 					: ''
 				}
             </p>

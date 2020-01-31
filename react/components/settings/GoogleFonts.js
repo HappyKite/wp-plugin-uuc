@@ -5,7 +5,7 @@ export default class GoogleFonts extends Component {
     render() {
         return (
 			<React.Fragment>
-				<label htmlFor={ this.props.id }>{ this.props.label }</label>
+				<label className="uuc--label" htmlFor={ this.props.id }>{ this.props.label }</label>
 				<select id={ this.props.id } name={ this.props.name } onChange={ this.props.onUpdate } defaultValue={ this.props.selected }>
 					<option>Please choose a font</option>
 					{

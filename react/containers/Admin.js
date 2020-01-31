@@ -66,6 +66,8 @@ export default class Admin extends Component {
 							json.settings.date = parseISO( json.settings.date );
 						}
 
+						json.settings.percent_slider = parseInt( json.settings.percent_slider );
+
 						this.setState({
 							settings: json.settings,
 							loaded: true

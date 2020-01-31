@@ -27,19 +27,19 @@ export default class WpImageUpload extends Component {
 
     render(){
 		let image;
-		console.log(  this.props );
 		if( this.props.value && this.props.value.thumbnail && this.props.value.thumbnail.url ){
 			image = <Image src={ this.props.value.thumbnail.url } alt={ 'Logo Image' } ></Image>
 		}
         return(
-            <p className="uuc--setting_row uuc--textbox">
-                <label htmlFor={ this.props.id }>{ this.props.label }</label>
-				{ image }
+            <p className="uuc--setting_row uuc--image_upload">
+                <label className="uuc--label" htmlFor={ this.props.id }>{ this.props.label }</label>
+				<span className="uuc--image_wrap">{ image }</span>
                 <button
                     name={ "uuc-setting[" + this.props.name + "]" }
                     id={ this.props.id }
                     onClick={ this.openMediaLibrary.bind(this) }
 					type="button"
+					className="button button-primary"
                 >{ 'Upload Image' }</button>
             </p>
         );

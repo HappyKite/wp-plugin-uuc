@@ -1,5 +1,5 @@
 #uucMain{
-    background: #fbfbfb;
+    background: #ececec;
     border: 2px solid #e4e4e4;
     border-radius: 5px;
     display: flex;
@@ -13,7 +13,7 @@
     flex: 0 0 250px;
     display: flex;
     flex-direction: column;
-    border-right: 2px solid #ececec;
+    border-right: 2px solid #FFF;
 }
 
 .uucMenu--item{
@@ -21,7 +21,8 @@
     display: flex;
     padding:1em 1.3em;
     box-sizing: border-box;
-    border-bottom: 2px solid #ececec;
+	border-bottom: 2px solid #FFF;
+	cursor:pointer;
     &:last-child{
         border-bottom:0;
     }
@@ -32,7 +33,7 @@
 }
 
 .uucMenu--item_active{
-	background: #ececec;
+	background: #FFF;
 }
 
 .uucMenu--itemTitle{
@@ -58,7 +59,7 @@
 
 .uuc--settings{
 	padding:0.3em 1em;
-	background: #ececec;
+	background: #FFF;
     flex: 1 1 auto;
 }
 
@@ -69,5 +70,135 @@
     padding: 0.8em 1.5em;
 }
 
+.uuc--label{
+	display: block;
+	line-height: 1.5;
+	margin-bottom: 0.2em;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+}
+
+.uuc--textbox {
+	input[type="text"]{
+		font-size:16px; 
+		width: 100%;
+		max-width:300px;
+	}
+}
+
+.uuc--radio_group {
+	margin: 1em 0;
+	label{
+		display:block;
+		margin: 0.6em 0 0;
+	}
+	input[type="radio"]{
+		font-size: 1.1rem;
+		margin-right: 8px;
+	}
+}
+
+.uuc--checkbox {
+	input[type="checkbox"] {
+		height: 1.3em;
+		width: 1.3em;
+		font-size: 1.1rem;
+		margin-right: 8px;
+
+		&:checked::before{
+			margin: -0.1em 0 0 -0.15em;
+			height: 1.4em;
+			width: 1.4em;
+		}
+	}
+}
+
+.uuc--range_preview{
+	font-size: 1rem;
+    padding: 0.2em;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.uuc--image_upload{
+	img, button{
+		display:block;
+		max-width:100%;
+	}
+
+	.uuc--image_wrap{
+		width:150px;
+		height:150px;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid #ddd;
+		margin-bottom: 1em;
+		border-radius: 5px;
+	}
+}
+
+.uuc_patterns_wrap{
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.uuc--setting_row{
+	margin: 1em 0;
+}
+
+.uuc_patterns{
+	margin: 0 10px 10px 0;
+
+	input[type="radio"]{
+		display:none;
+		&:checked ~ label {
+			border-color: green;
+		}
+	}
+
+	label{
+		width: 120px;
+		height: 120px;
+		display: block;
+		overflow: hidden;
+		object-fit:cover;
+		border: 2px solid transparent;
+		border-radius: 6px;
+		position: relative;
+		&:hover{
+			.uucSettings--tooltip{
+				opacity:1;
+			}
+		}
+	}
+
+	img{
+		height: 100%;
+	}
+}
+
+.uucSettings--tooltip{
+	position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+	justify-content: center;
+	text-align: center;
+    background: rgba(0,0,0,0.6);
+    color: #FFF;
+    text-transform: uppercase;
+	font-weight: 500;
+	opacity:0;
+	pointer-events: none;
+	transition: 0.3s;
+	padding:5px;
+}
+
 @import "pickr.min";
 @import "date-picker";
+@import "range_slider";

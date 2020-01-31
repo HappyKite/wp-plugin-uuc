@@ -6,7 +6,7 @@ export default class Text extends Component {
     render(){
         return(
             <p className="uuc--setting_row uuc--textbox">
-                <label htmlFor={ this.props.name }>{ this.props.label }</label>
+                <label htmlFor={ this.props.name } className="uuc--label">{ this.props.label }</label>
                 <input
                     name={ this.props.name }
                     id={ this.props.id }

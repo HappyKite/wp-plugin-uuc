@@ -39,6 +39,7 @@ export default class ColorPicker extends Component {
     render(){
         return(
             <p className="uuc--setting_row uuc--checkbox">
+				<label className="uuc--label" htmlFor={ this.props.name }>{ this.props.label }</label>
                 <span className={ this.props.className }></span>
             </p>
         );
@@ -46,6 +47,7 @@ export default class ColorPicker extends Component {
 }
 
 ColorPicker.propTypes = {
+	label: PropTypes.string,
 	color: PropTypes.string,
 	name: PropTypes.string,
 	className: PropTypes.string,

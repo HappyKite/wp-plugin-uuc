@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '../Tooltip';
 
 export default class ImageSelector extends Component {
     render() {
         return (
-            <ul>
+            <ul className="uuc_patterns_wrap">
 				{ this.props.images.map(( value, index ) => {
 					return <li className="uuc_patterns" key={ index }>
 						<input 
@@ -21,10 +20,8 @@ export default class ImageSelector extends Component {
 								src={ value.src }
 								alt={ value.alt }
 							/>
-							<Tooltip
-								title={ value.title }
-							/>
 						</label>
+						<div className="uuc-pattern_title">{ value.title }</div>
 					</li>
 				}) }
 			</ul>

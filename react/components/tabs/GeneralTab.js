@@ -6,7 +6,8 @@ import Editor from '../settings/Editor';
 import Range from '../settings/Range';
 import ColorPicker from '../settings/ColorPicker';
 import RadioGroup from '../settings/RadioGroup';
-import DatePicker from "react-datepicker";
+import Date from '../settings/Date';
+
 
 export default class GeneralTab extends Component {
 
@@ -45,15 +46,14 @@ export default class GeneralTab extends Component {
 									{ name: 'flipclock', label: 'Flip Clock' },
 									{ name: 'textclock', label: 'Text Only' }
 								] }
+								title="Countdown Style"
 								name="countdown_style"
 								id="countdown_style"
 								selected={ this.props.settings['countdown_style'] }
 								onUpdate={ this.props.onUpdate }
 							/>
-							<DatePicker
-								selected={ this.props.settings['date'] || '' }
-								onChange={ date => this.props.handleDateChange( date, 'date' ) }
-							/>
+							
+							
 							{
 								this.props.settings['countdown_style'] === 'textclock' ?
 									<Text
@@ -62,6 +62,16 @@ export default class GeneralTab extends Component {
 										label="Enter the Countdown Text"
 										value={ this.props.settings['countdown_text'] }
 										onUpdate={ this.props.onUpdate }
+									/>
+								: ''
+							}
+
+							{
+								this.props.settings['countdown_style'] === 'flipclock' ?
+									<Date
+										label="Flip Clock Date"
+										date={  this.props.settings['date'] || '' }
+										handleDateChange={ this.props.handleDateChange }
 									/>
 								: ''
 							}
@@ -92,6 +102,7 @@ export default class GeneralTab extends Component {
 								preview={ true }
 							/>
 							<ColorPicker
+								label="Progress Bar Colour"
 								color={ this.props.settings['progressbar_color'] }
 								name="progressbar_color"
 								className="progressbar_color-picker"

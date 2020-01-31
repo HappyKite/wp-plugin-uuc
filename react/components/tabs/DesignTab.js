@@ -14,6 +14,7 @@ export default class DesignTab extends Component {
 		if( ! this.props.settings['background_style'] || this.props.settings['background_style'] === 'solidcolor' ){
 			background = <ColorPicker
 				color={ this.props.settings['background-color'] }
+				label="Background Colour"
 				name="background-color"
 				className="color-picker"
 				onUpdate={ this.props.updateSetting }
@@ -50,6 +51,7 @@ export default class DesignTab extends Component {
 						{ name: 'solidcolor', label: 'Solid Colour' },
 						{ name: 'patterned', label: 'Patterend Background' }
 					] }
+					title='Background Style'
 					name="background_style"
 					id="background_style"
 					selected={ this.props.settings['background_style'] }
@@ -67,6 +69,7 @@ export default class DesignTab extends Component {
 				<ColorPicker
 					color={ this.props.settings['font_color'] }
 					name="font_color"
+					label="Font Colour"
 					className="font-color-picker"
 					onUpdate={ this.props.updateSetting }
 				/>
